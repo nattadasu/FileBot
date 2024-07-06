@@ -7,7 +7,7 @@ Ready-to-use collection of Groovy scripts for FileBot to rename media files
 For UNIX-Like user: This repo assumes your distro as Fedora Linux as the drive
 mountpoint was hard-coded (`/run/media/<username>/<drive_name>`) rather usual
 `/mnt/<drive_name>` that still being used by some distros. You can change
-default behavior on `filename_posix.groovy`
+default behavior on `filepath_posix.groovy`
 
 ## Usage
 
@@ -39,7 +39,7 @@ default behavior on `filename_posix.groovy`
 @FileBot/_windows_movie.groovy
 ```
 
-## Example
+## Examples
 
 ### TV, First Example
 
