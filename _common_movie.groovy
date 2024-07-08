@@ -1,7 +1,7 @@
 {
     // check Country of Origin
-    def cjk_countries = ["CN", "KR", "JP"]
-    def cjkani_tags = ["Aeni", "Donghua", "Anime"]
+    def cjk_countries = /(CN|KR|JP|TW|HK)/
+    def cjkani_tags = /(Aeni|Donghua|Anime)/
     def isAnime = genres =~ cjkani_tags || (genres =~ /Animation/ && country =~ cjk_countries) || anime ? true : false
 
     // Categorized path

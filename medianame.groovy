@@ -1,8 +1,19 @@
 {
-    // Only grab left side if the name has :
-    def name_ = n.split(':').first()
+    def short_title = [
+        [series_id: 229743, title: "VTuber Legend"],
+        [series_id: 240633, title: "A Journey Through Another World"],
+    ]
+
+    // Replace title from short_title if series_id matches "series" from filebot
+    // Otherwise, use the original name
+    def name_ = n
+    short_title.each { 
+        if (it.series_id == tmdbid) {
+            name_ = it.title
+        }
+    }
 
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
-    def fixed_name = name_.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
+    def fixed_name = name_.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '')
     fixed_name
 }
