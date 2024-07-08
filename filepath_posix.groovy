@@ -9,7 +9,7 @@
 
 
     def guess = [
-        "/home/$user",
+        home,
         "$mntp/Data",
         "$mntp/Music",
         "$mntp/Videos",

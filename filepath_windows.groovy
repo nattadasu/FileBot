@@ -7,7 +7,7 @@
 
 
     def guess = [
-        "C:/Users/$user",
+        home,
         "D:/",
         "E:/",
         "F:/",
