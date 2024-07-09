@@ -5,7 +5,7 @@
     def isAnime = genres =~ cjkani_tags || (genres =~ /Animation/ && country =~ cjk_countries) || anime ? true : false
 
     // Categorized path
-    def cust_cat = isAnime ? "Videos/Anime" : "Videos/TV Shows"
+    def cust_cat = isAnime ? "Videos/Anime" : "Videos/TV Series"
     "$cust_cat/"
 }
 @./medianame.groovy
