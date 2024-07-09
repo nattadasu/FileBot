@@ -6,7 +6,8 @@
     6: 'DD 5.1',
     5: '5.0',
     3: '2.1',
-    2: '2.0'
+    2: '2.0',
+    1: '1.0',
 )}
 {def n = any{audioLanguages.size()}{0}
     def substat = n > 2 ? " Multi-Audio" : n > 1 ? " Dual-Audio" : null
