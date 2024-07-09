@@ -15,5 +15,7 @@
 
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = name_.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '')
+    // trim . and whitespace at the end
+    fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
 }
