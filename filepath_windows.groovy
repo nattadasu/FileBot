@@ -3,7 +3,7 @@
     def user = System.getProperty("user.name")
 
     //! OVERRIDE THIS PATH IF NEEDED
-    def override = "H:/Videos"
+    def override = "H:/"
 
 
     def guess = [
