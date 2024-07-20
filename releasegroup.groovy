@@ -1,15 +1,21 @@
 {
-    def group_ = any{
+    def customGroups = [
+        "NanDesuKa",
+        "ToonsHub",
+        "Tsundere-Raws",
+    ]
+    
+    def finalGroup = customGroups.find { groupName -> fn.contains(groupName) } ?: ""
+
+    def group_ = any { 
         (fn =~ /^\[(.*?)\]/)[0][1]
-    }{
-        (fn =~ /(NanDesuKa|ToonsHub)/)[0][1]
-    }
-    {
-        (fn =~ /\[(BiliIntl|BiliBili|B\-Global)\]/)[0]
-    }{
+    } {
+        finalGroup
+    } {
         group
-    }{
+    } {
         ""
     }
+    
     group_ ? "[$group_]" : ""
 }
