@@ -1,34 +1,22 @@
 {
-    // get current username
     def user = System.getProperty("user.name")
-    // fedora mountpoint
-    def mntp = "/run/media/$user"
-
-    //! OVERRIDE THIS PATH IF NEEDED
-    def override = "$mntp/Videos"
-
-
+    def override = "H:/"
     def guess = [
         home,
-        "$mntp/Data",
-        "$mntp/Music",
-        "$mntp/Videos",
-        "$mntp/Games",
-        "$mntp/Books"
+        "D:/",
+        "E:/",
+        "F:/",
+        "G:/",
+        "H:/"
     ].collect { it as File }.sort { a, b -> a.exists() <=> b.exists() ?: a.diskSpace <=> b.diskSpace }.last()
-
     def final_ = override ? override : guess
-
     "$final_/"
 }{
-    // check Country of Origin
     def cjk_countries = /(CN|KR|JP|TW|HK)/
     def cjkani_tags = /(Aeni|Donghua|Anime)/
     def isAnime = genres =~ cjkani_tags || (genres =~ /Animation/ && country =~ cjk_countries) || anime ? true : false
-
-    // Categorized path
-    def cust_cat = isAnime ? "Videos/Anime" : "Videos/TV Series"
-    "$cust_cat/"
+    def cust_cat = isAnime ? "Videos/Anime " : "Videos/"
+    "$cust_cat" + "Movies/"
 }
 {
     def short_title = [
@@ -37,42 +25,27 @@
         [series_id: 245285, title: "Failure Frame"],
         [series_id: 237045, title: "Chery Magic!"]
     ]
-
-    // Replace title from short_title if series_id matches "series" from filebot
-    // Otherwise, use the original name
     def name_ = n
-    short_title.each { 
+    short_title.each {
         if (it.series_id == tmdbid) {
             name_ = it.title
         }
     }
-
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = name_.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '')
-    // trim . and whitespace at the end
     fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
 }
-/
+ ({y}) [tmdbid-{tmdbid}]/
 {
-    episode.special ? 'Specials' : 'Season '+s
-}
-{
-    def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
-    def fixed_name = sn.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-    fixed_name == 'Season '+ s ? "" : fixed_name ? " - " + fixed_name : ""
-}
-/{
     def customGroups = [
         "NanDesuKa",
         "ToonsHub",
         "Tsundere-Raws",
         "BlackLuster"
     ]
-    
     def finalGroup = customGroups.find { groupName -> fn.contains(groupName) } ?: ""
-
-    def group_ = any { 
+    def group_ = any {
         (fn =~ /^\[(.*?)\]/)[0][1]
     } {
         finalGroup
@@ -81,7 +54,6 @@
     } {
         ""
     }
-    
     group_ ? "[$group_]" : ""
 }
 {" "}
@@ -92,28 +64,18 @@
         [series_id: 245285, title: "Failure Frame"],
         [series_id: 237045, title: "Chery Magic!"]
     ]
-
-    // Replace title from short_title if series_id matches "series" from filebot
-    // Otherwise, use the original name
     def name_ = n
-    short_title.each { 
+    short_title.each {
         if (it.series_id == tmdbid) {
             name_ = it.title
         }
     }
-
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = name_.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '')
-    // trim . and whitespace at the end
     fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
 }
- - {s00e00} - 
-{
-    def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
-    def fixed_name = t.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-    fixed_name
-}
+{" "}({y})
 {" ["}
 {
     def customRelease = [
@@ -124,9 +86,7 @@
         "HULU",
         "iQ"
     ]
-
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
-
     def release_ = any {
         finalRelease ? finalRelease + ".WEB-DL" : ""
     } {
@@ -134,7 +94,6 @@
     } {
         ""
     }
-
     release_ ? "$release_ " : ""
 }
 {resolution} {vcf} {bitdepth}Bit, {ac}
@@ -163,6 +122,5 @@
 ][{crc32.upper()}]
 {ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B: ""}
 {
-    // Jellyfin 10.9.* default thumbnail name
     ext =~ /jp(?:e)?g|png/ ? "-thumb" : ""
 }
