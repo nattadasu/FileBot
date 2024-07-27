@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 -->
 # nattadasu's Personal Groovy Scripts for FileBot
 
 Ready-to-use collection of Groovy scripts for FileBot to rename media files
@@ -8,6 +9,26 @@ For UNIX-Like user: This repo assumes your distro as Fedora Linux as the drive
 mountpoint was hard-coded (`/run/media/<username>/<drive_name>`) rather usual
 `/mnt/<drive_name>` that still being used by some distros. You can change
 default behavior on `filepath_posix.groovy`
+
+## Editing
+
+If you want to edit the scripts, keep in mind that the scripts are written in
+favor of my personal preference, and might be not suitable for you.
+
+However, the most important files were:
+
+* Anything that starts with `_posix` or `_windows` are the main scripts, defines
+  how the file will be stored. By default it's on `{default_drive}/{media_type}`
+  (e.g. `D:\Videos`, or `/mnt/drive/Music`, where `Videos` and `Music` are
+  media types). `{default_drive}` behavior will be explained below.
+* `filepath_posix.groovy` and `filepath_windows.groovy` are the scripts that
+  handles <u>(default) drive logic</u>. By default, it tries to find the drive
+  that have most free space, and if it's not found, it will use the default
+  drive. You can override by changing `override` variable on the script.
+* `common_` are shared scripts that does not have OS-specific behavior (drive
+  logic, etc.), and only contains common logic to handle <u>file name</u>.
+
+You can refer to `compiled/` directory to check logics that FileBot will use.
 
 ## Usage
 
@@ -32,6 +53,12 @@ default behavior on `filepath_posix.groovy`
 @FileBot/_posix_movie.groovy
 ```
 
+### POSIX, Music (to Share)
+
+```groovy
+@FileBot/_posix_music_shared.groovy
+```
+
 ### Windows, TV
 
 ```groovy
@@ -42,6 +69,12 @@ default behavior on `filepath_posix.groovy`
 
 ```groovy
 @FileBot/_windows_movie.groovy
+```
+
+### Windows, Music (to Share)
+
+```groovy
+@FileBot/_windows_music_shared.groovy
 ```
 
 ## Examples
@@ -86,4 +119,19 @@ After:
 
 ```txt
 /run/media/username/Videos/Videos/Movies/Suicide Squad (2016) [tmdbid-297761]/[Ginga] Suicide Squad [BluRay 1920x1080 HEVC 10Bit, EAC3 DD 5.1][EF045D2F].mkv
+```
+
+### Music
+
+Assuming it has been properly tagged with MusicBrainz Picard or any advanced
+tag editor previously:
+
+```txt
+1_01_Noname.flac
+```
+
+After:
+
+```txt
+/home/username/Torrent Uploads/FLAC/2012/[2012.12.21] ノナメ - M-chan [FLAC 24-48.0 KHz][ABCD-12345]/1-01 ノナメ.flac
 ```

@@ -4,8 +4,8 @@
     // fedora mountpoint
     def mntp = "/run/media/$user"
 
-    //! OVERRIDE THIS PATH IF NEEDED
-    def override = "$mntp/Videos"
+    //! OVERRIDE THIS PATH IF NEEDED, ELSE, BLANK IT ("")
+    def override = "$mntp"
 
     def guess = [
         home,
