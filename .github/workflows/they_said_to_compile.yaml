@@ -11,25 +11,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
       - name: Run Groovy Compiler
-        shell: pwsh
         run: |
           # Find groovy files starts with _ on current directory
-          $groovyFiles = Get-ChildItem -Path . -Filter "_*.groovy" -Recurse
+          groovyFiles=$(find . -type f -name "_*.groovy")
+
           # Compile each groovy file
-          foreach ($file in $groovyFiles) {
-            $compiledFile = "compiled/$($file.Name -replace '^_','')"
-            Write-Host "Compiling $($file.FullName) to $compiledFile"
-            python3 compiler.py $file.FullName $compiledFile
-          }
+          for file in $groovyFiles; do
+            compiledFile="compiled/$(basename "$file" | sed 's/^_//')"
+            echo "Compiling $file to $compiledFile"
+            python3 compiler.py "$file" "$compiledFile"
+          done
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
           git add compiled
           git commit -m "Compile Groovy Scripts"
           git push
