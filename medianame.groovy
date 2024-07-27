@@ -9,7 +9,7 @@
     // Replace title from short_title if series_id matches "series" from filebot
     // Otherwise, use the original name
     def name_ = n
-    short_title.each { 
+    short_title.each {
         if (it.series_id == tmdbid) {
             name_ = it.title
         }

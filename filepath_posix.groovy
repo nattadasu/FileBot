@@ -7,7 +7,6 @@
     //! OVERRIDE THIS PATH IF NEEDED
     def override = "$mntp/Videos"
 
-
     def guess = [
         home,
         "$mntp/Data",
@@ -16,8 +15,6 @@
         "$mntp/Games",
         "$mntp/Books"
     ].collect { it as File }.sort { a, b -> a.exists() <=> b.exists() ?: a.diskSpace <=> b.diskSpace }.last()
-
     def final_ = override ? override : guess
-
     "$final_/"
 }

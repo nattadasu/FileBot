@@ -5,10 +5,10 @@
         "Tsundere-Raws",
         "BlackLuster"
     ]
-    
+
     def finalGroup = customGroups.find { groupName -> fn.contains(groupName) } ?: ""
 
-    def group_ = any { 
+    def group_ = any {
         (fn =~ /^\[(.*?)\]/)[0][1]
     } {
         finalGroup
@@ -17,6 +17,6 @@
     } {
         ""
     }
-    
+
     group_ ? "[$group_]" : ""
 }
