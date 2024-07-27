@@ -4,7 +4,8 @@
         "B-Global",
         "UNEXT",
         "ABEMA",
-        "HULU"
+        "HULU",
+        "iQ"
     ]
 
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
