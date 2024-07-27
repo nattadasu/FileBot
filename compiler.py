@@ -1,8 +1,8 @@
 import argparse as ap
-from pathlib import Path
-from re import DOTALL, sub, match
-from typing import Union
 import os
+from pathlib import Path
+from re import DOTALL, MULTILINE, match, sub
+from typing import Union
 
 
 def parse_args():
@@ -32,17 +32,18 @@ def remove_comments(text: str) -> str:
     """
     lines = text.splitlines()
     # remove inline comments with regex
-    for i, line in enumerate(lines):
-        lines[i] = sub(r"(?: +)?//.*", "", line)
+    lines = [sub(r"(?: +)?//.*", "", line) for line in lines]
     # Remove block comments
     text = "\n".join(lines)
     text = sub(r"/\*.*?\*/", "", text, flags=DOTALL)
+    # Remove empty curlied-comment
+    text = sub(r"^\{\s*\}", "", text, flags=DOTALL | MULTILINE)
     return text
 
 
 def remove_blank_lines(text: str) -> str:
     """
-    Remove multiple blank lines from output file to only one
+    Remove multiple blank lines from the input text, ensuring only single blank lines remain.
 
     Args:
         text (str): Text to sanitize
@@ -50,12 +51,16 @@ def remove_blank_lines(text: str) -> str:
     Returns:
         str: Sanitized text
     """
-    # if the line only contains whitespaces, remove it as well
-    lines = text.splitlines()
-    for i, line in enumerate(lines):
-        lines[i] = sub(r"^\s+$", "", line)
+    # Remove lines that contain only whitespace
+    lines = [line for line in text.splitlines() if line.strip() != ""]
+
+    # Join lines and replace multiple newlines with a single newline
     text = "\n".join(lines)
-    text = sub(r"[\n]+", "\n", text)
+    text = sub(r"\n{2,}", "\n", text)
+
+    # Remove a leading newline if present
+    text = text.lstrip("\n")
+
     return text
 
 
@@ -82,6 +87,7 @@ def resolve_imports(script_path: Union[str, Path]) -> str:
             sli[i] = resolve_imports(import_path)
 
     return "".join(sli)
+
 
 def main():
     args = parse_args()
