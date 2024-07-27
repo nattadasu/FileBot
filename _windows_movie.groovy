@@ -1,2 +1,2 @@
 @./filepath_windows.groovy
-@./_common_movie.groovy
+@./common_movie.groovy
