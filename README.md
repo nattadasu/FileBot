@@ -15,6 +15,11 @@ default behavior on `filepath_posix.groovy`
 1. Modify the scripts, if needed
 2. In your FileBot format configurator, import it with `@` notation.
 
+> [!WARNING]
+>
+> Due to weird bug on CLI, rather using `_*.groovy`, replace it to `compiled/*.groovy`,
+> for example: `_posix_tv.groovy` to `compiled/posix_tv.groovy`, and so on.
+
 ### POSIX, TV
 
 ```groovy
