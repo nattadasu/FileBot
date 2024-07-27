@@ -1,7 +1,7 @@
 {
     def user = System.getProperty("user.name")
     def mntp = "/run/media/$user"
-    def override = "$mntp/Videos"
+    def override = "$mntp"
     def guess = [
         home,
         "$mntp/Data",
@@ -12,7 +12,9 @@
     ].collect { it as File }.sort { a, b -> a.exists() <=> b.exists() ?: a.diskSpace <=> b.diskSpace }.last()
     def final_ = override ? override : guess
     "$final_/"
-}{
+}
+Videos/
+{
     def cjk_countries = /(CN|KR|JP|TW|HK)/
     def cjkani_tags = /(Aeni|Donghua|Anime)/
     def isAnime = genres =~ cjkani_tags || (genres =~ /Animation/ && country =~ cjk_countries) || anime ? true : false
