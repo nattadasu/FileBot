@@ -1,7 +1,7 @@
 {
     def user = System.getProperty("user.name")
     def mntp = "/run/media/$user"
-    def override = "$mntp"
+    def override = "$mntp/Videos"
     def guess = [
         home,
         "$mntp/Data",

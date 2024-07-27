@@ -1,7 +1,7 @@
 {
     def user = System.getProperty("user.name")
     def mntp = "/run/media/$user"
-    def override = "$mntp"
+    def override = "$mntp/Videos"
     def guess = [
         home,
         "$mntp/Data",
@@ -13,7 +13,6 @@
     def final_ = override ? override : guess
     "$final_/"
 }
-Videos/
 {
     def cjk_countries = /(CN|KR|JP|TW|HK)/
     def cjkani_tags = /(Aeni|Donghua|Anime)/

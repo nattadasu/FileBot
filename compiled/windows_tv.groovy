@@ -12,7 +12,6 @@
     def final_ = override ? override : guess
     "$final_/"
 }
-Videos/
 {
     def cjk_countries = /(CN|KR|JP|TW|HK)/
     def cjkani_tags = /(Aeni|Donghua|Anime)/
