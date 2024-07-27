@@ -1,3 +1,4 @@
+Torrent Uploads/
 {ext.upper()}/
 {y}/
 [

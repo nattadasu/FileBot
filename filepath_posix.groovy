@@ -5,7 +5,7 @@
     def mntp = "/run/media/$user"
 
     //! OVERRIDE THIS PATH IF NEEDED, ELSE, BLANK IT ("")
-    def override = "$mntp"
+    def override = "$mntp/Videos"
 
     def guess = [
         home,

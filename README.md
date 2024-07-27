@@ -17,10 +17,6 @@ favor of my personal preference, and might be not suitable for you.
 
 However, the most important files were:
 
-* Anything that starts with `_posix` or `_windows` are the main scripts, defines
-  how the file will be stored. By default it's on `{default_drive}/{media_type}`
-  (e.g. `D:\Videos`, or `/mnt/drive/Music`, where `Videos` and `Music` are
-  media types). `{default_drive}` behavior will be explained below.
 * `filepath_posix.groovy` and `filepath_windows.groovy` are the scripts that
   handles <u>(default) drive logic</u>. By default, it tries to find the drive
   that have most free space, and if it's not found, it will use the default
