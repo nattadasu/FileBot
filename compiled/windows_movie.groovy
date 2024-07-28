@@ -37,7 +37,7 @@
     fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
 }
- ({y}) [tmdbid-{tmdbid}]/
+{" ("}{y}{") [tmdbid-"}{tmdbid}{"]/"}
 {
     def customGroups = [
         "NanDesuKa",
@@ -76,7 +76,7 @@
     fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
 }
-{" "}({y})
+{" ("}{y}{")"}
 {" ["}
 {
     def customRelease = [
@@ -121,7 +121,7 @@
     def langs_ = textLanguages.size() > 5 ? textLanguages.take(5) : textLanguages
     substat ? substat + langs_.joining(" ", " (", "").upper() + {textLanguages.size() > 5 ? " ...)" : ")"}: ""
 }
-][{crc32.upper()}]
+{"]["}{crc32.upper()}{"]"}
 {ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B: ""}
 {
     ext =~ /jp(?:e)?g|png/ ? "-thumb" : ""
