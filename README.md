@@ -1,7 +1,11 @@
 <!-- markdownlint-disable MD033 -->
 # nattadasu's Personal Groovy Scripts for FileBot
 
-Ready-to-use collection of Groovy scripts for FileBot to rename media files
+Ready-to-use collection of Groovy scripts for FileBot to rename media files.
+
+File format were optimized to be used alongside Anitomy-based parser (Taiga)
+for Anime, while keeping it sane for other media library parsers to understand
+as well.
 
 ## Disclaimer
 
@@ -28,7 +32,8 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 
 ## Usage
 
-0. Clone this repository to your home directory (Windows: `%USERPROFILE%`, POSIX: `~`)
+0. Clone this repository to your home directory (Windows: `%USERPROFILE%`,
+   POSIX: `~`)
 1. Modify the scripts, if needed
 2. In your FileBot format configurator, import it with `@` notation.
 
@@ -86,7 +91,7 @@ Sakuna.Of.Rice.and.Ruin.S01E01.1080p.YT.WEB-DL.JPN.AAC2.0.H.264.MSubs-TH.mkv
 After:
 
 ```txt
-/run/media/username/Videos/Videos/Anime/Sakuna Of Rice and Ruin/Season 1/[TH] Sakuna Of Rice and Ruin - S01E01 - Episode 1 [WEB-DL 1920x1080 AVC 8Bit, AAC 2.0, Multi-Subs (ENG ZHO IND MSA THA VIE)][38F1CEF4].mkv
+/run/media/username/Videos/Videos/Anime/Sakuna Of Rice and Ruin/Season 1/[TH] Sakuna Of Rice and Ruin - S01E01 - Episode 1 [YT.WEB-DL 1920x1080 AVC 8Bit, AAC 2.0, Multi-Subs (ENG ZHO IND MSA THA ...)][38F1CEF4].mkv
 ```
 
 ### TV, Second Example
