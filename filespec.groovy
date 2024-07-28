@@ -23,7 +23,7 @@
     def langs_ = textLanguages.size() > 5 ? textLanguages.take(5) : textLanguages
     substat ? substat + langs_.joining(" ", " (", "").upper() + {textLanguages.size() > 5 ? " ...)" : ")"}: ""
 }
-][{crc32.upper()}]
+{"]["}{crc32.upper()}{"]"}
 {ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B: ""}
 {
     // Jellyfin 10.9.* default thumbnail name

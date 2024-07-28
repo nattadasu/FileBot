@@ -9,5 +9,5 @@
     "$cust_cat" + "Movies/"
 }
 @./medianame.groovy
- ({y}) [tmdbid-{tmdbid}]/
+{" ("}{y}{") [tmdbid-"}{tmdbid}{"]/"}
 @./filename_movie.groovy
