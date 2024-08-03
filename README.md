@@ -44,11 +44,15 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 
 ### POSIX, TV
 
+THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
+
 ```groovy
 @FileBot/_posix_tv.groovy
 ```
 
 ### POSIX, Movies
+
+THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
 
 ```groovy
 @FileBot/_posix_movie.groovy
@@ -62,11 +66,15 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 
 ### Windows, TV
 
+THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
+
 ```groovy
 @FileBot/_windows_tv.groovy
 ```
 
 ### Windows, Movies
+
+THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
 
 ```groovy
 @FileBot/_windows_movie.groovy
