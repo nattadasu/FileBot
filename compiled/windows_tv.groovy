@@ -23,7 +23,8 @@
         [series_id: 229743, title: "VTuber Legend"],
         [series_id: 240633, title: "A Journey Through Another World"],
         [series_id: 245285, title: "Failure Frame"],
-        [series_id: 237045, title: "Chery Magic!"]
+        [series_id: 237045, title: "Chery Magic!"],
+        [series_id: 260840, title: "Whimsical Wish"]
     ]
     def name_ = n
     short_title.each {
@@ -35,6 +36,13 @@
     def fixed_name = name_.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '')
     fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
+}
+{
+	def show_id = [
+		239779, 112888
+	]
+	def is_id_matches = show_id.find { curr_id -> tmdbid == curr_id } ?: ""
+    is_id_matches ? " ($y) [tmdbid-$is_id_matches]" : ""
 }
 {"/"}
 {
@@ -70,7 +78,8 @@
         [series_id: 229743, title: "VTuber Legend"],
         [series_id: 240633, title: "A Journey Through Another World"],
         [series_id: 245285, title: "Failure Frame"],
-        [series_id: 237045, title: "Chery Magic!"]
+        [series_id: 237045, title: "Chery Magic!"],
+        [series_id: 260840, title: "Whimsical Wish"]
     ]
     def name_ = n
     short_title.each {

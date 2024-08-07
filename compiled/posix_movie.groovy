@@ -25,7 +25,8 @@
         [series_id: 229743, title: "VTuber Legend"],
         [series_id: 240633, title: "A Journey Through Another World"],
         [series_id: 245285, title: "Failure Frame"],
-        [series_id: 237045, title: "Chery Magic!"]
+        [series_id: 237045, title: "Chery Magic!"],
+        [series_id: 260840, title: "Whimsical Wish"]
     ]
     def name_ = n
     short_title.each {
@@ -64,7 +65,8 @@
         [series_id: 229743, title: "VTuber Legend"],
         [series_id: 240633, title: "A Journey Through Another World"],
         [series_id: 245285, title: "Failure Frame"],
-        [series_id: 237045, title: "Chery Magic!"]
+        [series_id: 237045, title: "Chery Magic!"],
+        [series_id: 260840, title: "Whimsical Wish"]
     ]
     def name_ = n
     short_title.each {
