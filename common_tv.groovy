@@ -8,5 +8,6 @@
     is_anime ? "Videos/Anime/" : "Videos/TV Series/"
 }
 @./medianame.groovy
+@./forceshowid_tv.groovy
 @./season.groovy
 @./filename_tv.groovy
