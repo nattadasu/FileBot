@@ -107,7 +107,8 @@
         "ABEMA",
         "HULU",
         "iQ",
-        "YT"
+        "YT",
+        "SHAHID"
     ]
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
     def release_ = any {
