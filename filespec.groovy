@@ -1,6 +1,6 @@
 {" ["}
 @./releasesource.groovy
-{resolution} {vcf} {bitdepth}Bit, {ac}
+{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}Bit" : ""}, {ac}
 {" "}
 {af.format(
     8: 'DD+ 7.1',
