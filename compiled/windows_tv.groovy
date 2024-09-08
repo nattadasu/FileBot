@@ -39,7 +39,9 @@
 }
 {
 	def show_id = [
-		68854
+		68854,
+		235973,
+		262295,
 	]
 	def is_id_matches = show_id.find { curr_id -> tmdbid == curr_id } ?: ""
     is_id_matches ? " ($y) [tmdbid-$is_id_matches]" : ""
@@ -106,12 +108,12 @@
         "UNEXT",
         "ABEMA",
         "HULU",
-        "iQ",
-        "YT",
         "SHAHID"
     ]
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
     def release_ = any {
+      fn.contains("BiliIntl") ? "B-Global.WEB-DL" : ""
+    } {
         finalRelease ? finalRelease + ".WEB-DL" : ""
     } {
         source
@@ -120,7 +122,7 @@
     }
     release_ ? "$release_ " : ""
 }
-{resolution} {vcf} {bitdepth}Bit, {ac}
+{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}Bit" : ""}, {ac}
 {" "}
 {af.format(
     8: 'DD+ 7.1',

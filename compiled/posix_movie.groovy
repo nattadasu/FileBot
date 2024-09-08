@@ -88,12 +88,12 @@
         "UNEXT",
         "ABEMA",
         "HULU",
-        "iQ",
-        "YT",
         "SHAHID"
     ]
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
     def release_ = any {
+      fn.contains("BiliIntl") ? "B-Global.WEB-DL" : ""
+    } {
         finalRelease ? finalRelease + ".WEB-DL" : ""
     } {
         source
@@ -102,7 +102,7 @@
     }
     release_ ? "$release_ " : ""
 }
-{resolution} {vcf} {bitdepth}Bit, {ac}
+{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}Bit" : ""}, {ac}
 {" "}
 {af.format(
     8: 'DD+ 7.1',
