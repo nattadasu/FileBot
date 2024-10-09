@@ -38,12 +38,13 @@
     fixed_name
 }
 {
-	def show_id = [
-		68854,
-		235973,
-		262295,
-	]
-	def is_id_matches = show_id.find { curr_id -> tmdbid == curr_id } ?: ""
+    def show_id = [
+        68854,
+        235973,
+        262295,
+        259140,
+    ]
+    def is_id_matches = show_id.find { curr_id -> tmdbid == curr_id } ?: ""
     is_id_matches ? " ($y) [tmdbid-$is_id_matches]" : ""
 }
 {"/"}
@@ -53,7 +54,9 @@
 {
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = sn.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-    fixed_name == 'Season '+ s ? "" : fixed_name ? " - " + fixed_name : ""
+	def fixed_title = n.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
+	def kv = fixed_name == fixed_title ? "" : fixed_name
+    kv == 'Season '+ s ? "" : kv ? " - " + kv : ""
 }
 {"/"}{
     def customGroups = [
@@ -112,7 +115,7 @@
     ]
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
     def release_ = any {
-      fn.contains("BiliIntl") ? "B-Global.WEB-DL" : ""
+      fn.contains("BiliIntl") || fn.contains("BILI") ? "B-Global.WEB-DL" : ""
     } {
         finalRelease ? finalRelease + ".WEB-DL" : ""
     } {

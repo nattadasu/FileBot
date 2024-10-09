@@ -16,7 +16,7 @@
 {
     def cjk_countries = /(CN|JP|KR|KP|TW|HK)/
     def cjkani_tags = /(aeni|donghua|anime)/
-    def is_anime = anime || info.Keywords =~ cjkani_tags || (genres =~ /Animation/ && country =~ cjk_countries) ? true : false
+    def is_anime = anime || info.Keywords =~ cjkani_tags || any {(genres =~ /Animation/ && country =~ cjk_countries)}{false} ? true : false
     def cust_cat = is_anime ? "Videos/Anime " : "Videos/"
     "$cust_cat" + "Movies/"
 }
@@ -92,7 +92,7 @@
     ]
     def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
     def release_ = any {
-      fn.contains("BiliIntl") ? "B-Global.WEB-DL" : ""
+      fn.contains("BiliIntl") || fn.contains("BILI") ? "B-Global.WEB-DL" : ""
     } {
         finalRelease ? finalRelease + ".WEB-DL" : ""
     } {
