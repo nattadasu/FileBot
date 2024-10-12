@@ -4,7 +4,8 @@
         [series_id: 240633, title: "A Journey Through Another World"],
         [series_id: 245285, title: "Failure Frame"],
         [series_id: 237045, title: "Cherry Magic!"],
-        [series_id:  68854, title: "From Me to You"]
+        [series_id:  68854, title: "From Me to You"],
+        [series_id: 240411, title: "DAN DA DAN"],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
