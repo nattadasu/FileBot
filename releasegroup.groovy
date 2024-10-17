@@ -1,9 +1,10 @@
 {
     def customGroups = [
+        "Alqanime",
+        "BlackLuster",
         "NanDesuKa",
         "ToonsHub",
         "Tsundere-Raws",
-        "BlackLuster"
     ]
 
     def finalGroup = customGroups.find { groupName -> fn.contains(groupName) } ?: ""
