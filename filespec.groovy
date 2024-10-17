@@ -1,6 +1,6 @@
 {" ["}
 @./releasesource.groovy
-{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}Bit" : ""}, {ac}
+{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}bit" : ""}, {ac}
 {" "}
 {af.format(
     8: 'DD+ 7.1',
@@ -16,15 +16,19 @@
     def substat = n > 2 ? " Multi-Audio" : n > 1 ? " Dual-Audio" : null
     def langs_ = audioLanguages.size() > 5 ? audioLanguages.take(5) : audioLanguages
     substat ? substat + langs_.joining(" ", " (", "").upper() + {audioLanguages.size() > 5 ? " ...)" : ")"}: ""
+    def audioLangCount = any { audioLanguages.size() } { 0 }
+    def substat = audioLangCount > 2 ? " MAud" : audioLangCount > 1 ? " DAud" : null
+    def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
+    substat ? substat + langs_.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
 }
 {
-    def n = any{textLanguages.size()}{0}
-    def substat = n > 2 ? ", Multi-Subs" : n > 1 ? ", Dual-Subs" : null
-    def langs_ = textLanguages.size() > 5 ? textLanguages.take(5) : textLanguages
-    substat ? substat + langs_.joining(" ", " (", "").upper() + {textLanguages.size() > 5 ? " ...)" : ")"}: ""
+    def textLangCount = any { textLanguages.size() } { 0 }
+    def substat = textLangCount > 2 ? ", MSub" : textLangCount > 1 ? ", DSub" : null
+    def langs_ = textLangCount > 5 ? textLanguages.take(5) : textLanguages
+    substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 5 ? " ...)" : ")") : ""
 }
 {"]["}{crc32.upper()}{"]"}
-{ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B: ""}
+{ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B : ""}
 {
     // Jellyfin 10.9.* default thumbnail name
     ext =~ /jp(?:e)?g|png/ ? "-thumb" : ""
