@@ -12,10 +12,12 @@
     1: '1.0',
 )}
 {
-    def n = any{audioLanguages.size()}{0}
-    def substat = n > 2 ? " Multi-Audio" : n > 1 ? " Dual-Audio" : null
-    def langs_ = audioLanguages.size() > 5 ? audioLanguages.take(5) : audioLanguages
-    substat ? substat + langs_.joining(" ", " (", "").upper() + {audioLanguages.size() > 5 ? " ...)" : ")"}: ""
+    def dub = audiolanguages.any { it.ISO3B != language.ISO3B } ? "Dub" : null
+    // if theres "und" language, set to null
+    dub = audiolanguages.any { it.ISO3B == "und" } ? null : dub
+    dub ? " ${dub}" : ""
+}
+{
     def audioLangCount = any { audioLanguages.size() } { 0 }
     def substat = audioLangCount > 2 ? " MAud" : audioLangCount > 1 ? " DAud" : null
     def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
