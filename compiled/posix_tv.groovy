@@ -45,6 +45,8 @@
         235973,
         262295,
         259140,
+        204098,
+        239779,
     ]
     def is_id_matches = show_id.find { curr_id -> tmdbid == curr_id } ?: ""
     is_id_matches ? " ($y) [tmdbid-$is_id_matches]" : ""
@@ -62,10 +64,11 @@
 }
 {"/"}{
     def customGroups = [
+        "Alqanime",
+        "BlackLuster",
         "NanDesuKa",
         "ToonsHub",
         "Tsundere-Raws",
-        "BlackLuster"
     ]
     def finalGroup = customGroups.find { groupName -> fn.contains(groupName) } ?: ""
     def group_ = any {
@@ -128,7 +131,7 @@
     }
     release_ ? "$release_ " : ""
 }
-{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}Bit" : ""}, {ac}
+{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}bit" : ""}, {ac}
 {" "}
 {af.format(
     8: 'DD+ 7.1',
@@ -140,19 +143,24 @@
     1: '1.0',
 )}
 {
-    def n = any{audioLanguages.size()}{0}
-    def substat = n > 2 ? " Multi-Audio" : n > 1 ? " Dual-Audio" : null
-    def langs_ = audioLanguages.size() > 5 ? audioLanguages.take(5) : audioLanguages
-    substat ? substat + langs_.joining(" ", " (", "").upper() + {audioLanguages.size() > 5 ? " ...)" : ")"}: ""
+    def dub = audiolanguages.any { it.ISO3B != language.ISO3B } ? "Dub" : null
+    dub = audiolanguages.any { it.ISO3B == "und" } ? null : dub
+    dub ? " ${dub}" : ""
 }
 {
-    def n = any{textLanguages.size()}{0}
-    def substat = n > 2 ? ", Multi-Subs" : n > 1 ? ", Dual-Subs" : null
-    def langs_ = textLanguages.size() > 5 ? textLanguages.take(5) : textLanguages
-    substat ? substat + langs_.joining(" ", " (", "").upper() + {textLanguages.size() > 5 ? " ...)" : ")"}: ""
+    def audioLangCount = any { audioLanguages.size() } { 0 }
+    def substat = audioLangCount > 2 ? " MAud" : audioLangCount > 1 ? " DAud" : null
+    def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
+    substat ? substat + langs_.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
+}
+{
+    def textLangCount = any { textLanguages.size() } { 0 }
+    def substat = textLangCount > 2 ? ", MSub" : textLangCount > 1 ? ", DSub" : null
+    def langs_ = textLangCount > 5 ? textLanguages.take(5) : textLanguages
+    substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 5 ? " ...)" : ")") : ""
 }
 {"]["}{crc32.upper()}{"]"}
-{ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B: ""}
+{ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B : ""}
 {
     ext =~ /jp(?:e)?g|png/ ? "-thumb" : ""
 }
