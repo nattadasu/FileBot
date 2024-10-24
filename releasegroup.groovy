@@ -19,5 +19,5 @@
         ""
     }
 
-    group_ ? "[$group_]" : ""
+    group_ ? "[$group_] " : ""
 }

@@ -1,5 +1,4 @@
 @./releasegroup.groovy
-{" "}
 @./medianame.groovy
 {" - "}{s00e00}{" - "}
 {
