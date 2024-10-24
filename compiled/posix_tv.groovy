@@ -27,6 +27,8 @@
         [series_id: 237045, title: "Cherry Magic!"],
         [series_id:  68854, title: "From Me to You"],
         [series_id: 240411, title: "DAN DA DAN"],
+        [series_id: 271026, title: "Taisho Era Contract Marriage"],
+        [series_id: 234538, title: "Demon Lord 2099"],
     ]
     def name_ = n
     short_title.each {
@@ -47,6 +49,9 @@
         259140,
         204098,
         239779,
+        273190,
+        271026,
+        240125,
     ]
     def is_id_matches = show_id.find { curr_id -> tmdbid == curr_id } ?: ""
     is_id_matches ? " ($y) [tmdbid-$is_id_matches]" : ""
@@ -91,6 +96,8 @@
         [series_id: 237045, title: "Cherry Magic!"],
         [series_id:  68854, title: "From Me to You"],
         [series_id: 240411, title: "DAN DA DAN"],
+        [series_id: 271026, title: "Taisho Era Contract Marriage"],
+        [series_id: 234538, title: "Demon Lord 2099"],
     ]
     def name_ = n
     short_title.each {
@@ -143,9 +150,10 @@
     1: '1.0',
 )}
 {
-    def dub = audiolanguages.any { it.ISO3B != language.ISO3B } ? "Dub" : null
-    dub = audiolanguages.any { it.ISO3B == "und" } ? null : dub
-    dub ? " ${dub}" : ""
+    def dub = " Dub"
+    def substat = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : dub
+    substat = audioLanguages.size() == 1 && audioLanguages.any { it.ISO3B == "UND" } ? "" : substat
+    substat
 }
 {
     def audioLangCount = any { audioLanguages.size() } { 0 }
