@@ -12,10 +12,11 @@
     1: '1.0',
 )}
 {
-    def dub = audiolanguages.any { it.ISO3B != language.ISO3B } ? "Dub" : null
-    // if theres "und" language, set to null
-    dub = audiolanguages.any { it.ISO3B == "und" } ? null : dub
-    dub ? " ${dub}" : ""
+    def dub = " Dub"
+    // if audioLanguages contains language, blank out dub
+    def substat = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : dub
+    substat = audioLanguages.size() == 1 && audioLanguages.any { it.ISO3B == "UND" } ? "" : substat
+    substat
 }
 {
     def audioLangCount = any { audioLanguages.size() } { 0 }
