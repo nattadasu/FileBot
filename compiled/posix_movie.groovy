@@ -63,7 +63,6 @@
     }
     group_ ? "[$group_] " : ""
 }
-{" "}
 {
     def short_title = [
         [series_id: 229743, title: "VTuber Legend"],
