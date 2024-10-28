@@ -27,7 +27,6 @@ jobs:
           # Compile each groovy file
           for file in $groovyFiles; do
             compiledFile="compiled/$(basename "$file" | sed 's/^_//')"
-            echo "Compiling $file to $compiledFile"
             python3 compiler.py "$file" "$compiledFile"
           done
       - name: Commit and Push Changes
