@@ -63,8 +63,8 @@
 {
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = sn.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-	def fixed_title = n.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-	def kv = fixed_name == fixed_title ? "" : fixed_name
+    def fixed_title = n.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
+    def kv = fixed_name == fixed_title ? "" : fixed_name
     kv == 'Season '+ s ? "" : kv ? " - " + kv : ""
 }
 {"/"}{
@@ -109,29 +109,33 @@
     fixed_name = fixed_name.replaceAll(/(\s|\.)*$/, '')
     fixed_name
 }
-{" - "}{s00e00}{" - "}
+{" - "}{s00e00}
 {
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = t.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-    fixed_name
+    fixed_name.length() > 100 ? " " : " - $fixed_name "
 }
 {" ["}
 {
-    def customRelease = [
-        "AMZN",
-        "B-Global",
-        "UNEXT",
-        "ABEMA",
-        "HULU",
-        "SHAHID"
+    def custom_releases = [
+        [platform: "Bilibili.tv", aliases: ["B-Global", "BiliIntl", "BILI"]],
+        [platform: "Prime Video", aliases: ["AMZN"]],
+        [platform: "U-NEXT", aliases: ["UNEXT"]],
+        [platform: "ABEMA", aliases: ["ABEMA"]],
+        [platform: "Hulu", aliases: ["HULU"]],
+        [platform: "Shahid", aliases: ["SHAHID"]]
     ]
-    def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
+    def reencode_group = ["ASW"]
+    def release_group = ["Erai-raws", "SubsPlease"]
+    def allas = custom_releases.find { crate -> crate.aliases.find { alias -> fn.contains(alias) } }?.aliases.first() ?: ""
     def release_ = any {
-      fn.contains("BiliIntl") || fn.contains("BILI") ? "B-Global.WEB-DL" : ""
-    } {
-        finalRelease ? finalRelease + ".WEB-DL" : ""
+        allas ? "${allas}.WEB-DL" : ""
     } {
         source
+    } {
+        reencode_group.find { g_ -> group == g_ } ? "WEBRip" : ""
+    } {
+        release_group.find { r_ -> group == r_ } ? "WEB-DL" : ""
     } {
         ""
     }

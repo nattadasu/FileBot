@@ -87,21 +87,25 @@
 {" ("}{y}{")"}
 {" ["}
 {
-    def customRelease = [
-        "AMZN",
-        "B-Global",
-        "UNEXT",
-        "ABEMA",
-        "HULU",
-        "SHAHID"
+    def custom_releases = [
+        [platform: "Bilibili.tv", aliases: ["B-Global", "BiliIntl", "BILI"]],
+        [platform: "Prime Video", aliases: ["AMZN"]],
+        [platform: "U-NEXT", aliases: ["UNEXT"]],
+        [platform: "ABEMA", aliases: ["ABEMA"]],
+        [platform: "Hulu", aliases: ["HULU"]],
+        [platform: "Shahid", aliases: ["SHAHID"]]
     ]
-    def finalRelease = customRelease.find { releaseName -> fn.contains(releaseName) } ?: ""
+    def reencode_group = ["ASW"]
+    def release_group = ["Erai-raws", "SubsPlease"]
+    def allas = custom_releases.find { crate -> crate.aliases.find { alias -> fn.contains(alias) } }?.aliases.first() ?: ""
     def release_ = any {
-      fn.contains("BiliIntl") || fn.contains("BILI") ? "B-Global.WEB-DL" : ""
-    } {
-        finalRelease ? finalRelease + ".WEB-DL" : ""
+        allas ? "${allas}.WEB-DL" : ""
     } {
         source
+    } {
+        reencode_group.find { g_ -> group == g_ } ? "WEBRip" : ""
+    } {
+        release_group.find { r_ -> group == r_ } ? "WEB-DL" : ""
     } {
         ""
     }
