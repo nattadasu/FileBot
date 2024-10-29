@@ -1,7 +1,4 @@
 {
-    // get current username
-    def user = System.getProperty("user.name")
-
     //! OVERRIDE THIS PATH IF NEEDED, ELSE, BLANK IT ("")
     def override = "H:/"
 

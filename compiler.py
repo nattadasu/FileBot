@@ -218,7 +218,7 @@ def obfuscate_variables(text: str) -> str:
     """
 
     variables = {
-        "user": "u_",
+        "user_": "u_",
         "override": "ov_",
         "guess": "gs_",
         "final_": "fn_",
