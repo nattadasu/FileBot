@@ -12,7 +12,7 @@ as well.
 For UNIX-Like user: This repo assumes your distro as Fedora Linux as the drive
 mountpoint was hard-coded (`/run/media/<username>/<drive_name>`) rather usual
 `/mnt/<drive_name>` that still being used by some distros. You can change
-default behavior on `filepath_posix.groovy`
+default behavior on `modules/filepath_posix.groovy`
 
 ## Editing
 
@@ -21,12 +21,27 @@ favor of my personal preference, and might be not suitable for you.
 
 However, the most important files were:
 
-* `filepath_posix.groovy` and `filepath_windows.groovy` are the scripts that
-  handles <u>(default) drive logic</u>. By default, it tries to find the drive
-  that have most free space, and if it's not found, it will use the default
-  drive. You can override by changing `override` variable on the script.
+* `filepath_posix.groovy` and `filepath_windows.groovy` on modules folder are
+  the scripts that handles <u>(default) drive logic</u>. By default, it tries to
+  find the drive that have most free space, and if it's not found, it will use
+  the default drive. You can override by changing `override` variable on the
+  script.
 * `common_` are shared scripts that does not have OS-specific behavior (drive
   logic, etc.), and only contains common logic to handle <u>file name</u>.
+
+Additionally, there are some quality-of-life scripts that you can edit to enhance
+your experience:
+
+* `forceshowid_tv.groovy` to force write ID from TMDB to avoid incorrect ID
+  detection on Jellyfin/Emby, etc when there are multiple shows with the same
+  name (e.g. different years, anime vs live-action, etc.)
+* `medianame.groovy` to handle media name, shortening it, etc. Useful when a
+  fricking adapted-from-Light-Novel anime title is way too long, or making sure
+  it has consistent naming (e.g. case sensitivity, stylization, etc.)
+* `releasegroup.groovy` to handle additional release group when FileBot does not
+  include it on its group index, or fixing it when it's incorrect.
+* `releasesource.groovy` to handle additional release source when FileBot does
+  not include it on its source index, or fixing it when it's incorrect.
 
 You can refer to `compiled/` directory to check logics that FileBot will use.
 
@@ -37,10 +52,15 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 1. Modify the scripts, if needed
 2. In your FileBot format configurator, import it with `@` notation.
 
-> [!WARNING]
+> [!IMPORTANT]
 >
-> Due to weird bug on CLI, rather using `_*.groovy`, replace it to `compiled/*.groovy`,
-> for example: `_posix_tv.groovy` to `compiled/posix_tv.groovy`, and so on.
+> If you want to use the script on FileBot AMC and don't want to make your log
+> file to be cluttered with script content, you can use `compiled/` directory
+> since it already being minified to the most extent (<4K chars on compiled vs
+> \>7K on `_*.groovy`).
+>
+> To use, replace `@FileBot/_posix_tv.groovy` to `@FileBot/compiled/posix_tv.groovy`,
+> and so on.
 
 ### POSIX, TV
 
@@ -99,7 +119,7 @@ Sakuna.Of.Rice.and.Ruin.S01E01.1080p.YT.WEB-DL.JPN.AAC2.0.H.264.MSubs-TH.mkv
 After:
 
 ```txt
-/run/media/username/Videos/Videos/Anime/Sakuna Of Rice and Ruin/Season 1/[TH] Sakuna Of Rice and Ruin - S01E01 - Episode 1 [YT.WEB-DL 1920x1080 AVC 8Bit, AAC 2.0, Multi-Subs (ENG ZHO IND MSA THA ...)][38F1CEF4].mkv
+/run/media/username/Videos/Videos/Anime/Sakuna Of Rice and Ruin/Season 1/[TH] Sakuna Of Rice and Ruin - S01E01 - Episode 1 [YT.WEB-DL 1920x1080 AVC 8Bit, AAC 2.0, MSub (ENG ZHO IND MSA THA ...)][38F1CEF4].mkv
 ```
 
 ### TV, Second Example
