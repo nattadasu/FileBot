@@ -43,6 +43,42 @@ def remove_comments(text: str) -> str:
     return text
 
 
+def append_semicolon(text: str) -> str:
+    """
+    Append semicolons at the end of statements.
+
+    How it works:
+        1. Split the text into lines
+        2. Strip each line of leading and trailing whitespace
+        3. Append a semicolon to each line, do not append if:
+            - Line is empty
+            - Line already ends with a semicolon
+            - Line ends with a closing bracket
+            - Line ends with a closing parenthesis
+            - Line is an array or dictionary element
+        4. Join the lines back together
+
+    Args:
+        text (str): Text to append
+
+    Returns:
+        str: Formatted text
+    """
+    lines = text.splitlines()
+    lines = [line.strip() for line in lines]
+    lines = [
+        line + ";"
+        if line
+        and not line.endswith(";")
+        and not line.startswith("[")
+        and not line.startswith("{")
+        and not line.endswith("(")
+        else line
+        for line in lines
+    ]
+    return "\n".join(lines)
+
+
 def remove_blank_lines(text: str) -> str:
     """
     Remove multiple blank lines from the input text, ensuring only single blank lines remain.
@@ -78,7 +114,7 @@ def resolve_imports(script_path: Union[str, Path]) -> str:
         str: Script with resolved imports
     """
     script_path = Path(script_path)
-    with open(script_path, "r") as f:
+    with open(script_path, "r", encoding="utf8") as f:
         script = f.read()
     sli = script.splitlines(keepends=True)
 
@@ -127,19 +163,125 @@ def array_stringify(text: str) -> str:
     return text
 
 
+def clean_semicolons(text: str) -> str:
+    """
+    Remove semicolons at weird places
+
+    Args:
+        text (str): Text to sanitize
+
+    Returns:
+        str: Sanitized text
+    """
+    replacements = [
+        (r",\s*;", ","),
+        (r"{\s*;", "{"),
+        (r";\s*}", "}"),
+        (r"};\n{", "}\n{"),
+        (r";\s*$", ""),
+        (r"\[\s*;", "["),
+        (r";\s*\]", "]"),
+        (r",\s*\]", "]"),
+    ]
+
+    for pattern, replacement in replacements:
+        text = sub(pattern, replacement, text)
+
+    return text
+
+
+def final_stringify(text: str) -> str:
+    """
+    Stringify the final output as a single line
+
+    Args:
+        text (str): Text to sanitize
+
+    Returns:
+        str: Sanitized text
+    """
+
+    # Remove leading and trailing whitespace
+    text = text.strip()
+
+    # Replace newlines with spaces
+    text = text.replace("\r", "").replace("\n", "")
+
+    return text
+
+
+def obfuscate_variables(text: str) -> str:
+    """
+    Obfuscate variables in the input text, replacing them with 1-3 character strings.
+
+    Args:
+        text (str): Text to sanitize
+
+    Returns:
+        str: Sanitized text
+    """
+
+    variables = {
+        "user": "u_",
+        "override": "ov_",
+        "guess": "gs_",
+        "final_": "fn_",
+        "cjk_countries": "cc_",
+        "cjkani_tags": "ct_",
+        "is_anime": "ia_",
+        "cust_cat": "cct",
+        "short_title": "st_",
+        "series_id": "si_",
+        "title": "sti",
+        "name_": "n__",
+        "invalid_chars": "ic_",
+        "fixed_name": "fxn",
+        "fixed_title": "fxt",
+        "show_id": "sh_",
+        "is_id_matches": "iim",
+        "curr_id": "nci",
+        "customGroups": "cgs",
+        "finalGroup": "fgr",
+        "groupName": "grn",
+        "group_": "gr_",
+        "custom_releases": "crs",
+        "platform": "pfm",
+        "aliases": "als",
+        "reencode_group": "rng",
+        "release_group": "rlg",
+        "release_": "rl_",
+        "allas": "al_",
+        "crate": "ctr",
+        "substat": "sst",
+        "audioLangCount": "alc",
+        "langs_": "lg_",
+        "textLangCount": "tlc",
+    }
+
+    for var, obf in variables.items():
+        text = sub(rf"\b{var}\b", obf, text)
+
+    return text
+
+
 def main():
     args = parse_args()
     inp = Path(args.input)
     out = Path(args.output)
     print(f"Compiling {inp} to {out}")
-    script = resolve_imports(args.input)
-    script = remove_blank_lines(remove_comments(script))
+
+    script = resolve_imports(inp)
+    script = remove_comments(script)
+    script = append_semicolon(script)
+    script = remove_blank_lines(script)
     script = array_stringify(remove_leading_whitespace(script))
-    # test if the output directory exists, if specified, if not create it
-    if os.path.dirname(args.output):
-        os.makedirs(os.path.dirname(args.output), exist_ok=True)
-    with open(args.output, "w") as f:
-        f.write(script)
+    script = clean_semicolons(script)
+    script = final_stringify(script)
+    script = obfuscate_variables(script)
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(script, encoding="utf8")
+
     print(f'Done! Use "@{out.absolute()}" in FileBot\n')
 
 
