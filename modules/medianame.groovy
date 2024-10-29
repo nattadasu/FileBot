@@ -14,7 +14,7 @@
     // Otherwise, use the original name
     def name_ = n
     short_title.each {
-        if (it.series_id == tmdbid) {
+        if (it.series_id == tmdbid && type.toString() != "Movie") {
             name_ = it.title
         }
     }
