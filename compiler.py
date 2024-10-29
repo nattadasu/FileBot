@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse as ap
-import os
 from pathlib import Path
 from re import DOTALL, MULTILINE, match, sub
 from typing import Union
@@ -163,9 +162,9 @@ def array_stringify(text: str) -> str:
     return text
 
 
-def clean_semicolons(text: str) -> str:
+def clean_characters(text: str) -> str:
     """
-    Remove semicolons at weird places
+    Fix characters at weird places
 
     Args:
         text (str): Text to sanitize
@@ -174,14 +173,11 @@ def clean_semicolons(text: str) -> str:
         str: Sanitized text
     """
     replacements = [
-        (r",\s*;", ","),
-        (r"{\s*;", "{"),
-        (r";\s*}", "}"),
-        (r"};\n{", "}\n{"),
-        (r";\s*$", ""),
-        (r"\[\s*;", "["),
-        (r";\s*\]", "]"),
-        (r",\s*\]", "]"),
+        (r",\s*;", ","), (r"{\s*;", "{"),
+        (r";\s*}", "}"), (r"};\n{", "}\n{"),
+        (r";\s*$", ""), (r"\[\s*;", "["),
+        (r";\s*\]", "]"), (r",\s*\]", "]"),
+        (r"(\s)*", "\\1"),
     ]
 
     for pattern, replacement in replacements:
@@ -275,7 +271,7 @@ def main():
     script = append_semicolon(script)
     script = remove_blank_lines(script)
     script = array_stringify(remove_leading_whitespace(script))
-    script = clean_semicolons(script)
+    script = clean_characters(script)
     script = final_stringify(script)
     script = obfuscate_variables(script)
 
