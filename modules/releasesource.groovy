@@ -17,7 +17,7 @@
     // Find the release source from the custom releases list on filename (fn)
 
     def release_ = any {
-        def allas = custom_releases.find { crate -> crate.aliases.find { alias -> fn.contains(alias) } }?.aliases.first() ?: ""
+        def allas = custom_releases.find { crate -> crate.aliases.find { aka -> fn.contains(aka) } }?.aliases.first() ?: ""
         allas ? "${allas}.WEB-DL" : ""
     } {
         source
