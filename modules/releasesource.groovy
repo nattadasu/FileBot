@@ -6,7 +6,8 @@
         [platform: "U-NEXT", aliases: ["UNEXT"]],
         [platform: "ABEMA", aliases: ["ABEMA"]],
         [platform: "Hulu", aliases: ["HULU"]],
-        [platform: "Shahid", aliases: ["SHAHID"]]
+        [platform: "Shahid", aliases: ["SHAHID"]],
+        [platform: "YouTube", aliases: ["YT.WEB-DL", "YOUTUBE", "YTB"]],
     ]
 
     // List of groups that re-encode the video from specific source
@@ -18,6 +19,7 @@
 
     def release_ = any {
         def allas = custom_releases.find { crate -> crate.aliases.find { aka -> fn.contains(aka) } }?.aliases.first() ?: ""
+        allas = allas.replace("YT.WEB-DL", "YT")
         allas ? "${allas}.WEB-DL" : ""
     } {
         source
