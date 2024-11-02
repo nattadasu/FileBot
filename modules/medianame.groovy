@@ -13,7 +13,9 @@
     // Otherwise, use the original name
     def name_ = n
     short_title.each {
-        name_ = it.series_id == tmdbid && type.toString() != "Movie" ? it.title : n
+        if (it.series_id == tmdbid && type.toString() != "Movie") {
+            name_ = it.title
+        }
     }
 
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
