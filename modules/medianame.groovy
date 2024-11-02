@@ -5,7 +5,6 @@
         [series_id: 245285, title: "Failure Frame"],
         [series_id: 237045, title: "Cherry Magic!"],
         [series_id:  68854, title: "From Me to You"],
-        [series_id: 240411, title: "DAN DA DAN"],
         [series_id: 271026, title: "Taisho Era Contract Marriage"],
         [series_id: 234538, title: "Demon Lord 2099"],
     ]
