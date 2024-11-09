@@ -6,11 +6,15 @@
     def tdir = target.dir
     def tvmaze = 0
     def epl = null
-    if (db.TheTVDB?.id) {
-        def c1 = curl "https://api.tvmaze.com/lookup/shows?thetvdb=${db.TheTVDB.id}"
-        def s1 = c1.id
-        epl = curl "https://api.tvmaze.com/shows/$s1/episodebynumber?season=$s&number=$e"
-        tvmaze = epl.id
+    try {
+        if (db.TheTVDB?.id) {
+            def c1 = curl "https://api.tvmaze.com/lookup/shows?thetvdb=${db.TheTVDB.id}"
+            def s1 = c1.id
+            epl = curl "https://api.tvmaze.com/shows/$s1/episodebynumber?season=$s&number=$e"
+            tvmaze = epl.id
+        }
+    } catch (Exception e) {
+        // ignore
     }
 
     // load ~/.filebotsecrets.json and set tmdb_key
@@ -61,9 +65,7 @@
     XML(nfo_path) {
         mkp.xmlDeclaration(version: "1.0", encoding: "utf-8", standalone: "yes")
         episodedetails {
-            if(ep_info.overview != "") {
-                plot(ep_info.overview)
-            }
+            plot(ep_info.overview)
             lockdata("false")
             // today date on UTC
             dateadded(new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("UTC")))
@@ -82,13 +84,21 @@
                 tvdbid(ext_ids.tvdb_id)
             }
             runtime(runtime)
-            if (db.AniDB?.episode?.id) {
-                uniqueid(type: "anidb", value: db.AniDB.episode.id, db.AniDB.episode.id)
-                anidbid(db.AniDB.episode.id)
+            try {
+                if (db.AniDB?.episode?.id) {
+                    uniqueid(type: "anidb", value: db.AniDB.episode.id, db.AniDB.episode.id)
+                    anidbid(db.AniDB.episode.id)
+                }
+            } catch (Exception e) {
+                // ignore
             }
-            if (tvmaze) {
-                uniqueid(type: "tvmaze", value: tvmaze, tvmaze)
-                tvmazeid(tvmaze)
+            try {
+                if (tvmaze) {
+                    uniqueid(type: "tvmaze", value: tvmaze, tvmaze)
+                    tvmazeid(tvmaze)
+                }
+            } catch (Exception e) {
+                // ignore
             }
             if (img_obj.exists()) {
                 art {
