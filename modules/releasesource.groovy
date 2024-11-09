@@ -13,7 +13,7 @@
     // List of groups that re-encode the video from specific source
     def reencode_group = ["ASW", "Judas"]
     // List of groups that directly rip the video from specific source
-    def release_group = ["Erai-raws", "SubsPlease"]
+    def release_group = ["Erai-raws", "SubsPlease", "JRx7"]
 
     // Find the release source from the custom releases list on filename (fn)
 
