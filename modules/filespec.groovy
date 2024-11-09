@@ -15,7 +15,7 @@
     def dub = " Dub"
     // if audioLanguages contains language, blank out dub
     def substat = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : dub
-    substat = audioLanguages.size() == 1 && audioLanguages.any { it.ISO3B == "UND" } ? "" : substat
+    substat = audioLanguages.size() == 1 && audioLanguages.any { it.ISO3B == "und" } ? "" : substat
     substat
 }
 {
