@@ -16,7 +16,7 @@
 	// load ~/.filebotsecrets.json and set tmdb_key
 	def tmdb_key = ""
 	def tmdb_lang = "en-US"
-	def personal = None
+	def personal = null
 	def secrets = new File("$home/.filebotsecrets.json")
 	if (secrets.exists()) {
 		def json = new groovy.json.JsonSlurper().parseText(secrets.text)
@@ -36,7 +36,8 @@
 	// get image url
 	def img_path = (tdir / target.nameWithoutExtension + "-thumb.jpg").toString()
 	def img_obj = new File(img_path)
-	if (!img_obj.exists() && imgs.stills.size() > 0) {
+	def r_img_obj = new File(img_path.replace("-thumb",""))
+	if (!(img_obj.exists() || r_img_obj.exists()) && imgs.stills.size() > 0) {
 		def img_url = "https://image.tmdb.org/t/p/original${imgs.stills[0].file_path}"
 		system "curl", "-o", tdir / target.nameWithoutExtension + "-thumb.jpg", img_url
 	}
