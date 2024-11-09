@@ -44,31 +44,17 @@
 
     def cactors = []
 
-    credits.cast.each {
-        c ->
-            def download_path = "$personal/${c.name[0]}/${c.name}"
-            cactors << [name: c.name, role: c.character, sortorder: c.order, download_path: "${download_path}/folder.jpg"]
-            // download actor images, if available and not already downloaded
-                def download_obj = new File(download_path)
-                if (!download_obj.exists()) {
-                    download_obj.mkdirs
-                    system "curl", "-o", "${download_path}/folder.jpg", "https://image.tmdb.org/t/p/original${c.profile_path}"
-                }
+    (credits.cast + credits.guest_stars).eachWithIndex { c, index ->
+        def download_path = "$personal/${c.name[0]}/${c.name}"
+        def sortorder = c.order ?: index + cactors.size()
+        cactors << [name: c.name, role: c.character, sortorder: sortorder, download_path: "${download_path}/folder.jpg"]
+        if (personal) {
+            def download_obj = new File(download_path)
+            if (!download_obj.exists()) {
+                download_obj.mkdirs()
+                system "curl", "-o", "${download_path}/folder.jpg", "https://image.tmdb.org/t/p/original${c.profile_path}"
             }
-    }
-
-    credits.guest_stars.each {
-        c ->
-            def download_path = "$personal/${c.name[0]}/${c.name}"
-            def cord = c.order + cactors.size()
-            cactors << [name: c.name, role: c.character, sortorder: cord, download_path: "${download_path}/folder.jpg"]
-            if (personal){
-                def download_obj = new File(download_path)
-                if (!download_obj.exists()) {
-                    download_obj.mkdirs
-                    system "curl", "-o", "${download_path}/folder.jpg", "https://image.tmdb.org/t/p/original${c.profile_path}"
-                }
-            }
+        }
     }
 
     def nfo_path = tdir / target.nameWithoutExtension + ".nfo"
