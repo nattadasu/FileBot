@@ -4,14 +4,14 @@
         return null
     }
     def tdir = target.dir
-    def tvmaze = 0
+    def tvmapi = 0
     def epl = null
     try {
         if (db.TheTVDB?.id) {
             def c1 = curl "https://api.tvmaze.com/lookup/shows?thetvdb=${db.TheTVDB.id}"
             def s1 = c1.id
             epl = curl "https://api.tvmaze.com/shows/$s1/episodebynumber?season=$s&number=$e"
-            tvmaze = epl.id
+            tvmapi = epl.id
         }
     } catch (Exception e) {
         // ignore
@@ -23,10 +23,10 @@
     def personal = null
     def secrets = new File("$home/.filebotsecrets.json")
     if (secrets.exists()) {
-        def json = new groovy.json.JsonSlurper().parseText(secrets.text)
-        tmdb_key = json.tmdb_key
-        tmdb_lang = json.language
-        personal = json.person_info_dir
+        def udata = new groovy.json.JsonSlurper().parseText(secrets.text)
+        tmdb_key = udata.tmdb_key
+        tmdb_lang = udata.language
+        personal = udata.person_info_dir
     }
 
     // get episode info from TMDB
@@ -34,7 +34,7 @@
     def ep_info = curl(["accept": "application/json"], "$tmdb_url?language=$tmdb_lang&api_key=$tmdb_key")
 
     def ext_ids = curl(["accept": "application/json"], "$tmdb_url/external_ids?api_key=$tmdb_key")
-    def credits = curl(["accept": "application/json"], "$tmdb_url/credits?language=$tmdb_lang&api_key=$tmdb_key")
+    def tcred = curl(["accept": "application/json"], "$tmdb_url/credits?language=$tmdb_lang&api_key=$tmdb_key")
     def imgs = curl(["accept": "application/json"], "$tmdb_url/images?include_image_language=en%2Cnull&api_key=$tmdb_key")
 
     // get image url
@@ -48,10 +48,10 @@
 
     def cactors = []
 
-    (credits.cast + credits.guest_stars).eachWithIndex { c, index ->
+    (tcred.cast + tcred.guest_stars).eachWithIndex { c, index ->
         def download_path = "$personal/${c.name[0]}/${c.name}"
-        def sortorder = c.order ?: index + cactors.size()
-        cactors << [name: c.name, role: c.character, sortorder: sortorder, download_path: "${download_path}/folder.jpg"]
+        def sord = c.order ?: index + cactors.size()
+        cactors << [person_name: c.name, crole: c.character, ford: sord, download_path: "${download_path}/folder.jpg"]
         if (personal) {
             def download_obj = new File(download_path)
             if (!download_obj.exists()) {
@@ -98,9 +98,9 @@
                 // ignore
             }
             try {
-                if (tvmaze) {
-                    uniqueid(type: "tvmaze", value: tvmaze, tvmaze)
-                    tvmazeid(tvmaze)
+                if (tvmapi) {
+                    uniqueid(type: "tvmaze", value: tvmapi, tvmapi)
+                    tvmazeid(tvmapi)
                 }
             } catch (Exception e) {
                 // ignore
@@ -111,59 +111,51 @@
                 }
             }
             // create list of actors
-            cactors.each {
-                person -> actor {
-                    name(person.name)
-                    role(person.role)
-                    sortorder(person.sortorder)
-                    if (personal) { thumb(person.download_path) }
-                }
-            }
+            cactors.each { person -> actor {
+                name(person.person_name)
+                role(person.crole)
+                sortorder(person.ford)
+                if (personal) { thumb(person.download_path) }
+            }}
             showtitle(n)
             episode(e)
             season(s)
             aired(airdate.format("yyyy-MM-dd"))
             fileinfo {
                 streamdetails {
-                    target.mediaInfo.Video.each {
-                        vid -> video {
-                            def dur = Float.parseFloat(vid.'Duration')
-                            codec(vid.'Format')
-                            micodec(vid.'Format')
-                            bitrate(vid.'BitRate')
-                            width(vid.'Width')
-                            height(vid.'Height')
-                            aspect(vid.'DisplayAspectRatio/String')
-                            aspectratio(vid.'DisplayAspectRatio/String')
-                            framerate(vid.'FrameRate')
-                            'default'(vid.'Default' == "Yes" ? "True" : "False")
-                            forced(vid.'Forced' == "Yes" ? "True" : "False")
-                            duration(vid.'Duration' ? (int) Math.floor(dur / 60000) : 0)
-                            durationinseconds(vid.'Duration' ? (int) Math.floor(dur / 1000) : 0)
-                        }
-                    }
-                    target.mediaInfo.Audio.each {
-                        aud -> audio {
-                            codec(aud.'Format')
-                            micodec(aud.'Format')
-                            language(aud.'Language/String3')
-                            channels(aud.'Channel(s)')
-                            samplingrate(aud.'SamplingRate')
-                            'default'(aud.'Default' == "Yes" ? "True" : "False")
-                            forced(aud.'Forced' == "Yes" ? "True" : "False")
-                        }
-                    }
-                    target.mediaInfo.Text.each {
-                        sbt -> subtitle {
-                            codec(sbt.'Format')
-                            micodec(sbt.'Format')
-                            width('0')
-                            height('0')
-                            language(sbt.'Language/String3')
-                            'default'(sbt.'Default' == "Yes" ? "True" : "False")
-                            forced(sbt.'Forced' == "Yes" ? "True" : "False")
-                        }
-                    }
+                    target.mediaInfo.Video.each { vid -> video {
+                        def dur = Float.parseFloat(vid.'Duration')
+                        codec(vid.'Format')
+                        micodec(vid.'Format')
+                        bitrate(vid.'BitRate')
+                        width(vid.'Width')
+                        height(vid.'Height')
+                        aspect(vid.'DisplayAspectRatio/String')
+                        aspectratio(vid.'DisplayAspectRatio/String')
+                        framerate(vid.'FrameRate')
+                        'default'(vid.'Default' == "Yes" ? "True" : "False")
+                        forced(vid.'Forced' == "Yes" ? "True" : "False")
+                        duration(vid.'Duration' ? (int) Math.floor(dur / 60000) : 0)
+                        durationinseconds(vid.'Duration' ? (int) Math.floor(dur / 1000) : 0)
+                    }}
+                    target.mediaInfo.Audio.each { aud -> audio {
+                        codec(aud.'Format')
+                        micodec(aud.'Format')
+                        language(aud.'Language/String3')
+                        channels(aud.'Channel(s)')
+                        samplingrate(aud.'SamplingRate')
+                        'default'(aud.'Default' == "Yes" ? "True" : "False")
+                        forced(aud.'Forced' == "Yes" ? "True" : "False")
+                    }}
+                    target.mediaInfo.Text.each { sbt -> subtitle {
+                        codec(sbt.'Format')
+                        micodec(sbt.'Format')
+                        width('0')
+                        height('0')
+                        language(sbt.'Language/String3')
+                        'default'(sbt.'Default' == "Yes" ? "True" : "False")
+                        forced(sbt.'Forced' == "Yes" ? "True" : "False")
+                    }}
                 }
             }
         }
