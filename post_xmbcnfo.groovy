@@ -83,7 +83,12 @@
                 uniqueid(type: "tvdb", value: ext_ids.tvdb_id, ext_ids.tvdb_id)
                 tvdbid(ext_ids.tvdb_id)
             }
-            runtime(runtime)
+            try {
+                runtime(runtime)
+            } catch (Exception e) {
+                // Use local runtime
+                runtime(minutes)
+            }
             try {
                 if (db.AniDB?.episode?.id) {
                     uniqueid(type: "anidb", value: db.AniDB.episode.id, db.AniDB.episode.id)
