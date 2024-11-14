@@ -2,8 +2,9 @@
 
 import argparse as ap
 from pathlib import Path
-from re import DOTALL, MULTILINE, match, sub
+from regex import DOTALL, MULTILINE, match, sub, findall
 from typing import Union
+from random import choice
 
 
 def parse_args():
@@ -32,8 +33,8 @@ def remove_comments(text: str) -> str:
         str: Sanitized text
     """
     lines = text.splitlines()
-    # remove inline comments with regex
-    lines = [sub(r"(?: +)?//.*", "", line) for line in lines]
+    # remove inline comments with regex, UNLESS IT'S PART OF URL
+    lines = [sub(r"(?: +)?(?<!http:|https:)//.*", "", line) for line in lines]
     # Remove block comments
     text = "\n".join(lines)
     text = sub(r"/\*.*?\*/", "", text, flags=DOTALL)
@@ -172,13 +173,13 @@ def clean_characters(text: str) -> str:
     Returns:
         str: Sanitized text
     """
+    # fmt: off
     replacements = [
-        (r",\s*;", ","), (r"{\s*;", "{"),
-        (r";\s*}", "}"), (r"};\n{", "}\n{"),
-        (r";\s*$", ""), (r"\[\s*;", "["),
-        (r";\s*\]", "]"), (r",\s*\]", "]"),
-        (r"(\s)*", "\\1"),
+        (r",\s*;", ","), (r"{\s*;", "{"), (r";\s*}", "}"),
+        (r"};\n{", "}\n{"), (r";\s*$", ""), (r"\[\s*;", "["),
+        (r";\s*\]", "]"), (r",\s*\]", "]"), (r"(\s)*", "\\1"),
     ]
+    # fmt: on
 
     for pattern, replacement in replacements:
         text = sub(pattern, replacement, text)
@@ -202,6 +203,8 @@ def final_stringify(text: str) -> str:
 
     # Replace newlines with spaces
     text = text.replace("\r", "").replace("\n", "")
+    text = text.replace("->;", "->")
+    text = text.replace("->", "-> ")
 
     return text
 
@@ -217,46 +220,71 @@ def obfuscate_variables(text: str) -> str:
         str: Sanitized text
     """
 
-    variables = {
-        "user_": "u_",
-        "override": "ov_",
-        "guess": "gs_",
-        "final_": "fn_",
-        "cjk_countries": "cc_",
-        "cjkani_tags": "ct_",
-        "is_anime": "ia_",
-        "cust_cat": "cct",
-        "short_title": "st_",
-        "series_id": "si_",
-        "title": "sti",
-        "name_": "n__",
-        "invalid_chars": "ic_",
-        "fixed_name": "fxn",
-        "fixed_title": "fxt",
-        "show_id": "sh_",
-        "is_id_matches": "iim",
-        "curr_id": "nci",
-        "customGroups": "cgs",
-        "finalGroup": "fgr",
-        "groupName": "grn",
-        "group_": "gr_",
-        "custom_releases": "crs",
-        "platform": "pfm",
-        "aliases": "als",
-        "reencode_group": "rng",
-        "release_group": "rlg",
-        "release_": "rl_",
-        "allas": "al_",
-        "crate": "ctr",
-        "substat": "sst",
-        "audioLangCount": "alc",
-        "langs_": "lg_",
-        "textLangCount": "tlc",
-    }
+    variables = {}
 
+    # Find all variables in the text, excluding function definitions
+    # fmt: off
+    banned = [
+        "def", "if", "else", "for", "while", "switch", "case", "return",
+        "break", "continue", "n", "t", "y", "s", "e", "sxe", "d", "ny", "es",
+        "sy", "sc", "di", "dc", "age", "id", "pi", "pc", "az", "ci", "cy", "vcf",
+        "vc", "ac", "cf", "vf", "hpi", "aco", "acf", "af", "hdr", "vbr", "abr",
+        "fps", "khz", "ar", "ws" "hd", "dt", "vs", "db", "fn", "ext", "f", "ct",
+        "xem", "it", "as", "any", "all", "none", "none", "null", "true", "false",
+        "this", "super", "class", "new", "instanceof", "import", "package", "void",
+        "public", "private", "protected", "static", "final", "abstract", "native",
+        "XEM", "XML", "curl", "encoding", "standalone", "value", "source",
+        "target", "metadata", "scheme"
+    ]
+    # fmt: on
+    pattens = [
+        r"\bdef\s([a-zA-Z_]\w*)\b",  # def var
+        r"(?:,\s+|\[)([a-zA-Z_]\w*):",  # array key, [key: value]
+        r"\{\s+([a-zA-Z_]\w*(?:,\s+[a-zA-Z_]\w*)*)\s*->",  # map key, {key -> value}
+    ]
+    for pattern in pattens:
+        for var in findall(pattern, text):
+            for key in var.split(", "):
+                if key not in variables:
+                    obf = key_finder(banned, variables)
+                    variables[key] = obf
+
+    print("Obfuscated variables:")
     for var, obf in variables.items():
+        print(f"    {var} -> {obf}{' (may be skipped)' if var in banned else ''}")
+    for var, obf in variables.items():
+        if var in banned:
+            continue
         text = sub(rf"\b{var}\b", obf, text)
 
+    return text
+
+
+def key_finder(banned_list: list[str], known_keys: dict[str, str]) -> str:
+    """
+    Generate a unique key for a variable
+
+    Args:
+        banned_list (list[str]): List of banned keys
+        known_keys (dict[str, str]): Dictionary of known keys
+
+    Returns:
+        str: Unique key
+    """
+    char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+    while True:
+        key = "".join(choice(char) for _ in range(1, choice([2, 3])+1))
+        if key not in banned_list and key not in known_keys.values():
+            break
+    return key
+
+
+def dequoter(text: str) -> str:
+    """Strip safe quotes from the text"""
+    lookup = [" ", "/", " - ", " [", "][", "]"]
+    for key in lookup:
+        fx = r'{"' + key + r'"}'
+        text = text.replace(fx, key)
     return text
 
 
@@ -274,6 +302,7 @@ def main():
     script = clean_characters(script)
     script = final_stringify(script)
     script = obfuscate_variables(script)
+    script = dequoter(script)
 
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(script, encoding="utf8")

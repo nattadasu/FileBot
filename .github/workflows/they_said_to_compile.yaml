@@ -3,8 +3,12 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "compiled/**"
+    paths:
+      - '_*.groovy'
+      - "compiler.py"
+      - ".github/workflows/they_said_to_compile.yaml"
+      - "modules/**"
+      - "post_*.groovy"
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -19,7 +23,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Run Groovy Compiler
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install regex
+      - name: Run Groovy So-Compiler for file format
         run: |
           # Find groovy files starts with _ on current directory
           groovyFiles=$(find . -type f -name "_*.groovy")
@@ -27,6 +35,16 @@ jobs:
           # Compile each groovy file
           for file in $groovyFiles; do
             compiledFile="compiled/$(basename "$file" | sed 's/^_//')"
+            python3 compiler.py "$file" "$compiledFile"
+          done
+      - name: Run Groovy So-Called Compiler for post_ and preset_*.groovy files
+        run: |
+          # Find groovy files starts with post_ and preset_ on current directory
+          groovyFiles=$(find . -type f -name "post_*.groovy")
+
+          # Compile each groovy file
+          for file in $groovyFiles; do
+            compiledFile="compiled/$(basename "$file")"
             python3 compiler.py "$file" "$compiledFile"
           done
       - name: Commit and Push Changes
