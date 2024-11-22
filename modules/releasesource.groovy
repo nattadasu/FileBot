@@ -15,10 +15,9 @@
     def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "KawaSubs", "GuodongSubs"]
     // List of groups that directly rip the video from specific source
     def release_group = ["Erai-raws", "SubsPlease"]
-    def unlisted_group = (fn =~ /^\[(.*?)\]/)[0][1]
+    def unlisted_group = any {(fn =~ /^\[(.*?)\]/)[0][1]} {""}
 
     // Find the release source from the custom releases list on filename (fn)
-
     def release_ = any {
         def allas = custom_releases.find { crate -> crate.aliases.find { aka -> fn.contains(aka) } }?.aliases.first() ?: ""
         allas = allas.replace(".WEB-DL", "")
