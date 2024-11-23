@@ -4,16 +4,18 @@
         return null
     }
     def tdir = target.dir
+    def cse = any{ s } { 0 }
+    def cep = any{ e } { special }
     def tvmapi = 0
     def epl = null
     try {
         if (db.TheTVDB?.id) {
             def c1 = curl "https://api.tvmaze.com/lookup/shows?thetvdb=${db.TheTVDB.id}"
             def s1 = c1.id
-            epl = curl "https://api.tvmaze.com/shows/$s1/episodebynumber?season=$s&number=$e"
+            epl = curl "https://api.tvmaze.com/shows/$s1/episodebynumber?season=$cse&number=$cep"
             tvmapi = epl.id
         }
-    } catch (Exception e) {
+    } catch (Exception err) {
         // ignore
     }
 
@@ -30,7 +32,7 @@
     }
 
     // get episode info from TMDB
-    def tmdb_url = "https://api.themoviedb.org/3/tv/$id/season/$s/episode/$e"
+    def tmdb_url = "https://api.themoviedb.org/3/tv/$id/season/$cse/episode/$cep"
     def ep_info = curl(["accept": "application/json"], "$tmdb_url?language=$tmdb_lang&api_key=$tmdb_key")
 
     def ext_ids = curl(["accept": "application/json"], "$tmdb_url/external_ids?api_key=$tmdb_key")
@@ -85,7 +87,7 @@
             }
             try {
                 runtime(runtime)
-            } catch (Exception e) {
+            } catch (Exception err) {
                 // Use local runtime
                 runtime(minutes)
             }
@@ -94,7 +96,7 @@
                     uniqueid(type: "anidb", value: db.AniDB.episode.id, db.AniDB.episode.id)
                     anidbid(db.AniDB.episode.id)
                 }
-            } catch (Exception e) {
+            } catch (Exception err) {
                 // ignore
             }
             try {
@@ -102,7 +104,7 @@
                     uniqueid(type: "tvmaze", value: tvmapi, tvmapi)
                     tvmazeid(tvmapi)
                 }
-            } catch (Exception e) {
+            } catch (Exception err) {
                 // ignore
             }
             if (img_obj.exists()) {
@@ -118,8 +120,8 @@
                 if (personal) { thumb(person.download_path) }
             }}
             showtitle(n)
-            episode(e)
-            season(s)
+            episode(cep)
+            season(cse)
             aired(airdate.format("yyyy-MM-dd"))
             fileinfo {
                 streamdetails {
