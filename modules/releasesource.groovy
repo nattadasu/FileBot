@@ -1,14 +1,16 @@
 {
     def custom_releases = [
         // Platform name is for internal use only, aliases are used to match the filename
-        [platform: "Bilibili.tv", aliases: ["B-Global", "BiliIntl", "BILI"]],
-        [platform: "Prime Video", aliases: ["AMZN"]],
-        [platform: "U-NEXT", aliases: ["UNEXT"]],
         [platform: "ABEMA", aliases: ["ABEMA"]],
+        [platform: "Bilibili.tv", aliases: ["B-Global", "BiliIntl", "BILI"]],
         [platform: "Hulu", aliases: ["HULU"]],
-        [platform: "Shahid", aliases: ["SHAHID"]],
-        [platform: "YouTube", aliases: ["YT.WEB-DL", "YOUTUBE", "YTB"]],
+        [platform: "MeWatch", aliases: ["MW.WEB-DL"]],
         [platform: "Netflix", aliases: ["NF.WEB-DL", "NF WEB"]],
+        [platform: "Prime Video", aliases: ["AMZN"]],
+        [platform: "TVer", aliases: ["TVER"]],
+        [platform: "Shahid", aliases: ["SHAHID"]],
+        [platform: "U-NEXT", aliases: ["UNEXT"]],
+        [platform: "YouTube", aliases: ["YT.WEB-DL", "YOUTUBE", "YTB"]],
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
