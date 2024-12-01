@@ -225,16 +225,17 @@ def obfuscate_variables(text: str) -> str:
     # Find all variables in the text, excluding function definitions
     # fmt: off
     banned = [
-        "def", "if", "else", "for", "while", "switch", "case", "return",
-        "break", "continue", "n", "t", "y", "s", "e", "sxe", "d", "ny", "es",
-        "sy", "sc", "di", "dc", "age", "id", "pi", "pc", "az", "ci", "cy", "vcf",
-        "vc", "ac", "cf", "vf", "hpi", "aco", "acf", "af", "hdr", "vbr", "abr",
-        "fps", "khz", "ar", "ws" "hd", "dt", "vs", "db", "fn", "ext", "f", "ct",
-        "xem", "it", "as", "any", "all", "none", "none", "null", "true", "false",
-        "this", "super", "class", "new", "instanceof", "import", "package", "void",
-        "public", "private", "protected", "static", "final", "abstract", "native",
-        "XEM", "XML", "curl", "encoding", "standalone", "value", "source",
-        "target", "metadata", "scheme"
+        "abr", "abstract", "ac", "acf", "aco", "af", "age", "all", "any", "ar",
+        "as", "az", "break", "case", "cf", "ci", "class", "continue", "ct",
+        "curl", "cy", "d", "db", "dc", "def", "di", "dt", "e", "else",
+        "encoding", "episode", "es", "ext", "f", "false", "final", "fn", "for",
+        "fps", "hd", "hdr", "hpi", "id", "if", "import", "instanceof", "it",
+        "khz", "metadata", "n", "native", "new", "none", "none", "null", "ny",
+        "package", "pc", "pi", "private", "protected", "public", "return", "s",
+        "sc", "scheme", "season", "source", "standalone", "static", "super",
+        "switch", "sxe", "sy", "t", "target", "this", "true", "value", "vbr",
+        "vc", "vcf", "vf", "void", "vs", "while", "ws", "xem", "XEM", "XML",
+        "y",
     ]
     # fmt: on
     pattens = [
