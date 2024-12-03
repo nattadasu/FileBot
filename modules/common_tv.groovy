@@ -2,12 +2,11 @@
 @./r18_checker.groovy
 {
     // check Country of Origin
-    def cjk_countries = /(CN|JP|KR|KP|TW|HK)/
-    def cjkani_tags = /(aeni|donghua|anime)/
-    def is_anime = anime || info.Keywords =~ cjkani_tags || (genres =~ /Animation/ && country =~ cjk_countries) ? true : false
-
+    def cjk_countries = ["CN", "JP", "KR", "KP", "TW", "HK"]
+    def cjkani_tags = ["aeni", "donghua", "anime"]
+    def is_cjk = any { anime } { info.Keywords.findAll { it in cjkani_tags } } { cjk_countries.contains(country) } { false }
     // Categorized path
-    is_anime ? "Anime/" : "TV Series/"
+    is_cjk && genres =~ /Animation/ ? "Anime/" : "TV Series/"
 }
 @./medianame.groovy
 @./forceshowid_tv.groovy
