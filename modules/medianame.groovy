@@ -1,19 +1,20 @@
 {
     def short_title = [
-        [series_id: 229743, title: "VTuber Legend"],
-        [series_id: 240633, title: "A Journey Through Another World"],
-        [series_id: 245285, title: "Failure Frame"],
-        [series_id: 237045, title: "Cherry Magic!"],
-        [series_id:  68854, title: "From Me to You"],
-        [series_id: 271026, title: "Taisho Era Contract Marriage"],
-        [series_id: 234538, title: "Demon Lord 2099"],
+        // Media ID, target name, database
+        [mid:  68854, title: "From Me to You", src: "TheMovieDB::TV"],
+        [mid: 229743, title: "VTuber Legend", src: "TheMovieDB::TV"],
+        [mid: 234538, title: "Demon Lord 2099", src: "TheMovieDB::TV"],
+        [mid: 237045, title: "Cherry Magic!", src: "TheMovieDB::TV"],
+        [mid: 240633, title: "A Journey Through Another World", src: "TheMovieDB::TV"],
+        [mid: 245285, title: "Failure Frame", src: "TheMovieDB::TV"],
+        [mid: 271026, title: "Taisho Era Contract Marriage", src: "TheMovieDB::TV"],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
     // Otherwise, use the original name
     def name_ = n
     short_title.each {
-        if (it.series_id == tmdbid && type.toString() != "Movie") {
+        if (it.mid == tmdbid && it.src == info.database) {
             name_ = it.title
         }
     }
