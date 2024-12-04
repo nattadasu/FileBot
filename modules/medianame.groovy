@@ -12,9 +12,10 @@
 
     // Replace title from short_title if series_id matches "series" from filebot
     // Otherwise, use the original name
+    def database = any { info.database } { "IMDb" }
     def name_ = n
     short_title.each {
-        if (it.mid == tmdbid && it.src == info.database) {
+        if (it.mid == id && it.src == database) {
             name_ = it.title
         }
     }

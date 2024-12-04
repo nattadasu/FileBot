@@ -13,7 +13,7 @@
         [273190, "TheMovieDB::TV"], // Ya She/Silent House (2024) (哑舍), ZH
         [275695, "TheMovieDB::TV"], // No Home (2024) (집이 없어), KR
     ]
-    def is_id_matches = show_id.find { it[0] == tmdbid && it[1] == info.database } != null
+    def is_id_matches = show_id.find { it[0] == id && it[1] == info.database } != null
     // try map TheMovieDB::TV -> tmdbid, AniDB -> anidbid, TheTVDB -> tvdbid
     def db_map = [
         "TheMovieDB::TV": "tmdbid",

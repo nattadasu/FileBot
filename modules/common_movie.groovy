@@ -9,5 +9,16 @@
     is_anime ? "Anime Movies/" : "Movies/"
 }
 @./medianame.groovy
-{" ("}{y}{") [tmdbid-"}{tmdbid}{"]/"}
+{" ("}{y}{")"}
+{
+    def db_name = any { info.database } { "IMDb" }
+    def db_map = [
+        "TheMovieDB": "tmdbid",
+        "TheTVDB::Movie": "tvdbid",
+        "IMDb": "imdbid"
+    ]
+    def db_src = db_map[db_name]
+    def fixed_id = db_name == "IMDb" ? "tt${id}" : id
+    " [${db_src}-${fixed_id}]/"
+}
 @./filename_movie.groovy
