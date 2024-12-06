@@ -1,6 +1,9 @@
 {" ["}
 @./releasesource.groovy
-{resolution} {vcf.upper()}{bitdepth ? " ${bitdepth}bit" : ""}, {ac}
+{
+    def bdepth = bitdepth ? " ${bitdepth}bit" : ""
+    "$resolution $vcf $bdepth, $ac"
+}
 {" "}
 {af.format(
     8: 'DD+ 7.1',
@@ -31,8 +34,25 @@
     substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 5 ? " ...)" : ")") : ""
 }
 {"]["}{crc32.upper()}{"]"}
-{ext =~ /(ass|srt|ssa|vtt)/ ? '.' + lang.ISO3B : ""}
 {
-    // Jellyfin 10.9.* default thumbnail name
-    ext =~ /jp(?:e)?g|png/ ? "-thumb" : ""
+    def known_ext = ["ass", "srt", "ssa", "vtt", "ttml"]
+    def langcode = [
+        "name": "." + lang.name,
+        "iso3b": "." + lang.ISO3B,
+        "iso3": "." +lang.ISO3,
+        "iso2": "." + lang.ISO2,
+    ]
+    // Clean subt variable if any on langcode exists
+    def cleanedSubt = subt
+    langcode.values().each { code ->
+        if (cleanedSubt.contains(code)) {
+            cleanedSubt = cleanedSubt.replace(code, "")
+        }
+    }
+    known_ext.contains(ext) ? langcode.iso3b + cleanedSubt : ""
+}
+{
+    // Jellyfin >=10.9 default thumbnail name
+    def known_ext = ["jpg", "jpeg", "png", "bmp"]
+    known_ext.contains(ext) ? "-thumb" : ""
 }
