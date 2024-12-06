@@ -2,7 +2,7 @@
 
 import argparse as ap
 from pathlib import Path
-from regex import DOTALL, MULTILINE, match, sub, findall, compile
+from regex import DOTALL, MULTILINE, match, sub, findall
 from typing import Union
 from random import choice
 
@@ -292,7 +292,7 @@ def main():
     script = remove_blank_lines(script)
     script = array_stringify(remove_leading_whitespace(script))
     script = clean_characters(script)
-    # script = obfuscate_variables(script)
+    script = obfuscate_variables(script)
     script = reformat_array(script)
     # script = dequoter(script)
 
