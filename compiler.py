@@ -2,7 +2,7 @@
 
 import argparse as ap
 from pathlib import Path
-from regex import DOTALL, MULTILINE, match, sub, findall
+from regex import DOTALL, MULTILINE, match, sub, findall, compile
 from typing import Union
 from random import choice
 
@@ -175,36 +175,15 @@ def clean_characters(text: str) -> str:
     """
     # fmt: off
     replacements = [
-        (r",\s*;", ","), (r"{\s*;", "{"), (r";\s*}", "}"),
-        (r"};\n{", "}\n{"), (r";\s*$", ""), (r"\[\s*;", "["),
-        (r";\s*\]", "]"), (r",\s*\]", "]"), (r"(\s)*", "\\1"),
+        (r",\s*;", ","), (r"{\s*;", "{"), (r";\s*}", "}"), (r"};\n{", "}\n{"),
+        (r";\s*$", ""), (r"\[\s*;", "["), (r";\s*\]", "]"), (r",\s+\)", ")"),
+        (r",\s*\]", "]"), (r"(\s)*", "\\1"), (r"->;", "->"), (r"->", "-> "),
+        (r"\r", ""), (r"\n", ""),
     ]
     # fmt: on
 
     for pattern, replacement in replacements:
         text = sub(pattern, replacement, text)
-
-    return text
-
-
-def final_stringify(text: str) -> str:
-    """
-    Stringify the final output as a single line
-
-    Args:
-        text (str): Text to sanitize
-
-    Returns:
-        str: Sanitized text
-    """
-
-    # Remove leading and trailing whitespace
-    text = text.strip()
-
-    # Replace newlines with spaces
-    text = text.replace("\r", "").replace("\n", "")
-    text = text.replace("->;", "->")
-    text = text.replace("->", "-> ")
 
     return text
 
@@ -288,6 +267,18 @@ def dequoter(text: str) -> str:
         text = text.replace(fx, key)
     return text
 
+def reformat_array(text: str) -> str:
+    """
+    Remove spaces between array elements, or between hash keys and values
+    DO NOT remove spaces in {".+"} outside of array or hash
+    """
+    #
+    text = sub(r"(?<=\S),\s(?=\S|[^\"\}])", ",", text)
+    text = sub(r"(?<=\S):\s(?=\S)", ":", text)
+    return text
+
+
+
 
 def main():
     args = parse_args()
@@ -301,8 +292,8 @@ def main():
     script = remove_blank_lines(script)
     script = array_stringify(remove_leading_whitespace(script))
     script = clean_characters(script)
-    script = final_stringify(script)
-    script = obfuscate_variables(script)
+    # script = obfuscate_variables(script)
+    script = reformat_array(script)
     # script = dequoter(script)
 
     out.parent.mkdir(parents=True, exist_ok=True)
