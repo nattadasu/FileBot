@@ -5,16 +5,18 @@
         "hentai", "sex", "lgbt", "explicit", "adult animation", "adult content",
     ]
 
+    def tmdb_tv = "TheMovieDB::TV"
+
     // Manual list of known R18+ titles, only add if the title is known to be R18+
     // or have a variant that is R18+
     def known_titles = [
-        [271026, "TheMovieDB::TV"], // Taisho Era Contract Marriage, 2024
-        [220118, "TheMovieDB::TV"], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
+        [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
+        [220118, tmdb_tv], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
     ]
 
     // List of known titles that might be misclassified as R18+
     def override_tag = [
-        [236530, "TheMovieDB::TV"] // How I Attended an All-Guy's Mixer, 2024
+        [236530, tmdb_tv] // How I Attended an All-Guy's Mixer, 2024
     ]
 
     // REQUIRES USER TO SET ADDITIONAL PROPERTY ON FILEBOT
