@@ -9,7 +9,7 @@ as well.
 
 ## Post-Processing Scripts
 
-### XMBC/Kodi/Jellyfin/Emby-compatible NFO generator for Episodes
+### NFO generator for Episodes
 
 This script will generate NFO file for each episode, containing metadata that
 can be read by Kodi, Jellyfin, Emby, etc.
