@@ -303,7 +303,7 @@ def main():
     script = clean_characters(script)
     script = final_stringify(script)
     script = obfuscate_variables(script)
-    script = dequoter(script)
+    # script = dequoter(script)
 
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(script, encoding="utf8")
