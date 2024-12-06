@@ -10,9 +10,10 @@
     def epl = null
     try {
         if (db.TheTVDB?.id) {
-            def c1 = curl "https://api.tvmaze.com/lookup/shows?thetvdb=${db.TheTVDB.id}"
+            def tvm_url = "https://api.tvmaze.com"
+            def c1 = curl "$tvm_url/lookup/shows?thetvdb=${db.TheTVDB.id}"
             def s1 = c1.id
-            epl = curl "https://api.tvmaze.com/shows/$s1/episodebynumber?season=$cse&number=$cep"
+            epl = curl "$tvm_url/shows/$s1/episodebynumber?season=$cse&number=$cep"
             tvmapi = epl.id
         }
     } catch (Exception err) {
@@ -33,11 +34,12 @@
 
     // get episode info from TMDB
     def tmdb_url = "https://api.themoviedb.org/3/tv/$id/season/$cse/episode/$cep"
-    def ep_info = curl(["accept": "application/json"], "$tmdb_url?language=$tmdb_lang&api_key=$tmdb_key")
+    def acjson = ["accept": "application/json"]
+    def ep_info = curl(acjson, "$tmdb_url?language=$tmdb_lang&api_key=$tmdb_key")
 
-    def ext_ids = curl(["accept": "application/json"], "$tmdb_url/external_ids?api_key=$tmdb_key")
-    def tcred = curl(["accept": "application/json"], "$tmdb_url/credits?language=$tmdb_lang&api_key=$tmdb_key")
-    def imgs = curl(["accept": "application/json"], "$tmdb_url/images?include_image_language=en%2Cnull&api_key=$tmdb_key")
+    def ext_ids = curl(acjson, "$tmdb_url/external_ids?api_key=$tmdb_key")
+    def tcred = curl(acjson, "$tmdb_url/credits?language=$tmdb_lang&api_key=$tmdb_key")
+    def imgs = curl(acjson, "$tmdb_url/images?include_image_language=en%2Cnull&api_key=$tmdb_key")
 
     // get image url
     def img_path = (tdir / target.nameWithoutExtension + "-thumb.jpg").toString()
