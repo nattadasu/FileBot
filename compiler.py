@@ -267,6 +267,7 @@ def dequoter(text: str) -> str:
         text = text.replace(fx, key)
     return text
 
+
 def reformat_array(text: str) -> str:
     """
     Remove spaces between array elements, or between hash keys and values
@@ -276,8 +277,6 @@ def reformat_array(text: str) -> str:
     text = sub(r"(?<=\S),\s(?=\S|[^\"\}])", ",", text)
     text = sub(r"(?<=\S):\s(?=\S)", ":", text)
     return text
-
-
 
 
 def main():
@@ -293,7 +292,7 @@ def main():
     script = array_stringify(remove_leading_whitespace(script))
     script = clean_characters(script)
     script = obfuscate_variables(script)
-    script = reformat_array(script)
+    # script = reformat_array(script)
     # script = dequoter(script)
 
     out.parent.mkdir(parents=True, exist_ok=True)
