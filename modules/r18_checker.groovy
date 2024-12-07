@@ -2,7 +2,7 @@
     // list of possibly R18+ tags
     def known_tags = [
         "boys' love (bl)", "gay theme", "yaoi", "yuri", "lesbian", "hentai",
-        "hentai", "sex", "lgbt", "explicit", "adult animation", "adult content",
+        "sex", "lgbt", "explicit", "adult animation", "adult content",
     ]
 
     def tmdb_tv = "TheMovieDB::TV"
@@ -12,6 +12,7 @@
     def known_titles = [
         [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
         [220118, tmdb_tv], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
+        [ 74180, tmdb_tv], // My Marriage Partner Is My Student, a Cocky Troublemaker, 2017
     ]
 
     // List of known titles that might be misclassified as R18+
