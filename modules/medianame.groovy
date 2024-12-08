@@ -13,7 +13,7 @@
 
     // Replace title from short_title if series_id matches "series" from filebot
     // Otherwise, use the original name
-    def db_name = any { info.database } { "IMDb" }
+    def db_name = any { info.database } { id == tmdbid ? "TheMovieDB" : "IMDb" }
     def fixed_id = db_name == "IMDb" ? "tt${id}" : id
     def name_ = n
     short_title.each {

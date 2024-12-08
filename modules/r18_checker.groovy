@@ -20,7 +20,7 @@
         [236530, tmdb_tv] // How I Attended an All-Guy's Mixer, 2024
     ]
 
-    def db_name = any { info.database } { "IMDb" }
+    def db_name = any { info.database } { id == tmdbid ? "TheMovieDB" : "IMDb" }
     def fixed_id = db_name == "IMDb" ? "tt${id}" : id
 
     // REQUIRES USER TO SET ADDITIONAL PROPERTY ON FILEBOT
