@@ -1,17 +1,17 @@
 {
     def custom_releases = [
         // Platform name is for internal use only, aliases are used to match the filename
-        [platform: "ABEMA", aliases: ["ABEMA"]],
-        [platform: "Bilibili.tv", aliases: ["B-Global", "BiliIntl", "BILI"]],
-        [platform: "Hulu", aliases: ["HULU"]],
-        [platform: "iQIYI", aliases: ["IQ.WEB-DL", "IQIYI",]],
-        [platform: "MeWatch", aliases: ["MW.WEB-DL"]],
-        [platform: "Netflix", aliases: ["NF.WEB-DL", "NF WEB"]],
-        [platform: "Prime Video", aliases: ["AMZN"]],
-        [platform: "Shahid", aliases: ["SHAHID"]],
-        [platform: "TVer", aliases: ["TVER"]],
-        [platform: "U-NEXT", aliases: ["UNEXT"]],
-        [platform: "YouTube", aliases: ["YT.WEB-DL", "YOUTUBE", "YTB"]],
+        [platform: "ABEMA", aliases: ["ABEMA"]], // https://abema.tv/
+        [platform: "Bilibili.tv", aliases: ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"]], // https://www.bilibili.tv and https://www.bilibili.com
+        [platform: "Hulu", aliases: ["HULU"]], // https://www.hulu.com and https://www.hulu.jp
+        [platform: "iQIYI", aliases: ["IQ.WEB-DL", "IQIYI"]], // https://www.iq.com
+        [platform: "MeWatch", aliases: ["MW.WEB-DL"]], // https://www.mewatch.sg
+        [platform: "Netflix", aliases: ["NF.WEB-DL", "NF WEB"]], // https://www.netflix.com
+        [platform: "Prime Video", aliases: ["AMZN"]], // https://www.primevideo.com
+        [platform: "Shahid", aliases: ["SHAHID"]], // https://shahid.mbc.net
+        [platform: "TVer", aliases: ["TVER"]], // https://tver.jp
+        [platform: "U-NEXT", aliases: ["UNEXT"]], // https://video.unext.jp
+        [platform: "YouTube", aliases: ["YT.WEB-DL", "YOUTUBE", "YTB"]], // https://www.youtube.com
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
