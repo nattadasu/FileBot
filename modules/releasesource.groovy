@@ -4,11 +4,12 @@
         [platform: "ABEMA", aliases: ["ABEMA"]],
         [platform: "Bilibili.tv", aliases: ["B-Global", "BiliIntl", "BILI"]],
         [platform: "Hulu", aliases: ["HULU"]],
+        [platform: "iQIYI", aliases: ["IQ.WEB-DL", "IQIYI",]],
         [platform: "MeWatch", aliases: ["MW.WEB-DL"]],
         [platform: "Netflix", aliases: ["NF.WEB-DL", "NF WEB"]],
         [platform: "Prime Video", aliases: ["AMZN"]],
-        [platform: "TVer", aliases: ["TVER"]],
         [platform: "Shahid", aliases: ["SHAHID"]],
+        [platform: "TVer", aliases: ["TVER"]],
         [platform: "U-NEXT", aliases: ["UNEXT"]],
         [platform: "YouTube", aliases: ["YT.WEB-DL", "YOUTUBE", "YTB"]],
     ]
