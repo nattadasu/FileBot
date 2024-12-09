@@ -8,8 +8,8 @@
         "E:/",
         "F:/",
         "G:/",
-        "H:/"
-    ].collect { it as File }.sort { a, b -> a.exists() <=> b.exists() ?: a.diskSpace <=> b.diskSpace }.last()
+        "H:/",
+    ].collect { it as File }.sort { first, second -> first.exists() <=> second.exists() ?: first.diskSpace <=> second.diskSpace }.last()
     def final_ = override ? override : guess
     "$final_/"
 }
