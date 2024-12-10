@@ -35,7 +35,6 @@
 }
 {"]["}{crc32.upper()}{"]"}
 {
-    def known_ext = ["ass", "srt", "ssa", "vtt", "ttml"]
     def langcode = [
         "name": "." + lang.name,
         "iso3b": "." + lang.ISO3B,
@@ -49,10 +48,9 @@
             cleanedSubt = cleanedSubt.replace(code, "")
         }
     }
-    known_ext.contains(ext) ? langcode.iso3b + cleanedSubt : ""
+    f.subtitle ? langcode.iso3b + cleanedSubt : ""
 }
 {
     // Jellyfin >=10.9 default thumbnail name
-    def known_ext = ["jpg", "jpeg", "png", "bmp"]
-    known_ext.contains(ext) ? "-thumb" : ""
+    f.image ? "-thumb" : ""
 }
