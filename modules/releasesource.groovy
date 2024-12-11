@@ -5,6 +5,7 @@
         [platform: "Bilibili.tv", aliases: ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"]], // https://www.bilibili.tv and https://www.bilibili.com
         [platform: "Hulu", aliases: ["HULU"]], // https://www.hulu.com and https://www.hulu.jp
         [platform: "iQIYI", aliases: ["IQ.WEB-DL", "IQIYI"]], // https://www.iq.com
+        [platform: "Laftel.tv", aliases: ["LAFTEL", "LFTL"]], // https://laftel.tv
         [platform: "MeWatch", aliases: ["MW.WEB-DL"]], // https://www.mewatch.sg
         [platform: "Netflix", aliases: ["NF.WEB-DL", "NF WEB"]], // https://www.netflix.com
         [platform: "Prime Video", aliases: ["AMZN"]], // https://www.primevideo.com
