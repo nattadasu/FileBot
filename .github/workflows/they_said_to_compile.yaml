@@ -29,32 +29,35 @@ jobs:
           python3 -m pip install regex
       - name: Run Groovy So-Compiler for file format
         run: |
-          # Find groovy files starts with _ on current directory
-          groovyFiles=$(find . -type f -name "_*.groovy")
+          create_symlink() {
+            local target="$1"
+            local link_name="$2"
 
-          function link_file {
-            local file=$1
-            local loc=$2
-            local towindows=$(echo $loc | sed 's/posix/windows/')
-            if [ -e $loc ]; then
-              rm $loc
-            fi
-            if [ -e $towindows ]; then
-              rm $towindows
-            fi
-            ln -s $file $loc
-            ln -s $file $towindows
+            rm -f "$link_name"
+            ln -s "$target" "$link_name"
+            echo "Created symlink: $target -> $link_name"
           }
 
-          # Compile each groovy file
+          rm -f _posix*.groovy _windows*.groovy
+          groovyFiles=$(find . -type f -name "_*.groovy")
+          mkdir -p compiled
+
           for file in $groovyFiles; do
-            fbname="$(basename "$file" | sed 's/^_//')"
-            compiledFile="compiled/$fbname"
-            psxloc="_posix_$fbname"
-            cpsxloc="compiled/posix_$fbname"
-            link_file "$file" "$psxloc"
+            fbname=$(basename "$file")
+            nodash="${fbname#_}"
+
+            compiledFile="compiled/$nodash"
             python3 compiler.py "$file" "$compiledFile"
-            link_file "$compiledFile" "$cpsxloc"
+
+            cpx="_posix$fbname"
+            cwx="_windows$fbname"
+            create_symlink "$fbname" "$cpx"
+            create_symlink "$fbname" "$cwx"
+            (
+              cd compiled || continue
+              create_symlink "$nodash" "${cpx#_}"
+              create_symlink "$nodash" "${cwx#_}"
+            )
           done
       - name: Run Groovy So-Called Compiler for post_ and preset_*.groovy files
         run: |
