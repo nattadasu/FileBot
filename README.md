@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD033 MD028 -->
 # nattadasu's Personal Groovy Scripts for FileBot
 
 Ready-to-use collection of Groovy scripts for FileBot to rename media files.
@@ -55,84 +55,6 @@ filebot --apply /path/to/post_xmbcnfo.groovy
 
 Apply argument should be also executable on AMC script.
 
-## Custom Presets
-
-### Calibre-optimized OPF Metadata Preset
-
-This preset is optimized for Calibre OPF metadata format, really useful if you
-want to mirror your books to other devices or media server (e.g. Jellyfin) by
-duplicating or hardlink to new location.
-
-The preset script assumes that your book metadata is complete and properly
-formatted, and will use it to rename the file.
-
-#### Calibre Binding Reference
-
-> [!NOTE]
->
-> If the binding have stated FileBot-like variable, it means that you can use
-> FileBot variable as alias for the binding.
-
-| Variable       | Aliases                                    | Description                                            | FileBot Similar Variable |
-| -------------- | ------------------------------------------ | ------------------------------------------------------ | ------------------------ |
-| `aaz`          |                                            | Sort collection letter, `author`                       |                          |
-| `age`          |                                            | Age of the book by day, based on `timestamp` - `today` |                          |
-| `amazon`       | `amazon_jp`, `asin`, `amazonid`            | Amazon ASIN                                            |                          |
-| `author`       |                                            | First author                                           |                          |
-| `authors`      |                                            | Authors                                                |                          |
-| `az`           |                                            | Sort collection letter, `sort_title`                   |                          |
-| `barnesnoble`  | `barnesnobleid`                            | Barnes & Noble ID                                      |                          |
-| `calibre`      | `calibreid`                                | Calibre integer ID                                     | `id`                     |
-| `calibreuuid`  | `uuid`                                     | Calibre UUID                                           |                          |
-| `contributor`  |                                            | Contributors                                           |                          |
-| `date`         |                                            | Book release date                                      | `d`                      |
-| `decade`       |                                            | Book release decade                                    |                          |
-| `description`  |                                            | Description                                            |                          |
-| `gaz`          |                                            | Sort collection letter, `genre`                        |                          |
-| `genre`        |                                            | Genre                                                  |                          |
-| `genres`       |                                            | List of genres                                         |                          |
-| `goodreads`    | `goodreadsid`                              | Goodreads ID                                           |                          |
-| `google`       | `googleid`, `googlebooks`, `googlebooksid` | Google Books ID                                        |                          |
-| `isbn`         |                                            | ISBN                                                   |                          |
-| `jellyfin`     |                                            | Jellyfin-compatible collection name                    |                          |
-| `language`     |                                            | Language                                               | `lang`                   |
-| `laz`          |                                            | Sort collection letter, `language`                     |                          |
-| `ny`           |                                            | Series name with year of release                       |                          |
-| `paz`          |                                            | Sort collection letter, `publisher`                    |                          |
-| `publisher`    |                                            | Publisher                                              |                          |
-| `rating`       |                                            | Rating                                                 |                          |
-| `rights`       |                                            | Rights                                                 |                          |
-| `saz`          |                                            | Sort collection letter, `series`                       |                          |
-| `series_index` | `si`, `volume`, `v`                        | Series index                                           | `s`                      |
-| `series`       | `sn`                                       | Series                                                 | `n`                      |
-| `sort_authors` |                                            | Sort authors                                           |                          |
-| `sort_title`   | `st`                                       | Sort title                                             |                          |
-| `ssaz`         |                                            | Sort collection letter, `sort_series`                  |                          |
-| `tags`         |                                            | Tags                                                   |                          |
-| `taz`          |                                            | Sort collection letter, `title`                        |                          |
-| `timestamp`    | `ts`                                       | Added date                                             |                          |
-| `title`        |                                            | Title                                                  | `t`                      |
-| `year`         |                                            | Book release year                                      | `y`                      |
-
-##### FileBot Build-in Variables
-
-Below is the table of which binding that still works well natively and has been
-tested.
-
-| Variable    | Description            |
-| ----------- | ---------------------- |
-| `today`     | Current date           |
-| `fn`        | Current file name      |
-| `ext`       | Current file extention |
-| `crc32`     | CRC32 checksum         |
-| `ct`        | Created date           |
-| `f`         | File object            |
-| `folder`    | Folder object          |
-| `drive`     | Drive object           |
-| `bytes`     | File size in bytes     |
-| `megabytes` | File size in megabytes |
-| `gigabytes` | File size in gigabytes |
-
 ## File Formatting
 
 Below is the guide if you want to use File Formatting feature on this repo.
@@ -151,11 +73,10 @@ favor of my personal preference, and might be not suitable for you.
 
 However, the most important files were:
 
-* `filepath_posix.groovy` and `filepath_windows.groovy` on modules folder are
-  the scripts that handles <u>(default) drive logic</u>. By default, it tries to
-  find the drive that have most free space, and if it's not found, it will use
-  the default drive. You can override by changing `override` variable on the
-  script.
+* `filepath.groovy` on modules folder are the scripts that handles
+  <u>(default) drive logic</u>. By default, it tries to find the drive that have
+  most free space, and if it's not found, it will use the default drive. You can
+  override by changing `override` variable on the script.
 * `common_` are shared scripts that does not have OS-specific behavior (drive
   logic, etc.), and only contains common logic to handle <u>file name</u>.
 
@@ -172,6 +93,13 @@ your experience:
   include it on its group index, or fixing it when it's incorrect.
 * `releasesource.groovy` to handle additional release source when FileBot does
   not include it on its source index, or fixing it when it's incorrect.
+* `season.groovy` to handle season name, additional information, etc.
+* `r18_checker.groovy` to handle NSFW/LGBTQ+ tags, genres, etc. to be appended
+  on the file name. You can modify the list on the script to include your own
+  tags, or add ID of the title to be excluded from the list.
+* `filespec.groovy` to add additional information to the file name, such as
+  resolution, codec, etc., and especially CRC32 hash for verification and dupes
+  handling when a release group uploads new version of the same episode.
 
 You can refer to `compiled/` directory to check logics that FileBot will use.
 
@@ -189,108 +117,127 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 > since it already being minified to the most extent (<4K chars on compiled vs
 > \>7K on `_*.groovy`).
 >
-> To use, replace `@FileBot/_posix_tv.groovy` to `@FileBot/compiled/posix_tv.groovy`,
+> To use, replace `@FileBot/_tv.groovy` to `@FileBot/compiled/tv.groovy`,
 > and so on.
 
-#### POSIX, TV
+#### TV Formatting
 
-THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
+> [!IMPORTANT]
+>
+> This script only have been tested with The Movie DB (TMDB) as data source.
 
 ```groovy
-@FileBot/_posix_tv.groovy
+@FileBot/_tv.groovy
 ```
 
-#### POSIX, Movies
+#### Movie Formatting
 
-THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
+> [!IMPORTANT]
+>
+> This script only have been tested with The Movie DB (TMDB) as data source.
 
 ```groovy
-@FileBot/_posix_movie.groovy
+@FileBot/_movie.groovy
 ```
 
-#### POSIX, Music (to Share)
+#### Music Formatting, for File Sharing
+
+> [!NOTE]
+>
+> Commonly used for music sharing, where the music directory have different
+> structure that usually contains information about the exact release media.
+
+> [!WARNING]
+>
+> This script is not suitable for music library management, and currently
+> unmaintained. Use it at your own risk.
 
 ```groovy
-@FileBot/_posix_music_shared.groovy
-```
-
-#### Windows, TV
-
-THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
-
-```groovy
-@FileBot/_windows_tv.groovy
-```
-
-#### Windows, Movies
-
-THIS SCRIPT MUST BE USED WITH TMDB AS DATA SOURCE
-
-```groovy
-@FileBot/_windows_movie.groovy
-```
-
-#### Windows, Music (to Share)
-
-```groovy
-@FileBot/_windows_music_shared.groovy
+@FileBot/_music_shared.groovy
 ```
 
 ### Examples
 
-#### TV, First Example
+#### TV, Common Example
 
+Following example is a typical anime episode file, and what you can expect after
+the script is applied in most case.
+
+```yml
 Before:
-
-```txt
-Sakuna.Of.Rice.and.Ruin.S01E01.1080p.YT.WEB-DL.JPN.AAC2.0.H.264.MSubs-TH.mkv
-```
+   Magilumiere.Magical.Girls.Inc.S01E10.Ginji.1080p.AMZN.WEB-DL.DDP2.0.H.264-VAR.mkv
 
 After:
-
-```txt
-/run/media/username/Videos/Videos/Anime/Sakuna Of Rice and Ruin/Season 1/[TH] Sakuna Of Rice and Ruin - S01E01 - Episode 1 [YT.WEB-DL 1920x1080 AVC 8Bit, AAC 2.0, MSub (ENG ZHO IND MSA THA ...)][38F1CEF4].mkv
+   /run/media/nattadasu/Videos/Videos/Anime/Magilumiere Magical Girls Inc/Season 1/[VAR] Magilumiere Magical Girls Inc - S01E10 - Ginji [AMZN.WEB-DL 1920x1080 AVC 8bit, EAC3 2.0, MSub (ENG JPN ARA DEU SPA ...)][F15F4F7B].mkv
 ```
 
-#### TV, Second Example
+#### TV, Less Optimal Example
 
+From some release group that usually does not include source information, the
+script will try to guess based on hardcoded rules written in `modules/releasesource.groovy`.
+
+Additionally, when episode title is not available on remote database, it will
+not include it on the file name to reduce clutter, usually due to episode is
+relatively new. Plus, season name is included when it's available.
+
+```yml
 Before:
-
-```txt
-[Ehe] Kuroshitsuji BD - 01.mkv
-```
+   [AAA] Sengoku Youko - 33 [1080p HEVC][A57E5CB3].mkv
 
 After:
+   /run/media/nattadasu/Videos/Videos/Anime/Sengoku Youko/Season 2 - The Thousandfold Chaos Arc/[AAA] Sengoku Youko - S02E20 [WEBRip 1920x1080 HEVC 10bit, AAC 2.0][A57E5CB3].mkv
 
-```txt
-/run/media/username/Videos/Videos/Anime/Black Butler/Season 1 - Black Butler/[Ehe] Black Butler - S01E01 - His Butler, Able [BD 1280x720 AVC 10Bit, AAC 2.0][9FA9EEFC].mkv
+```
+
+#### TV, NSFW/LGBTQ+ Example
+
+For some shows that marked as adult by TMDB, contains NSFW tags/genres or LGBTQ+
+terms, the script will append additional information to the file name to make
+it easier to filter out.
+
+Note that most of the time, release source and group information on parent
+directory won't be passed down to the episode file by default.
+
+You can modify this behavior by editing `modules/r18_checker.groovy`.
+
+Notice that the script will modify release source name to be descriptive on
+2nd example. Behavior can be changed by editing `modules/releasesource.groovy`
+where first item in the list will be used, and the rest will be used as known
+synonyms.
+
+```yml
+Before:
+   [DTA] Offering My Thing to a Gangster [Season 1] [WEB 1080p x265 HEVC AAC] [EngSubs] (Batch)/Offering My Thing to a Gangster - S01E03.mkv
+After:
+   /run/media/username/Videos/Videos/R18+ Anime/Offering My Thing to a Gangster/Season 1/Offering My Thing to a Gangster - S01E01 [1920x1080 HEVC 10bit, AAC 2.0][D168AC2B]
+
+---
+
+Before:
+   No.Love.Zone.S01E01.1080p.LFTL.WEB-DL.KOR.AAC2.0.H.264.MSubs-TH.mkv
+After:
+   /run/media/username/Videos/Videos/R18+ Anime/No Love Zone/Season 1/[TH] No Love Zone - S01E01 [LAFTEL.WEB-DL 1920x1080 AVC 8bit, AAC 2.0, MSub (ENG ZHO IND MSA THA ...)][C3E810B5].mkv
 ```
 
 #### Movie
 
 Before:
 
-```txt
-Suicide.Squad.2016.1080p.BluRay.DDP5.1.x265.10bit-Ginga.mkv
-```
-
+```yml
+Before:
+   Suicide.Squad.2016.1080p.BluRay.DDP5.1.x265.10bit-Ginga.mkv
 After:
-
-```txt
-/run/media/username/Videos/Videos/Movies/Suicide Squad (2016) [tmdbid-297761]/[Ginga] Suicide Squad [BluRay 1920x1080 HEVC 10Bit, EAC3 DD 5.1][EF045D2F].mkv
+   /run/media/username/Videos/Videos/Movies/Suicide Squad (2016) [tmdbid-297761]/[Ginga] Suicide Squad [BluRay 1920x1080 HEVC 10Bit, EAC3 DD 5.1][EF045D2F].mkv
 ```
 
 #### Music
 
 Assuming it has been properly tagged with MusicBrainz Picard or any advanced
-tag editor previously:
+tag editor previously, the script will append catalog number/ISRC instead.
 
 ```txt
-1_01_Noname.flac
-```
-
+Before:
+   1_01_Noname.flac
 After:
-
-```txt
-/home/username/Torrent Uploads/FLAC/2012/[2012.12.21] ノナメ - M-chan [FLAC 24-48.0 KHz][ABCD-12345]/1-01 ノナメ.flac
+   /home/username/Torrent Uploads/FLAC/2012/[2012.12.21] ノナメ - M-chan [FLAC 24-48.0 KHz][ABCD-12345]/1-01 ノナメ.flac
 ```
