@@ -2,16 +2,17 @@
     def custom_releases = [
         // Platform name is for internal use only, aliases are used to match the filename
         ["ABEMA"], // https://abema.tv/
+        ["ADN"], // https://animationdigitalnetwork.com
         ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"], // https://www.bilibili.tv and https://www.bilibili.com
-        ["HULU"], // https://www.hulu.com and https://www.hulu.jp
+        ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
         ["LAFTEL", "LFTL"], // https://laftel.tv
         ["MW.WEB-DL"], // https://www.mewatch.sg
         ["NF.WEB-DL", "NF WEB"], // https://www.netflix.com
-        ["AMZN"], // https://www.primevideo.com
         ["SHAHID"], // https://shahid.mbc.net
         ["TVER"], // https://tver.jp
         ["UNEXT"], // https://video.unext.jp
+        ["WETV"], // https://wetv.vip
         ["YT.WEB-DL", "YOUTUBE", "YTB"], // https://www.youtube.com
     ]
 
