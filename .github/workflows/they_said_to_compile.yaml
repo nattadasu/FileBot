@@ -36,6 +36,16 @@ jobs:
           for file in $groovyFiles; do
             compiledFile="compiled/$(basename "$file" | sed 's/^_//')"
             python3 compiler.py "$file" "$compiledFile"
+            ln -s "$compiledFile" "compiled/posix_$compiledFile"
+            ln -s "$compiledFile" "compiled/windows_$compiledFile"
+          done
+      - name: Link old files
+        run: |
+          # link compiled/{}.groovy to compiled/posix_{}.groovy and compiled/windows_{}.groovy
+          for file in $(find compiled -type f -name "*.groovy"); do
+            fbname=$(basename "$file")
+            ln -s "$fbname" "compiled/posix_$fbname"
+            ln -s "$fbname" "compiled/windows_$fbname"
           done
       - name: Run Groovy So-Called Compiler for post_ and preset_*.groovy files
         run: |
