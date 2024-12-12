@@ -32,20 +32,29 @@ jobs:
           # Find groovy files starts with _ on current directory
           groovyFiles=$(find . -type f -name "_*.groovy")
 
+          function link_file {
+            local file=$1
+            local loc=$2
+            local towindows=$(echo $loc | sed 's/posix/windows/')
+            if [ -e $loc ]; then
+              rm $loc
+            fi
+            if [ -e $towindows ]; then
+              rm $towindows
+            fi
+            ln -s $file $loc
+            ln -s $file $towindows
+          }
+
           # Compile each groovy file
           for file in $groovyFiles; do
-            compiledFile="compiled/$(basename "$file" | sed 's/^_//')"
+            fbname="$(basename "$file" | sed 's/^_//')"
+            compiledFile="compiled/$fbname"
+            psxloc="_posix_$fbname"
+            cpsxloc="compiled/posix_$fbname"
+            link_file "$file" "$psxloc"
             python3 compiler.py "$file" "$compiledFile"
-            ln -s "$compiledFile" "compiled/posix_$compiledFile"
-            ln -s "$compiledFile" "compiled/windows_$compiledFile"
-          done
-      - name: Link old files
-        run: |
-          # link compiled/{}.groovy to compiled/posix_{}.groovy and compiled/windows_{}.groovy
-          for file in $(find compiled -type f -name "*.groovy"); do
-            fbname=$(basename "$file")
-            ln -s "$fbname" "compiled/posix_$fbname"
-            ln -s "$fbname" "compiled/windows_$fbname"
+            link_file "$compiledFile" "$cpsxloc"
           done
       - name: Run Groovy So-Called Compiler for post_ and preset_*.groovy files
         run: |
