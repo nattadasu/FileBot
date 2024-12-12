@@ -1,1 +1,1 @@
-compiled/movie.groovy
+movie.groovy

@@ -1,1 +1,1 @@
-compiled/tv.groovy
+tv.groovy
