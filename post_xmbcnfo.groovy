@@ -1,6 +1,6 @@
 { source, target, metadata ->
     // sanity check, fail when its not an episode and video file
-    if (type.toString() != "Episode" || !vf || f.subtitle || f.audio || f.image) {
+    if (type.toString() != "Episode" && !f.video) {
         return null
     }
     def tdir = target.dir
