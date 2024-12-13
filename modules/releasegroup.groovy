@@ -2,6 +2,7 @@
     def customGroups = [
         "Alqanime",
         "BlackLuster",
+        "Kuramanime",
         "NanDesuKa",
         "ToonsHub",
         "Tsundere-Raws",
