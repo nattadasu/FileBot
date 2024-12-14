@@ -1,6 +1,6 @@
 {
     // detect if the system is windows
-    def gp_ = {System.getProperty(it)}
+    def gp_ = { System.getProperty(it) }
     def is_windows = gp_("os.name").toLowerCase().contains("windows")
     // get current username
     def user_ = gp_("user.name")
@@ -9,8 +9,7 @@
     def mntp = "/run/media/${user_}"
 
     //! OVERRIDE THIS PATH IF NEEDED, ELSE, BLANK IT ("")
-    // def override = is_windows ? "H:/" : "$mntp/Videos"
-    def override = ""
+    def override = is_windows ? "H:/" : "$mntp/Videos"
 
     def mounts = [
         [label: "Books", winmnt: "F:/", linmnt: "$mntp/Books"],
@@ -20,10 +19,7 @@
         [label: "Videos", winmnt: "H:/", linmnt: "$mntp/Videos"],
     ]
 
-    def guess = (mounts.collect {it[is_windows ? "winmnt" : "linmnt"] as File}
-                .sort {first, second ->
-                    first.exists() <=> second.exists() ?: first.diskSpace <=> second.diskSpace
-                }).last().path
+    def guess = (mounts.collect { it[is_windows ? "winmnt" : "linmnt"] as File }.sort { first, second -> first.exists() <=> second.exists() ?: first.diskSpace <=> second.diskSpace }).last()
     def final_ = override ?: guess
     "$final_/"
 }

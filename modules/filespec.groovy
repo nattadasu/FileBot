@@ -17,18 +17,18 @@
 {
     def dub = " Dub"
     // if audioLanguages contains language, blank out dub
-    def substat = audioLanguages.any{it.ISO3B == language.ISO3B} ? "" : dub
-    substat = audioLanguages.size() == 1 && audioLanguages.any{it.ISO3B == "und"} ? "" : substat
+    def substat = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : dub
+    substat = audioLanguages.size() == 1 && audioLanguages.any { it.ISO3B == "und" } ? "" : substat
     substat
 }
 {
-    def audioLangCount = any {audioLanguages.size()} {0}
+    def audioLangCount = any { audioLanguages.size() } { 0 }
     def substat = audioLangCount > 2 ? " MAud" : audioLangCount > 1 ? " DAud" : null
     def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
     substat ? substat + langs_.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
 }
 {
-    def textLangCount = any {textLanguages.size()} {0}
+    def textLangCount = any { textLanguages.size() } { 0 }
     def substat = textLangCount > 2 ? ", MSub" : textLangCount > 1 ? ", DSub" : null
     def langs_ = textLangCount > 5 ? textLanguages.take(5) : textLanguages
     substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 5 ? " ...)" : ")") : ""
@@ -44,7 +44,7 @@
         ]
         // Clean subt variable if any on langcode exists
         def cleanedSubt = subt
-        langcode.values().each {code ->
+        langcode.values().each { code ->
             if (cleanedSubt.contains(code)) {
                 cleanedSubt = cleanedSubt.replace(code, "")
             }

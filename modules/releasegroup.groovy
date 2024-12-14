@@ -8,9 +8,17 @@
         "Tsundere-Raws",
     ]
 
-    def fgr_ = customGroups.find {groupName -> fn.contains(groupName)} ?: ""
+    def finalGroup = customGroups.find { groupName -> fn.contains(groupName) } ?: ""
 
-    def group_ = any {(fn =~ /^\[(.*?)\]/)[0][1]} {fgr_} {group} {""}
+    def group_ = any {
+        (fn =~ /^\[(.*?)\]/)[0][1]
+    } {
+        finalGroup
+    } {
+        group
+    } {
+        ""
+    }
 
     group_ ? "[$group_] " : ""
 }
