@@ -4,10 +4,12 @@
         ["ABEMA"], // https://abema.tv/
         ["ADN"], // https://animationdigitalnetwork.com
         ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"], // https://www.bilibili.tv and https://www.bilibili.com
+        ["COOLMIC"], // https://coolmic.com
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
         ["JFFP"],
         ["LAFTEL", "LFTL"], // https://laftel.tv
+        ["MDON", "MANGADON"], // https://mangadon.me
         ["MW.WEB-DL"], // https://www.mewatch.sg
         ["NF.WEB-DL", "NF WEB"], // https://www.netflix.com
         ["SHAHID"], // https://shahid.mbc.net
