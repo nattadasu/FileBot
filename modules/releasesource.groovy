@@ -7,7 +7,7 @@
         ["COOLMIC"], // https://coolmic.com
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
-        ["JFFP"],
+        ["JFFP"], // https://www.jff.jfp.go.jp
         ["LAFTEL", "LFTL"], // https://laftel.tv
         ["MDON", "MANGADON"], // https://mangadon.me
         ["MW.WEB-DL"], // https://www.mewatch.sg
