@@ -29,7 +29,12 @@
     def release_ = any {
         def platform = custom_releases.find { idx -> idx.find { known -> fn.lower().contains(known.lower()) } }[0]
         platform = platform.replace(".WEB-DL", "")
-        platform ? "${platform}.WEB-DL" : ""
+        // sometimes, group may use different keyword like WEBRip instead of WEB-DL
+        // when they do a re-encoding or modification. This logic will try to find the
+        // correct source if stated explicitly in the filename
+        def is_webdl = source.contains("WEB-DL")
+        def src_smart = source ? ".${source}" : ""
+        is_webdl ? "${platform}.WEB-DL" : platform ? "${platform}${src_smart}" : ""
     } {
     } {
         source
