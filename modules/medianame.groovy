@@ -3,13 +3,7 @@
     def short_title = [
         // Media ID, target name, database
         [mid:  68854, title: "From Me to You", src: tmdb_tv],
-        [mid:  94904, title: "My Next Life as a Villainess", src: tmdb_tv],
-        [mid: 229743, title: "VTuber Legend", src: tmdb_tv],
         [mid: 234538, title: "Demon Lord 2099", src: tmdb_tv],
-        [mid: 237045, title: "Cherry Magic!", src: tmdb_tv],
-        [mid: 240633, title: "A Journey Through Another World", src: tmdb_tv],
-        [mid: 245285, title: "Failure Frame", src: tmdb_tv],
-        [mid: 271026, title: "Taisho Era Contract Marriage", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
