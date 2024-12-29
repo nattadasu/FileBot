@@ -10,9 +10,11 @@
     // Manual list of known R18+ titles, only add if the title is known to be R18+
     // or have a variant that is R18+
     def known_titles = [
-        [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
-        [220118, tmdb_tv], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
         [ 74180, tmdb_tv], // My Marriage Partner Is My Student, a Cocky Troublemaker, 2017
+        [ 93821, tmdb_tv], // XL Joushi, 2019
+        [ 95897, tmdb_tv], // Overflow, 2020
+        [220118, tmdb_tv], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
+        [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
     ]
 
     // List of known titles that might be misclassified as R18+
