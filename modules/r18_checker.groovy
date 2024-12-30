@@ -3,6 +3,7 @@
     def known_tags = [
         "boys' love (bl)", "gay theme", "yaoi", "yuri", "lesbian", "hentai",
         "sex", "lgbt", "explicit", "adult animation", "adult content",
+        "nudity",
     ]
 
     def tmdb_tv = "TheMovieDB::TV"
