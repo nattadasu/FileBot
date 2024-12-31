@@ -4,7 +4,7 @@
         // Media ID, target name, database
         [mid:  68854, title: "From Me to You", src: tmdb_tv],
         [mid: 219816, title: "Fate/Grand Order: Fujimaru Ritsuka Doesn't Get It", src: tmdb_tv],
-        [mid: 234538, title: "Demon Lord 2099", src: tmdb_tv],
+        [mid: 276204, title: "Bogus Skill Fruitmaster", str: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot

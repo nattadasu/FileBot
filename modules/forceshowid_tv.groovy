@@ -7,6 +7,7 @@
         [239779, tmdb_tv], // True Beauty (2024) (여신강림), KR
         [257162, tmdb_tv], // LINK CLICK (2024) (时光代理人), ZH, Live Action
         [259140, tmdb_tv], // Ranma 1/2 (2024) (らんま1/2), JP
+        [276204, tmdb_tv], // Bogus Skill Fruitmaster (2025), (外れスキル《木の実マスター》), JP
     ]
     def is_id_matches = show_id.find { it[0] == id && it[1] == info.database } != null
     // try map TheMovieDB::TV -> tmdbid, AniDB -> anidbid, TheTVDB -> tvdbid
