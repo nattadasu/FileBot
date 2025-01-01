@@ -11,13 +11,13 @@
 @./medianame.groovy
 {" ("}{y}{")"}
 {
-    def db_name = id == tmdbid ? "TheMovieDB" : "IMDb"
+    /* def db_name = id == tmdbid ? "TheMovieDB" : "IMDb"
     def db_map = [
         "TheMovieDB": "tmdbid",
         "IMDb": "imdbid"
     ]
     def db_src = db_map[db_name]
     def fixed_id = db_name == "IMDb" ? "tt${id}" : id
-    " [${db_src}-${fixed_id}]/"
+    " [${db_src}-${fixed_id}]/" */
 }
 @./filename_movie.groovy
