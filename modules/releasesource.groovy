@@ -17,7 +17,7 @@
         ["TVER"], // https://tver.jp
         ["UNEXT"], // https://video.unext.jp
         ["WETV"], // https://wetv.vip
-        ["YT.WEB-DL", "YOUTUBE", "YTB"], // https://www.youtube.com
+        ["YTB", "YT.WEB-DL", "YOUTUBE"], // https://www.youtube.com
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
@@ -37,6 +37,8 @@
         def src_smart = source ? ".${source}" : ""
         is_webdl ? "${platform}.WEB-DL" : platform ? "${platform}${src_smart}" : ""
     } {
+        // if unlised group is BiliIntl, then it's from bilibili
+        unlisted_group == "BiliIntl" ? "BILI.WEB-DL" : ""
     } {
         source
     } {
