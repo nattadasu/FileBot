@@ -21,7 +21,7 @@
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
-    def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "KawaSubs", "GuodongSubs"]
+    def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "KawaSubs", "GuodongSubs", "SAMEHADAKU"]
     // List of groups that directly rip the video from specific source
     def release_group = ["Erai-raws", "SubsPlease"]
     def unlisted_group = any {(fn =~ /^\[(.*?)\]/)[0][1]} {""}
