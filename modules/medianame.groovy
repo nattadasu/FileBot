@@ -5,6 +5,7 @@
         [mid:  68854, title: "From Me to You", src: tmdb_tv],
         [mid: 219816, title: "Fate/Grand Order: Fujimaru Ritsuka Doesn't Get It", src: tmdb_tv],
         [mid: 245561, title: "Okitsura", src: tmdb_tv],
+        [mid: 248707, title: "Neko Oji The Guy That Got Reincarnated As a Cat", src: tmdb_tv],
         [mid: 259559, title: "Headhunted to Another World", src: tmdb_tv],
         [mid: 276204, title: "Bogus Skill Fruitmaster", src: tmdb_tv],
     ]
