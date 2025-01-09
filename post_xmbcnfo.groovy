@@ -76,7 +76,11 @@
             title(t)
             originaltitle(localize."${languages[0]}".t)
             rating(rating)
-            year(airdate.format("yyyy"))
+            try {
+                year(airdate.format("yyyy"))
+            } catch (Exception err) {
+                // ignore
+            }
             uniqueid(type: "tmdb", value: episode.id, 'default': "true", episode.id)
             tmdbid(episode.id)
             if (ext_ids?.imdb_id) {
@@ -124,7 +128,11 @@
             showtitle(n)
             episode(cep)
             season(cse)
-            aired(airdate.format("yyyy-MM-dd"))
+            try {
+                aired(airdate.format("yyyy-MM-dd"))
+            } catch (Exception err) {
+                // ignore
+            }
             fileinfo {
                 streamdetails {
                     target.mediaInfo.Video.each { vid -> video {
