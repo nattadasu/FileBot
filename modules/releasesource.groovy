@@ -5,6 +5,7 @@
         ["ADN"], // https://animationdigitalnetwork.com
         ["BBC"], // https://bbc.co.uk, and iPlayer...
         ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"], // https://www.bilibili.tv and https://www.bilibili.com
+        ["BOOKCUBE"], // https://bookcube.com
         ["COOLMIC"], // https://coolmic.com
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
