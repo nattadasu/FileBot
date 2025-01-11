@@ -2,8 +2,10 @@
 {
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = t.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
-    def epnum = any { e } { special }
-    // check if fixed name length is more than 100, if so, empty it
     fixed_name = fixed_name.length() > 100 ? " " : " - $fixed_name "
-    fixed_name == " - Episode $epnum " ? " " : fixed_name
+    def epnum = any { e } { special }
+    def def_ep = "Episode $epnum"
+    // if fixed_name contains default episode name, blank it out
+    def epname = fixed_name.contains(def_ep) ? '' : fixed_name
+    epname != '' ? epname : ''
 }
