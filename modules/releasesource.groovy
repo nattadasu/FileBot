@@ -3,9 +3,7 @@
         // Platform name is for internal use only, aliases are used to match the filename
         ["ABEMA"], // https://abema.tv/
         ["ADN"], // https://animationdigitalnetwork.com
-        ["BBC"], // https://bbc.co.uk, and iPlayer...
         ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"], // https://www.bilibili.tv and https://www.bilibili.com
-        ["BOOKCUBE"], // https://bookcube.com
         ["COOLMIC"], // https://coolmic.com
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
@@ -22,7 +20,7 @@
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
-    def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "KawaSubs", "GuodongSubs", "SAMEHADAKU"]
+    def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "GuodongSubs", "SAMEHADAKU"]
     // List of groups that directly rip the video from specific source
     def release_group = ["Erai-raws", "SubsPlease"]
     def unlisted_group = any {(fn =~ /^\[(.*?)\]/)[0][1]} {""}
@@ -31,7 +29,13 @@
     def release_ = any {
         def platform = custom_releases.find { idx -> idx.find { known -> fn.lower().contains(known.lower()) } }[0]
         platform = platform.replace(".WEB-DL", "")
-        platform ? "${platform}.WEB-DL" : ""
+        // Some file may have additional "WEBRip" tag, consider it to new logic
+        if (fn.contains("WEBRip")) {
+            platform = platform + ".WEBRip"
+        } else if (fn.contains("WEB-DL") || fn.contains("WEBDL")) {
+            platform = platform + ".WEB-DL"
+        }
+        platform
     } {
         source
     } {
