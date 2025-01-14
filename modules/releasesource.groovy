@@ -31,8 +31,9 @@
         platform = platform.replace(".WEB-DL", "")
         // Some file may have additional "WEBRip" tag, consider it to new logic
         if (fn.contains("WEBRip")) {
+        	platform = platform.replace(".WEBRip", "")
             platform = platform + ".WEBRip"
-        } else if (fn.contains("WEB-DL") || fn.contains("WEBDL")) {
+        } else {
             platform = platform + ".WEB-DL"
         }
         platform
