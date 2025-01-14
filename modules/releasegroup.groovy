@@ -6,6 +6,7 @@
         "NanDesuKa",
         "ToonsHub",
         "Tsundere-Raws",
+        "S1PH3R",
         "Samehadaku",
     ]
 
