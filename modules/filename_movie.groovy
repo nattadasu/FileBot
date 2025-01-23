@@ -1,4 +1,4 @@
 @./releasegroup.groovy
 @./medianame.groovy
-{" ("}{y}{")"}
+{" ("}{y}{") ["}
 @./filespec.groovy

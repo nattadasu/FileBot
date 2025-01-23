@@ -1,4 +1,3 @@
-{" ["}
 @./releasesource.groovy
 {
     def bdepth = bitdepth ? " ${bitdepth}bit" : ""
