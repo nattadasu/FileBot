@@ -1,6 +1,7 @@
 {
     def custom_releases = [
         // Platform name is for internal use only, aliases are used to match the filename
+        ["YTB", "YT.WEB-DL", "YOUTUBE"], // https://www.youtube.com
         ["ABEMA"], // https://abema.tv/
         ["ADN"], // https://animationdigitalnetwork.com
         ["BILI", "B-Global", "BiliIntl", "B-Site", "BiliCN"], // https://www.bilibili.tv and https://www.bilibili.com
@@ -16,7 +17,6 @@
         ["TVER"], // https://tver.jp
         ["UNEXT"], // https://video.unext.jp
         ["WETV"], // https://wetv.vip
-        ["YTB", "YT.WEB-DL", "YOUTUBE"], // https://www.youtube.com
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
