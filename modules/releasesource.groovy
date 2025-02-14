@@ -33,7 +33,7 @@
         platform = platform.replace(".WEB-DL", "")
         // Some file may have additional "WEBRip" tag, consider it to new logic
         if (fn.contains("WEBRip")) {
-        	platform = platform.replace(".WEBRip", "")
+            platform = platform.replace(".WEBRip", "")
             platform = platform + ".WEBRip"
         } else {
             platform = platform + ".WEB-DL"
@@ -43,7 +43,7 @@
         source
     } {
         reencode_group.find { g_ -> group == g_ || unlisted_group == g_ } ? "WEBRip" : ""
-    } { 
+    } {
         bdreencode_group.find { g_ -> group == g_ || unlisted_group == g_ } ? "BDRip" : ""
     } {
         def mtag = release_group.find { r_ -> group == r_ || unlisted_group == r_} ? "WEB-DL" : ""
