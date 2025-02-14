@@ -22,6 +22,7 @@
 
     // List of groups that re-encode or modified even further the video from specific source
     def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "GuodongSubs", "SAMEHADAKU"]
+    def bdreencode_group = ["DB"]
     // List of groups that directly rip the video from specific source
     def release_group = ["Erai-raws", "SubsPlease"]
     def unlisted_group = any {(fn =~ /^\[(.*?)\]/)[0][1]} {""}
@@ -42,6 +43,8 @@
         source
     } {
         reencode_group.find { g_ -> group == g_ || unlisted_group == g_ } ? "WEBRip" : ""
+    } { 
+        bdreencode_group.find { g_ -> group == g_ || unlisted_group == g_ } ? "BDRip" : ""
     } {
         def mtag = release_group.find { r_ -> group == r_ || unlisted_group == r_} ? "WEB-DL" : ""
         (source == "Erai-raws" && vcf.upper() == "HEVC") ? "WEBRip" : mtag
