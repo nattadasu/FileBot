@@ -3,7 +3,7 @@
     def known_tags = [
         "boys' love (bl)", "gay theme", "yaoi", "yuri", "lesbian", "hentai",
         "sex", "lgbt", "explicit", "adult animation", "adult content",
-        "nudity",
+        "nudity", "animefesta"
     ]
 
     def tmdb_tv = "TheMovieDB::TV"
@@ -15,6 +15,7 @@
         [ 93821, tmdb_tv], // XL Joushi, 2019
         [ 95897, tmdb_tv], // Overflow, 2020
         [220118, tmdb_tv], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
+        [249891, tmdb_tv], // Yoasobi Gurashi, 2024
         [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
     ]
 
