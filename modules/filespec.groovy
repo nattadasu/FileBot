@@ -28,7 +28,7 @@
 }
 {
     def textLangCount = any { textLanguages.size() } { 0 }
-    def substat = textLangCount > 2 ? ", MULTi" : textLangCount > 1 ? ", DUAL" : textLangCount = 1 ? ", SUB" : null
+    def substat = textLangCount > 2 ? ", MULTi" : textLangCount > 1 ? ", DUAL" : textLangCount == 1 ? ", SUB" : null
     def langs_ = textLangCount > 5 ? textLanguages.take(5) : textLanguages
     substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
 }
