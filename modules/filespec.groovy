@@ -17,7 +17,7 @@
     def audioLangCount = any { audioLanguages.size() } { 0 }
     def substat = audioLangCount > 2 ? " MULTi-AUD" : audioLangCount > 1 ? " DUAL-AUD" : null
     def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
-    substat ? substat + langs_.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
+    substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
 }
 {
     def dub = " DUBBED"
@@ -30,7 +30,7 @@
     def textLangCount = any { textLanguages.size() } { 0 }
     def substat = textLangCount > 2 ? ", MULTi" : textLangCount > 1 ? ", DUAL" : textLangCount == 1 ? ", SUB" : null
     def langs_ = textLangCount > 5 ? textLanguages.take(5) : textLanguages
-    substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
+    substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
 }
 {"]["}{crc32.upper()}{"]"}
 {
