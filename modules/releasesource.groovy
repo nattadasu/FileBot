@@ -14,7 +14,7 @@
         ["MDON", "MANGADON"], // https://mangadon.me
         ["MW.WEB-DL"], // https://www.mewatch.sg
         ["NF.WEB-DL", "NF WEB"], // https://www.netflix.com
-        ["OVEIL", "OceanVeil"], // https://oceanveil.net
+        ["OVEIL", "OV.WEB-DL", "OceanVeil"], // https://oceanveil.net
         ["SHAHID"], // https://shahid.mbc.net
         ["TVER"], // https://tver.jp
         ["UNEXT"], // https://video.unext.jp
