@@ -3,6 +3,7 @@
         "Alqanime",
         "BlackLuster",
         "darkflux",
+        "It's Anime",
         "Kuramanime",
         "NanDesuKa",
         "ToonsHub",
@@ -14,9 +15,9 @@
     def finalGroup = customGroups.find { groupName -> fn.lower().contains(groupName.lower()) } ?: ""
 
     def group_ = any {
-        (fn =~ /^\[(.*?)\]/)[0][1]
-    } {
         finalGroup
+    } {
+        (fn =~ /^\[(.*?)\]/)[0][1]
     } {
         group
     } {
