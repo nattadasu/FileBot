@@ -15,16 +15,11 @@
 )}
 {
     def audioLangCount = any { audioLanguages.size() } { 0 }
-    def substat = audioLangCount > 2 ? " MULTi-AUD" : audioLangCount > 1 ? " DUAL-AUD" : null
+    def substat = audioLangCount > 2 ? " MULTi-AUD" : audioLangCount > 1 ? " DUAL-AUD" : ""
     def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
+    def dub = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : " DUBBED"
+    substat = audioLangCount == 1 && audioLanguages.any { it.ISO3B == "und" } ? "" : "$substat$dub"
     substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
-}
-{
-    def dub = " DUBBED"
-    // if audioLanguages contains language, blank out dub
-    def substat = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : dub
-    substat = audioLanguages.size() == 1 && audioLanguages.any { it.ISO3B == "und" } ? "" : substat
-    substat
 }
 {
     def textLangCount = any { textLanguages.size() } { 0 }
