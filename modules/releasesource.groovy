@@ -2,7 +2,7 @@
     def custom_releases = [
         // Platform name is for internal use only, aliases are used to match the filename
         ["YTB", "YT.WEB-DL", "YOUTUBE"], // https://www.youtube.com
-        ["ABEMA"], // https://abema.tv/
+        ["ABEMA", "ABEMATV"], // https://abema.tv/
         ["ADN"], // https://animationdigitalnetwork.com
         ["BILI", "B-Global", "BiliIntl"], // https://www.bilibili.tv
         ["BSITE", "BILICN"], // https://www.bilibili.com
