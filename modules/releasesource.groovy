@@ -18,6 +18,7 @@
         ["SHAHID"], // https://shahid.mbc.net
         ["TVER"], // https://tver.jp
         ["UNEXT"], // https://video.unext.jp
+        ["VIDIO"], // https://vidio.com
         ["WETV"], // https://wetv.vip
     ]
 
