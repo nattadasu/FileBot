@@ -8,6 +8,7 @@
         [mid: 270657, title: "Tono to Inu", src: tmdb_tv],
         [mid: 271003, title: "Yandere Dark Elf", src: tmdb_tv],
         [mid: 274741, title: "The Too-Perfect Saint", src: tmdb_tv],
+        [mid: 288419, title: "Chikuwa Senki", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
