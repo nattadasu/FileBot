@@ -7,6 +7,7 @@
         [mid: 248707, title: "Neko Oji The Guy That Got Reincarnated As a Cat", src: tmdb_tv],
         [mid: 271003, title: "Yandere Dark Elf", src: tmdb_tv],
         [mid: 274741, title: "The Too-Perfect Saint", src: tmdb_tv],
+        [mid: 275623, title: "Chuzenji-sensei", src: tmdb_tv],
         [mid: 281623, title: "SHIROHIYO", src: tmdb_tv],
         [mid: 288419, title: "Chikuwa Senki", src: tmdb_tv],
     ]
