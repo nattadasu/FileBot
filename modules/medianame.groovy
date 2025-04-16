@@ -5,9 +5,9 @@
         [mid: 199928, title: "Nights With a Cat", src: tmdb_tv],
         [mid: 219816, title: "Fate Grand Order Fujimaru Ritsuka Doesn't Get It", src: tmdb_tv],
         [mid: 248707, title: "Neko Oji The Guy That Got Reincarnated As a Cat", src: tmdb_tv],
-        [mid: 270657, title: "Tono to Inu", src: tmdb_tv],
         [mid: 271003, title: "Yandere Dark Elf", src: tmdb_tv],
         [mid: 274741, title: "The Too-Perfect Saint", src: tmdb_tv],
+        [mid: 281623, title: "SHIROHIYO", src: tmdb_tv],
         [mid: 288419, title: "Chikuwa Senki", src: tmdb_tv],
     ]
 
