@@ -10,7 +10,7 @@
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
         ["JFFP"], // https://www.jff.jfp.go.jp
-        ["LAFTEL", "LFTL"], // https://laftel.tv
+        ["LFTL", "LAFTEL"], // https://laftel.tv
         ["MDON", "MANGADON"], // https://mangadon.me
         ["MW.WEB-DL"], // https://www.mewatch.sg
         ["NF.WEB-DL", "NF WEB"], // https://www.netflix.com
@@ -19,6 +19,7 @@
         ["TVER"], // https://tver.jp
         ["UNEXT"], // https://video.unext.jp
         ["VIDIO"], // https://vidio.com
+        ["VIU"], // https://viu.com
         ["WETV"], // https://wetv.vip
     ]
 
