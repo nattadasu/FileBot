@@ -22,10 +22,15 @@
     substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
 }
 {
-    def textLangCount = any { textLanguages.size() } { 0 }
+    def text_arr = text.language.collect {
+        ['zh-Hans': 'ZH-S',
+         'zh-Hant': 'ZH-T',
+        ].get(it,it).toUpperCase()
+    }.unique()
+    def textLangCount = any { text_arr.size() } { 0 }
     def substat = textLangCount > 2 ? ", MULTi" : textLangCount > 1 ? ", DUAL" : textLangCount == 1 ? ", SUB" : null
-    def langs_ = textLangCount > 5 ? textLanguages.take(5) : textLanguages
-    substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
+    def langs_ = textLangCount > 5 ? text_arr.take(5) : text_arr
+    substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
 }
 {"]["}{crc32.upper()}{"]"}
 {
