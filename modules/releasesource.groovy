@@ -21,6 +21,8 @@
         ["VIDIO"], // https://vidio.com
         ["VIU"], // https://viu.com
         ["WETV"], // https://wetv.vip
+        ["INSTA", "INSTAGRAM"], // https://instagram.com
+        ["ANIMENOTANE"], // https://animenotane.jp
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
