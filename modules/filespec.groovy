@@ -25,6 +25,7 @@
     def text_arr = text.language.collect {
         ['zh-Hans': 'ZH-S',
          'zh-Hant': 'ZH-T',
+         'ar-001': 'AR-MSA',
         ].get(it,it).toUpperCase()
     }.unique()
     def textLangCount = any { text_arr.size() } { 0 }
