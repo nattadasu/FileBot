@@ -2,7 +2,7 @@
     def tmdb_tv = "TheMovieDB::TV"
     def short_title = [
         // Media ID, target name, database
-        [mid: 199928, title: "Nights With a Cat", src: tmdb_tv],,
+        [mid: 199928, title: "Nights With a Cat", src: tmdb_tv],
         [mid: 248707, title: "Neko Oji The Guy That Got Reincarnated As a Cat", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 280078, title: "The All-devouring Whale Homecoming", src: tmdb_tv],
