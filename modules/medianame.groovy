@@ -3,9 +3,11 @@
     def short_title = [
         // Media ID, target name, database
         [mid: 199928, title: "Nights With a Cat", src: tmdb_tv],
+        [mid: 232230, title: "Lord of the Mysteries", src: tmdb_tv],
         [mid: 248707, title: "Neko Oji The Guy That Got Reincarnated As a Cat", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 280078, title: "The All-devouring Whale Homecoming", src: tmdb_tv],
+        [mid: 283704, title: "Fermat Kitchen", src: tmdb_tv],
         [mid: 283884, title: "Chuhai Lips", src: tmdb_tv],
         [mid: 288419, title: "Chikuwa Senki", src: tmdb_tv],
     ]
