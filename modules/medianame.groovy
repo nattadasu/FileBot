@@ -12,6 +12,7 @@
         [mid: 280078, title: "The All-devouring Whale Homecoming", src: tmdb_tv],
         [mid: 283704, title: "Fermat Kitchen", src: tmdb_tv],
         [mid: 283884, title: "Chuhai Lips", src: tmdb_tv],
+        [mid: 288404, title: "The New Chronicles of Extraordinary Beings_ Preface", src: tmdb_tv],
         [mid: 288419, title: "Chikuwa Senki", src: tmdb_tv],
     ]
 
