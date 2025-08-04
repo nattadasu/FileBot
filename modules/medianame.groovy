@@ -4,16 +4,18 @@
         // Media ID, target name, database
         [mid: 199928, title: "Nights With a Cat", src: tmdb_tv],
         [mid: 213830, title: "I Was Reincarnated as the 7th Prince", src: tmdb_tv],
+        [mid: 216489, title: "Tomica Heroes Job Labor (TV)", src: tmdb_tv],
         [mid: 232230, title: "Lord of the Mysteries", src: tmdb_tv],
+        [mid: 238460, title: "Sumikko Gurashi Sorairo no Mainichi Tokubetsu-hen", src: tmdb_tv],
         [mid: 248707, title: "Neko Oji The Guy That Got Reincarnated As a Cat", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 277581, title: "Dekin no Mogura", src: tmdb_tv],
         [mid: 280038, title: "Apocalypse Bringer Mynoghra", src: tmdb_tv],
-        [mid: 280078, title: "The All-devouring Whale Homecoming", src: tmdb_tv],
-        [mid: 283704, title: "Fermat Kitchen", src: tmdb_tv],
+        [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 283884, title: "Chuhai Lips", src: tmdb_tv],
         [mid: 288404, title: "The New Chronicles of Extraordinary Beings Preface", src: tmdb_tv],
         [mid: 288419, title: "Chikuwa Senki", src: tmdb_tv],
+        [mid: 295625, title: "Marie Antoinette ni Tensei Shita", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
