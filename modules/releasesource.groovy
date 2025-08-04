@@ -7,6 +7,7 @@
         ["BILI", "B-Global", "BiliIntl"], // https://www.bilibili.tv
         ["BSITE", "BILICN"], // https://www.bilibili.com
         ["CMIC", "COOLMIC"], // https://coolmic.com
+        ["CTHP"], // https://catchplay.com
         ["FOD"], // https://fod.fujitv.co.jp
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
         ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
