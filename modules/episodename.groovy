@@ -7,5 +7,6 @@
     def def_ep = "Episode $epnum"
     // if fixed_name contains default episode name, blank it out
     def epname = fixed_name.contains(def_ep) ? '' : fixed_name
-    epname != '' ? epname : ''
+    // epname != '' ? epname : ''
+    ''
 }
