@@ -19,7 +19,8 @@
     def langs_ = audioLangCount > 5 ? audioLanguages.take(5) : audioLanguages
     def dub = audioLanguages.any { it.ISO3B == language.ISO3B } ? "" : " DUBBED"
     substat = audioLangCount == 1 && audioLanguages.any { it.ISO3B == "und" } ? "" : "$substat$dub"
-    substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
+    // substat ? substat + langs_.ISO2.joining(" ", " (", "").upper() + (audioLangCount > 5 ? " ...)" : ")") : ""
+    substat
 }
 {
     def text_arr = text.language.collect {
@@ -31,7 +32,8 @@
     def textLangCount = any { text_arr.size() } { 0 }
     def substat = textLangCount > 2 ? ", MULTi" : textLangCount > 1 ? ", DUAL" : textLangCount == 1 ? ", SUB" : null
     def langs_ = textLangCount > 5 ? text_arr.take(5) : text_arr
-    substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
+    // substat ? substat + langs_.joining(" ", " (", "").upper() + (textLangCount > 6 ? " ...)" : ")") : ""
+    substat
 }
 {"]["}{crc32.upper()}{"]"}
 {
