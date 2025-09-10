@@ -25,6 +25,7 @@
         ["WETV"], // https://wetv.vip
         ["INSTA", "INSTAGRAM"], // https://instagram.com
         ["ANIMENOTANE"], // https://animenotane.jp
+        ["TWTR"], // https://twitter.com / https://x.com
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
