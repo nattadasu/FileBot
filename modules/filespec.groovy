@@ -23,7 +23,7 @@
     substat
 }
 {
-    /def text_arr = text.language.collect {
+    def text_arr = text.language.collect {
         ['zh-Hans': 'ZH-S',
          'zh-Hant': 'ZH-T',
          'ar-001': 'AR-MSA',
