@@ -6,6 +6,7 @@
         ["ADN"], // https://animationdigitalnetwork.com
         ["BILI", "B-Global", "BiliIntl"], // https://www.bilibili.tv
         ["BSITE", "BILICN"], // https://www.bilibili.com
+        ["BUMP"], // https://lp.bump.studio
         ["CMIC", "COOLMIC"], // https://coolmic.com
         ["CTHP"], // https://catchplay.com
         ["FOD"], // https://fod.fujitv.co.jp
