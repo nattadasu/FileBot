@@ -1,4 +1,8 @@
-{" - "}{s00e00}
+{" - "}{s00e00}{
+    // find version numbering on file, e.g. v2, v3
+    def version = (fn =~ /(?i)(?<![a-zA-Z])v(\d+)/)
+    version ? 'v' + version[0][1] : ''
+}
 {
     def invalid_chars = ['\\', '/', ':', '*', '?', '"', '<', '>', '|']
     def fixed_name = t.replaceAll(invalid_chars.collect { "\\" + it }.join('|'), '_')
