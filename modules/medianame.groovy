@@ -3,7 +3,7 @@
     def short_title = [
         // Media ID, target name, database
         [mid: 213830, title: "I Was Reincarnated as the 7th Prince", src: tmdb_tv],
-        [mid: 232230, title: "Lord of the Mysteries", src: tmdb_tv],
+        [mid: 236565, title: "Hero Without a Class", src: tmdb_tv],
         [mid: 238460, title: "Sumikko Gurashi Sorairo no Mainichi Tokubetsu-hen", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 277581, title: "Dekin no Mogura", src: tmdb_tv],
