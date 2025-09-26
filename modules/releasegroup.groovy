@@ -1,5 +1,6 @@
 {
     def customGroups = [
+        "AkiraRIPS",
         "Alqanime",
         "BlackLuster",
         "darkflux",
