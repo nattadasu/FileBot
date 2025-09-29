@@ -5,6 +5,7 @@
         [mid: 213830, title: "I Was Reincarnated as the 7th Prince", src: tmdb_tv],
         [mid: 236565, title: "Hero Without a Class", src: tmdb_tv],
         [mid: 238460, title: "Sumikko Gurashi Sorairo no Mainichi Tokubetsu-hen", src: tmdb_tv],
+        [mid: 262453, title: "The Fated Magical Princess", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 277581, title: "Dekin no Mogura", src: tmdb_tv],
         [mid: 280038, title: "Apocalypse Bringer Mynoghra", src: tmdb_tv],
