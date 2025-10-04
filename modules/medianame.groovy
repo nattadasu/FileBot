@@ -3,6 +3,7 @@
     def short_title = [
         // Media ID, target name, database
         [mid: 213830, title: "I Was Reincarnated as the 7th Prince", src: tmdb_tv],
+        [mid: 221165, title: "Hyakusho Kizoku", src: tmdb_tv],
         [mid: 236565, title: "Hero Without a Class", src: tmdb_tv],
         [mid: 238460, title: "Sumikko Gurashi Sorairo no Mainichi Tokubetsu-hen", src: tmdb_tv],
         [mid: 262453, title: "The Fated Magical Princess", src: tmdb_tv],
@@ -16,6 +17,7 @@
         [mid: 296047, title: "Shuukan Ranobe Anime", src: tmdb_tv],
         [mid: 296319, title: "Tomica Heroes Job Labor (TV)", src: tmdb_tv],
         [mid: 297286, title: "Potions Will Save Me", src: tmdb_tv],
+        [mid: 302169, title: "Anila to Cocora", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
