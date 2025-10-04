@@ -17,7 +17,7 @@
         [mid: 296047, title: "Shuukan Ranobe Anime", src: tmdb_tv],
         [mid: 296319, title: "Tomica Heroes Job Labor (TV)", src: tmdb_tv],
         [mid: 297286, title: "Potions Will Save Me", src: tmdb_tv],
-        [mid: 302169, title: "Anila to Cocora", src: tmdb_tv],
+        [mid: 302169, title: "Anila and Cocora", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
