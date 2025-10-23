@@ -16,7 +16,7 @@
         ["LFTL", "LAFTEL"], // https://laftel.tv
         ["MDON", "MANGADON"], // https://mangadon.me
         ["MW.WEB-DL"], // https://www.mewatch.sg
-        ["NBLA.WEB-DL", "Nebula Proper ~ WEBDL"], // https://nebula.tv
+        ["NBLA.WEB-DL", "Nebula"], // https://nebula.tv
         ["NF.WEB-DL", "NF WEB"], // https://www.netflix.com
         ["OVEIL", "OV.WEB-DL", "OceanVeil"], // https://oceanveil.net
         ["SHAHID"], // https://shahid.mbc.net
