@@ -2,6 +2,7 @@
     def tmdb_tv = "TheMovieDB::TV"
     def short_title = [
         // Media ID, target name, database
+        [mid: 136342, title: "Disney Twisted-Wonderland", src: tmdb_tv],
         [mid: 213830, title: "I Was Reincarnated as the 7th Prince", src: tmdb_tv],
         [mid: 221165, title: "Hyakusho Kizoku", src: tmdb_tv],
         [mid: 236565, title: "Hero Without a Class", src: tmdb_tv],
