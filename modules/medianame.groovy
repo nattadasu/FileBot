@@ -13,6 +13,7 @@
         [mid: 280038, title: "Apocalypse Bringer Mynoghra", src: tmdb_tv],
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 285260, title: "Kaijyu Sekai Seifuku", src: tmdb_tv],
+        [mid: 287704, title: "Muzik Tiger In the Forest", src: tmdb_tv],
         [mid: 295625, title: "Marie Antoinette ni Tensei Shita", src: tmdb_tv],
         [mid: 296047, title: "Shuukan Ranobe Anime", src: tmdb_tv],
         [mid: 296319, title: "Tomica Heroes Job Labor (TV)", src: tmdb_tv],
