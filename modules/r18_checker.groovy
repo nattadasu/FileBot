@@ -17,6 +17,7 @@
         [220118, tmdb_tv], // Sazanami Soushi ni Junketsu wo Sasagu, 2023
         [249891, tmdb_tv], // Yoasobi Gurashi, 2024
         [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
+        [288577, tmdb_tv], // Room of Guilty Pleasure/Guilty Hole, 2025
     ]
 
     // List of known titles that might be misclassified as R18+
