@@ -9,6 +9,9 @@
     // if kv contains Series name from fixed_title (partially or fully), then remove it
     def kv = fixed_name.contains(fixed_title) ? "" : fixed_name
     // Sanitize the season name if it just repeats the "Season" string
-    kv == 'Season '+ s || kv == 'Series '+ s ? "" : kv ? " - " + kv : ""
+    // Also remove redundant "Season X - " or "Series X - " prefix from the season name
+    kv = kv == 'Season '+ s || kv == 'Series '+ s ? "" : kv
+    kv = kv.replaceAll(/^Season \d+ - /, '').replaceAll(/^Series \d+ - /, '')
+    kv ? " - " + kv : ""
 }
 {"/"}
