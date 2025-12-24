@@ -3,21 +3,13 @@
     def short_title = [
         // Media ID, target name, database
         [mid: 136342, title: "Disney Twisted-Wonderland", src: tmdb_tv],
-        [mid: 213830, title: "I Was Reincarnated as the 7th Prince", src: tmdb_tv],
-        [mid: 221165, title: "Hyakusho Kizoku", src: tmdb_tv],
-        [mid: 236565, title: "Hero Without a Class", src: tmdb_tv],
         [mid: 262453, title: "The Fated Magical Princess", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
-        [mid: 277581, title: "Dekin no Mogura", src: tmdb_tv],
-        [mid: 278635, title: "Unlimited Gacha", src: tmdb_tv],
-        [mid: 280038, title: "Apocalypse Bringer Mynoghra", src: tmdb_tv],
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 285260, title: "Kaijyu Sekai Seifuku", src: tmdb_tv],
         [mid: 287704, title: "Muzik Tiger In the Forest", src: tmdb_tv],
         [mid: 295625, title: "Marie Antoinette ni Tensei Shita", src: tmdb_tv],
         [mid: 296047, title: "Shuukan Ranobe Anime", src: tmdb_tv],
-        [mid: 296319, title: "Tomica Heroes Job Labor (TV)", src: tmdb_tv],
-        [mid: 297286, title: "Potions Will Save Me", src: tmdb_tv],
         [mid: 302169, title: "Anila and Cocora", src: tmdb_tv],
     ]
 
