@@ -18,6 +18,7 @@
         [249891, tmdb_tv], // Yoasobi Gurashi, 2024
         [271026, tmdb_tv], // Taisho Era Contract Marriage, 2024
         [288577, tmdb_tv], // Room of Guilty Pleasure/Guilty Hole, 2025
+        [287973, tmdb_tv], // Ren Arisugawa Is Actually a Girl, 2026
     ]
 
     // List of known titles that might be misclassified as R18+
