@@ -7,6 +7,7 @@
         [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 281161, title: "Noble Reincarnation", src: tmdb_tv],
+        [mid: 284495, title: "Isekai Office Worker", src: tmdb_tv],
         [mid: 285260, title: "Kaijyu Sekai Seifuku", src: tmdb_tv],
         [mid: 287704, title: "Muzik Tiger In the Forest", src: tmdb_tv],
         [mid: 295366, title: "Yuukawa", src: tmdb_tv],
