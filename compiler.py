@@ -313,12 +313,78 @@ def dequoter(text: str) -> str:
 
 def reformat_array(text: str) -> str:
     """
-    Remove spaces between array elements, or between hash keys and values
-    DO NOT remove spaces in {".+"} outside of array or hash
+    Remove spaces between array/map elements in specific patterns
+    Targets explicit key:value pairs in maps and array element lists
     """
-    #
-    text = sub(r"(?<=\S),\s(?=\S|[^\"\}])", ",", text)
-    text = sub(r"(?<=\S):\s(?=\S)", ":", text)
+    # Remove spaces in map key:value patterns like [key: "value", key2: "value2"]
+    # Only for quoted values to be safe
+    text = sub(r'([a-zA-Z_]\w*):\s+(["\'])', r"\1:\2", text)
+
+    # Remove spaces in map key:value with numeric/variable values
+    # [key: 123, key2: var]  ->  [key:123,key2:var]
+    text = sub(r"([a-zA-Z_]\w*):\s+([a-zA-Z_0-9])", r"\1:\2", text)
+
+    # Remove spaces in numeric key:value pairs like {8: 'value', 7: 'value'}
+    text = sub(r'(\d+):\s+(["\'])', r"\1:\2", text)
+
+    # Remove spaces after commas between map entries
+    # Only when comma is followed by an identifier (map key) or number
+    text = sub(r",\s+([a-zA-Z_0-9]\w*:)", r",\1", text)
+
+    return text
+
+
+def remove_spaces_around_operators(text: str) -> str:
+    """
+    Remove spaces around operators to shrink code size
+
+    Args:
+        text (str): Text to optimize
+
+    Returns:
+        str: Optimized text
+    """
+    # Remove spaces around comparison and assignment operators
+    operators = [
+        (r"\s*==\s*", "=="),
+        (r"\s*!=\s*", "!="),
+        (r"\s*<=\s*", "<="),
+        (r"\s*>=\s*", ">="),
+        (r"\s*<\s*", "<"),
+        (r"\s*>\s*", ">"),
+        (r"\s*\?\s*", "?"),
+        (r"\s*\|\|\s*", "||"),
+        (r"\s*&&\s*", "&&"),
+        (r"\s*\+=\s*", "+="),
+        (r"\s*-=\s*", "-="),
+        (r"\s*\*=\s*", "*="),
+        (r"\s*/=\s*", "/="),
+    ]
+
+    for pattern, replacement in operators:
+        text = sub(pattern, replacement, text)
+
+    return text
+
+
+def remove_spaces_in_calls(text: str) -> str:
+    """
+    Remove unnecessary spaces in function calls and parentheses
+
+    Args:
+        text (str): Text to optimize
+
+    Returns:
+        str: Optimized text
+    """
+    # Remove spaces after opening parentheses and before closing
+    text = sub(r"\(\s+", "(", text)
+    text = sub(r"\s+\)", ")", text)
+
+    # Remove spaces in square brackets
+    text = sub(r"\[\s+", "[", text)
+    text = sub(r"\s+\]", "]", text)
+
     return text
 
 
@@ -335,8 +401,10 @@ def main():
     script = array_stringify(remove_leading_whitespace(script))
     script = clean_characters(script)
     script = obfuscate_variables(script, use_json=not args.forget)
-    # script = reformat_array(script)
-    # script = dequoter(script)
+    script = remove_spaces_around_operators(script)
+    script = remove_spaces_in_calls(script)
+    script = reformat_array(script)
+    script = dequoter(script)
 
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(script, encoding="utf8")
