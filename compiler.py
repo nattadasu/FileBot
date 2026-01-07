@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 import argparse as ap
+import json
 from pathlib import Path
-from regex import DOTALL, MULTILINE, match, sub, findall
-from typing import Union
 from random import choice
+from typing import Union
+
+from regex import DOTALL, MULTILINE, findall, match, sub
 
 
 def parse_args():
@@ -19,6 +21,11 @@ def parse_args():
     )
     parser.add_argument("input", type=str, help="Input Groovy Script")
     parser.add_argument("output", type=str, help="Output FileBot File")
+    parser.add_argument(
+        "--forget",
+        action="store_true",
+        help="Do not use or save keyword mapping from .compiler.keywords.json",
+    )
     return parser.parse_args()
 
 
@@ -123,7 +130,7 @@ def resolve_imports(script_path: Union[str, Path]) -> str:
             import_path = Path(script_path).parent / match(
                 r"^@(.*\.groovy)", line
             ).group(1)
-            print(f"    @ {script_path}:{i+1} <- {import_path.absolute()}")
+            print(f"    @ {script_path}:{i + 1} <- {import_path.absolute()}")
             sli[i] = resolve_imports(import_path)
 
     return "".join(sli)
@@ -188,18 +195,51 @@ def clean_characters(text: str) -> str:
     return text
 
 
-def obfuscate_variables(text: str) -> str:
+def load_keyword_mapping(json_path: Path) -> dict[str, str]:
+    """
+    Load keyword mapping from JSON file
+
+    Args:
+        json_path (Path): Path to JSON file
+
+    Returns:
+        dict[str, str]: Keyword mapping
+    """
+    if json_path.exists():
+        with open(json_path, "r", encoding="utf8") as f:
+            return json.load(f)
+    return {}
+
+
+def save_keyword_mapping(json_path: Path, mapping: dict[str, str]) -> None:
+    """
+    Save keyword mapping to JSON file
+
+    Args:
+        json_path (Path): Path to JSON file
+        mapping (dict[str, str]): Keyword mapping to save
+    """
+    with open(json_path, "w", encoding="utf8") as f:
+        json.dump(mapping, f, ensure_ascii=False)
+
+
+def obfuscate_variables(text: str, use_json: bool = True) -> str:
     """
     Obfuscate variables in the input text, replacing them with 1-3 character strings.
 
     Args:
         text (str): Text to sanitize
+        use_json (bool): Whether to use external keyword mapping file
 
     Returns:
         str: Sanitized text
     """
+    json_path = Path(".compiler.keywords.json")
 
-    variables = {}
+    if use_json:
+        variables = load_keyword_mapping(json_path)
+    else:
+        variables = {}
 
     # Find all variables in the text, excluding function definitions
     # fmt: off
@@ -237,6 +277,9 @@ def obfuscate_variables(text: str) -> str:
             continue
         text = sub(rf"\b{var}\b", obf, text)
 
+    if use_json:
+        save_keyword_mapping(json_path, variables)
+
     return text
 
 
@@ -253,7 +296,7 @@ def key_finder(banned_list: list[str], known_keys: dict[str, str]) -> str:
     """
     char = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
     while True:
-        key = "".join(choice(char) for _ in range(1, choice([2, 3])+1))
+        key = "".join(choice(char) for _ in range(1, choice([2, 3]) + 1))
         if key not in banned_list and key not in known_keys.values():
             break
     return key
@@ -291,7 +334,7 @@ def main():
     script = remove_blank_lines(script)
     script = array_stringify(remove_leading_whitespace(script))
     script = clean_characters(script)
-    script = obfuscate_variables(script)
+    script = obfuscate_variables(script, use_json=not args.forget)
     # script = reformat_array(script)
     # script = dequoter(script)
 
