@@ -265,7 +265,8 @@ def obfuscate_variables(text: str, use_json: bool = True) -> str:
     for pattern in pattens:
         for var in findall(pattern, text):
             for key in var.split(", "):
-                if key not in variables:
+                # Skip if key already exists as a mapping OR if it's already used as an obfuscated value
+                if key not in variables and key not in variables.values():
                     obf = key_finder(banned, variables)
                     variables[key] = obf
 
