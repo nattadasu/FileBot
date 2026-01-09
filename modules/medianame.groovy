@@ -5,6 +5,7 @@
         [mid: 136342, title: "Disney Twisted-Wonderland", src: tmdb_tv],
         [mid: 262453, title: "The Fated Magical Princess", src: tmdb_tv],
         [mid: 270660, title: "Pochars", src: tmdb_tv],
+        [mid: 280049, title: "Hell Mode", src: tmdb_tv],
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 281161, title: "Noble Reincarnation", src: tmdb_tv],
         [mid: 284495, title: "Isekai Office Worker", src: tmdb_tv],
