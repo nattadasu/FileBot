@@ -8,7 +8,6 @@
     def bdepth = bitdepth > 8 ? " ${bitdepth}bit" : ""
     "$resos $vcf$bdepth, $ac"
 }
-{" "}
 {af.format(
     8: 'DD+ 7.1',
     7: '6.1',
