@@ -15,6 +15,7 @@
         [mid: 295625, title: "Marie Antoinette ni Tensei Shita", src: tmdb_tv],
         [mid: 296047, title: "Shuukan Ranobe Anime", src: tmdb_tv],
         [mid: 302169, title: "Anila and Cocora", src: tmdb_tv],
+        [mid: 295483, title: "The Villainess Is Adored by the Prince of the Neighbor Kingdom", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
