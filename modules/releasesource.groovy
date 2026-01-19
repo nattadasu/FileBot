@@ -51,7 +51,7 @@
         }
         platform
     } {
-        source
+        source.replace("_", "-")
     } {
         reencode_group.find { g_ -> group == g_ || unlisted_group == g_ } ? "WEBRip" : ""
     } {
@@ -62,7 +62,7 @@
         def mtag = release_group.find { r_ -> group == r_ || unlisted_group == r_} ? "WEB-DL" : ""
         (source == "Erai-raws" && vcf.upper() == "HEVC") ? "WEBRip" : mtag
     } {
-        vs
+        vs.replace("_", "-")
     } {
         ""
     }
