@@ -31,7 +31,7 @@
     ]
 
     // List of groups that re-encode or modified even further the video from specific source
-    def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "GuodongSubs", "SAMEHADAKU", "Kusonime"]
+    def reencode_group = ["ASW", "Judas", "JRx7", "EMBER", "GuodongSubs", "SAMEHADAKU", "Kusonime", "Trix"]
     def bdreencode_group = ["DB"]
     def tvreencode_group = ["Ruri-Saizen"]
     // List of groups that directly rip the video from specific source
