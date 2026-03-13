@@ -17,6 +17,7 @@
         [mid: 302169, title: "Anila and Cocora", src: tmdb_tv],
         [mid: 295483, title: "The Villainess Is Adored by the Prince of the Neighbor Kingdom", src: tmdb_tv],
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
+        [mid: 315816, title: "Marika's Love Meter Malfunction", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
