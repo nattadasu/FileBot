@@ -13,6 +13,7 @@
         "Tsundere-Raws",
         "S1PH3R",
         "Samehadaku",
+        "VARYG",
     ]
 
     def finalGroup = customGroups.find { groupName -> fn.lower().contains(groupName.lower()) } ?: ""

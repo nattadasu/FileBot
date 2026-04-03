@@ -10,6 +10,7 @@
         [257162, tmdb_tv], // LINK CLICK (2024) (时光代理人), ZH, Live Action
         [259140, tmdb_tv], // Ranma 1/2 (2024) (らんま1/2), JP
         [280049, tmdb_tv], // Hell Mode (2026) (ヘルモード), JP
+        [288590, tmdb_tv], // Observation Records of My Fiancée (2026), JP
         [295366, tmdb_tv], // Yuukawa (2026) (勇者パーティーにかわいい子がいたので、告白してみた。), JP
         [296287, tmdb_tv], // Plus-sized Misadventures in Love! (2025) (デブとラブと過ちと!), JP
         [303460, tmdb_tv], // Kanteishi (Kari) (2026) (鑑定士（仮）), JP
