@@ -16,7 +16,7 @@
         ["LFTL", "LAFTEL"], // https://laftel.tv
         ["MDON", "MANGADON"], // https://mangadon.me
         ["MW.WEB-DL"], // https://www.mewatch.sg
-        ["NHK1", "NHK.WEB-DL"] // https://web.nhk
+        ["NHK1", "NHK.WEB-DL"], // https://web.nhk
         ["NBLA", "Nebula"], // https://nebula.tv
         ["NF.WEB-DL", "NF WEB"], // https://www.netflix.com
         ["OVEIL", "OV.WEB-DL", "OceanVeil"], // https://oceanveil.net
