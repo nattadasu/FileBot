@@ -20,6 +20,7 @@
         [288577, tmdb_tv], // Room of Guilty Pleasure/Guilty Hole, 2025
         [287973, tmdb_tv], // Ren Arisugawa Is Actually a Girl, 2026
         [300015, tmdb_tv], // Ichigo Aika Strawberry Elegy, 2026
+        [316715, tmdb_tv], // Do You Like Big Girls, 2026
     ]
 
     // List of known titles that might be misclassified as R18+
