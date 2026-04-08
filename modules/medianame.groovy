@@ -17,6 +17,7 @@
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
         [mid: 313395, title: "The Great Sage Ryddel and the Hands of Time", src: tmdb_tv],
         [mid: 315816, title: "Marika's Love Meter Malfunction", src: tmdb_tv],
+        [mid: 318478, title: "Hyakki Yakoushou", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
