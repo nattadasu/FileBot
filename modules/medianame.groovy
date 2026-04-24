@@ -13,6 +13,7 @@
         [mid: 287704, title: "Muzik Tiger In the Forest", src: tmdb_tv],
         [mid: 288590, title: "Observation Records of My Fiancée", src: tmdb_tv],
         [mid: 295366, title: "Yuukawa", src: tmdb_tv],
+        [mid: 296256, title: "AOTU WORLD REBORN", src: tmdb_tv],
         [mid: 303460, title: "Kanteishi (Kari)", src: tmdb_tv],
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
         [mid: 313395, title: "The Great Sage Ryddel and the Hands of Time", src: tmdb_tv],
