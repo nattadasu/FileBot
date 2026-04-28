@@ -26,8 +26,8 @@
 
     // List of known titles that might be misclassified as R18+
     def override_tag = [
-        [236530, tmdb_tv] // How I Attended an All-Guy's Mixer, 2024
-        [301944, tmdb_tv] // Marriage Toxin, 2026
+        [236530, tmdb_tv], // How I Attended an All-Guy's Mixer, 2024
+        [301944, tmdb_tv], // Marriage Toxin, 2026
     ]
 
     def db_name = any { info.database } { id == tmdbid ? "TheMovieDB" : "IMDb" }
