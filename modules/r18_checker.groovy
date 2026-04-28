@@ -11,6 +11,7 @@
     // Manual list of known R18+ titles, only add if the title is known to be R18+
     // or have a variant that is R18+
     def known_titles = [
+        // WWWavve / AnimeFesta / OceanVeil releases, for some reason....
         [ 74180, tmdb_tv], // My Marriage Partner Is My Student, a Cocky Troublemaker, 2017
         [ 93821, tmdb_tv], // XL Joushi, 2019
         [ 95897, tmdb_tv], // Overflow, 2020
@@ -26,6 +27,7 @@
     // List of known titles that might be misclassified as R18+
     def override_tag = [
         [236530, tmdb_tv] // How I Attended an All-Guy's Mixer, 2024
+        [301944, tmdb_tv] // Marriage Toxin, 2026
     ]
 
     def db_name = any { info.database } { id == tmdbid ? "TheMovieDB" : "IMDb" }
