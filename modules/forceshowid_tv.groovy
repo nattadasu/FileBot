@@ -1,6 +1,7 @@
 {
     def tmdb_tv = "TheMovieDB::TV"
     def show_id = [
+        [ 35466, tmdb_tv], // Ghost Stories (2000) (学校の怪談), JP
         [ 78474, tmdb_tv], // You Don't Know Gunma Yet (2018) (お前はまだグンマを知らない), JP
         [ 95897, tmdb_tv], // Overflow (2020) (おーばーふろぉ), JP
         [123542, tmdb_tv], // LINK CLICK (2021) (时光代理人), ZH, Donghua
