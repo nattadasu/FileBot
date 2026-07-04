@@ -3,22 +3,11 @@
     def short_title = [
         // Media ID, target name, database
         [mid: 136342, title: "Disney Twisted-Wonderland", src: tmdb_tv],
-        [mid: 262453, title: "The Fated Magical Princess", src: tmdb_tv],
-        [mid: 270660, title: "Pochars", src: tmdb_tv],
         [mid: 280049, title: "Hell Mode", src: tmdb_tv],
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
-        [mid: 281161, title: "Noble Reincarnation", src: tmdb_tv],
-        [mid: 284495, title: "Isekai Office Worker", src: tmdb_tv],
-        [mid: 285260, title: "Kaijyu Sekai Seifuku", src: tmdb_tv],
-        [mid: 287704, title: "Muzik Tiger In the Forest", src: tmdb_tv],
-        [mid: 288590, title: "Observation Records of My Fiancée", src: tmdb_tv],
-        [mid: 295366, title: "Yuukawa", src: tmdb_tv],
         [mid: 296256, title: "AOTU WORLD REBORN", src: tmdb_tv],
         [mid: 303460, title: "Kanteishi (Kari)", src: tmdb_tv],
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
-        [mid: 313395, title: "The Great Sage Ryddel and the Hands of Time", src: tmdb_tv],
-        [mid: 315816, title: "Marika's Love Meter Malfunction", src: tmdb_tv],
-        [mid: 318478, title: "Hyakki Yakoushou", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
