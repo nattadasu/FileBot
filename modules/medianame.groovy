@@ -8,6 +8,8 @@
         [mid: 296256, title: "AOTU WORLD REBORN", src: tmdb_tv],
         [mid: 303460, title: "Kanteishi (Kari)", src: tmdb_tv],
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
+        [mid: 312849, title: "Rich Girl Caretaker", src: tmdb_tv],
+        [mid: 314554, title: "From Overshadowed to Overpowered", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot

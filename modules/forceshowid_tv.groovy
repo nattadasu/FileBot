@@ -9,6 +9,7 @@
         [259140, tmdb_tv], // Ranma 1/2 (2024) (らんま1/2), JP
         [280049, tmdb_tv], // Hell Mode (2026) (ヘルモード), JP
         [303460, tmdb_tv], // Kanteishi (Kari) (2026) (鑑定士（仮）), JP
+        [312849, tmdb_tv], // Rich Girl Caretaker (2026) (才女のお世話), JP
     ]
     def is_id_matches = show_id.find { it[0] == id && it[1] == info.database } != null
     // try map TheMovieDB::TV -> tmdbid, AniDB -> anidbid, TheTVDB -> tvdbid
