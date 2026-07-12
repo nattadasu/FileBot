@@ -3,73 +3,112 @@
     if (type.toString() != "Episode" && !f.video) {
         return null
     }
+
+    // --- Helper Closures ---
+
+    // Load configurations from ~/.filebotsecrets.json
+    def loadSecrets = {
+        def config = [:]
+        config['tmdb_key'] = ""
+        config['tmdb_lang'] = "en-US"
+        config['personal'] = null
+
+        def secretsFile = new File("$home/.filebotsecrets.json")
+        if (secretsFile.exists()) {
+            def udata = new groovy.json.JsonSlurper().parseText(secretsFile.text)
+            config['tmdb_key'] = udata.tmdb_key ?: ""
+            config['tmdb_lang'] = udata.language ?: "en-US"
+            config['personal'] = udata.person_info_dir
+        }
+        return config
+    }
+
+    // Fetch TVMaze ID with a 10-second timeout limit
+    def fetchTvmazeId = { tvdbId, season, episode ->
+        def task = java.util.concurrent.CompletableFuture.supplyAsync({
+            def tvm_url = "https://api.tvmaze.com"
+            def c1 = curl "$tvm_url/lookup/shows?thetvdb=$tvdbId"
+            def s1 = c1.id
+            def eplLocal = curl "$tvm_url/shows/$s1/episodebynumber?season=$season&number=$episode"
+            return eplLocal.id
+        })
+        try {
+            return task.get(10, java.util.concurrent.TimeUnit.SECONDS)
+        } catch (Exception err) {
+            task.cancel(true)
+            return 0
+        }
+    }
+
+    // Fetch metadata resources from TMDB
+    def fetchTmdbData = { tmdbId, season, episode, apiKey, lang ->
+        def tmdb_url = "https://api.themoviedb.org/3/tv/$tmdbId/season/$season/episode/$episode"
+        def acjson = ["accept": "application/json"]
+        return [
+            info: curl(acjson, "$tmdb_url?language=$lang&api_key=$apiKey"),
+            ext_ids: curl(acjson, "$tmdb_url/external_ids?api_key=$apiKey"),
+            credits: curl(acjson, "$tmdb_url/credits?language=$lang&api_key=$apiKey"),
+            images: curl(acjson, "$tmdb_url/images?include_image_language=en%2Cnull&api_key=$apiKey")
+        ]
+    }
+
+    // Download episode thumbnail if missing (accepts tmdbImages object to avoid obfuscating JSON key names)
+    def downloadThumbnail = { tdir, targetName, tmdbImages ->
+        def img_path = (tdir / targetName + "-thumb.jpg").toString()
+        def img_obj = new File(img_path)
+        def r_img_obj = new File(img_path.replace("-thumb",""))
+        if (!(img_obj.exists() || r_img_obj.exists()) && tmdbImages.stills.size() > 0) {
+            def img_url = "https://image.tmdb.org/t/p/original${tmdbImages.stills[0].file_path}"
+            system "curl", "-o", tdir / targetName + "-thumb.jpg", img_url
+        }
+        return img_obj
+    }
+
+    // Process actors lists and download profiling images (accepts tmdbCredits object to avoid obfuscating JSON key names)
+    def processActors = { personal, tmdbCredits ->
+        def cactors = []
+        (tmdbCredits.cast + tmdbCredits.guest_stars).eachWithIndex { c, index ->
+            def download_path = "$personal/${c.name[0]}/${c.name}"
+            def sord = c.order ?: index + cactors.size()
+            cactors << [person_name: c.name, crole: c.character, ford: sord, download_path: "${download_path}/folder.jpg"]
+            if (personal) {
+                def download_obj = new File(download_path)
+                if (!download_obj.exists()) {
+                    download_obj.mkdirs()
+                    system "curl", "-o", "${download_path}/folder.jpg", "https://image.tmdb.org/t/p/original${c.profile_path}"
+                }
+            }
+        }
+        return cactors
+    }
+
+    // --- Main Logic Flow ---
+
     def tdir = target.dir
     def cse = any{ s } { 0 }
     def cep = any{ e } { special }
-    def tvmapi = 0
-    def epl = null
-    try {
-        if (db.TheTVDB?.id) {
-            def tvm_url = "https://api.tvmaze.com"
-            def c1 = curl "$tvm_url/lookup/shows?thetvdb=${db.TheTVDB.id}"
-            def s1 = c1.id
-            epl = curl "$tvm_url/shows/$s1/episodebynumber?season=$cse&number=$cep"
-            tvmapi = epl.id
-        }
-    } catch (Exception err) {
-        // ignore
-    }
 
-    // load ~/.filebotsecrets.json and set tmdb_key
-    def tmdb_key = ""
-    def tmdb_lang = "en-US"
-    def personal = null
-    def secrets = new File("$home/.filebotsecrets.json")
-    if (secrets.exists()) {
-        def udata = new groovy.json.JsonSlurper().parseText(secrets.text)
-        tmdb_key = udata.tmdb_key
-        tmdb_lang = udata.language
-        personal = udata.person_info_dir
-    }
+    // Resolve TVMaze API ID
+    def tvmapi = db.TheTVDB?.id ? fetchTvmazeId(db.TheTVDB.id, cse, cep) : 0
 
-    // get episode info from TMDB
-    def tmdb_url = "https://api.themoviedb.org/3/tv/$id/season/$cse/episode/$cep"
-    def acjson = ["accept": "application/json"]
-    def ep_info = curl(acjson, "$tmdb_url?language=$tmdb_lang&api_key=$tmdb_key")
+    // Load Secrets config
+    def secrets = loadSecrets()
 
-    def ext_ids = curl(acjson, "$tmdb_url/external_ids?api_key=$tmdb_key")
-    def tcred = curl(acjson, "$tmdb_url/credits?language=$tmdb_lang&api_key=$tmdb_key")
-    def imgs = curl(acjson, "$tmdb_url/images?include_image_language=en%2Cnull&api_key=$tmdb_key")
+    // Fetch TMDB Metadata Details
+    def tmdb = fetchTmdbData(id, cse, cep, secrets['tmdb_key'], secrets['tmdb_lang'])
 
-    // get image url
-    def img_path = (tdir / target.nameWithoutExtension + "-thumb.jpg").toString()
-    def img_obj = new File(img_path)
-    def r_img_obj = new File(img_path.replace("-thumb",""))
-    if (!(img_obj.exists() || r_img_obj.exists()) && imgs.stills.size() > 0) {
-        def img_url = "https://image.tmdb.org/t/p/original${imgs.stills[0].file_path}"
-        system "curl", "-o", tdir / target.nameWithoutExtension + "-thumb.jpg", img_url
-    }
+    // Handle Episode Thumbnail download
+    def img_obj = downloadThumbnail(tdir, target.nameWithoutExtension, tmdb.images)
 
-    def cactors = []
+    // Build lists of actors / casts
+    def cactors = processActors(secrets['personal'], tmdb.credits)
 
-    (tcred.cast + tcred.guest_stars).eachWithIndex { c, index ->
-        def download_path = "$personal/${c.name[0]}/${c.name}"
-        def sord = c.order ?: index + cactors.size()
-        cactors << [person_name: c.name, crole: c.character, ford: sord, download_path: "${download_path}/folder.jpg"]
-        if (personal) {
-            def download_obj = new File(download_path)
-            if (!download_obj.exists()) {
-                download_obj.mkdirs()
-                system "curl", "-o", "${download_path}/folder.jpg", "https://image.tmdb.org/t/p/original${c.profile_path}"
-            }
-        }
-    }
-
+    // Write metadata NFO schema file
     def nfo_path = tdir / target.nameWithoutExtension + ".nfo"
     XML(nfo_path) {
         mkp.xmlDeclaration(version: "1.0", encoding: "utf-8", standalone: "yes")
         episodedetails {
-            plot(ep_info.overview)
+            plot(tmdb.info.overview)
             lockdata("false")
             // today date on UTC
             dateadded(new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("UTC")))
@@ -83,13 +122,13 @@
             }
             uniqueid(type: "tmdb", value: episode.id, 'default': "true", episode.id)
             tmdbid(episode.id)
-            if (ext_ids?.imdb_id) {
-                uniqueid(type: "imdb", value: ext_ids.imdb_id, ext_ids.imdb_id)
-                imdbid(ext_ids.imdb_id)
+            if (tmdb.ext_ids?.imdb_id) {
+                uniqueid(type: "imdb", value: tmdb.ext_ids.imdb_id, tmdb.ext_ids.imdb_id)
+                imdbid(tmdb.ext_ids.imdb_id)
             }
-            if (ext_ids?.tvdb_id) {
-                uniqueid(type: "tvdb", value: ext_ids.tvdb_id, ext_ids.tvdb_id)
-                tvdbid(ext_ids.tvdb_id)
+            if (tmdb.ext_ids?.tvdb_id) {
+                uniqueid(type: "tvdb", value: tmdb.ext_ids.tvdb_id, tmdb.ext_ids.tvdb_id)
+                tvdbid(tmdb.ext_ids.tvdb_id)
             }
             try {
                 runtime(runtime)
@@ -115,7 +154,7 @@
             }
             if (img_obj.exists()) {
                 art {
-                    poster(img_path)
+                    poster(img_obj.toString())
                 }
             }
             // create list of actors
@@ -123,7 +162,7 @@
                 name(person.person_name)
                 role(person.crole)
                 sortorder(person.ford)
-                if (personal) { thumb(person.download_path) }
+                if (secrets['personal']) { thumb(person.download_path) }
             }}
             showtitle(n)
             episode(cep)
