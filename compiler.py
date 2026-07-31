@@ -254,7 +254,10 @@ def obfuscate_variables(text: str, use_json: bool = True) -> str:
         "sc", "scheme", "season", "source", "standalone", "static", "super",
         "switch", "sxe", "sy", "t", "target", "this", "true", "value", "vbr",
         "vc", "vcf", "vf", "void", "vs", "while", "ws", "xem", "XEM", "XML",
-        "y",
+        "y", "info", "lang", "anime", "country", "genres", "type", "model",
+        "languages", "rating", "certification", "studio", "cast", "writer",
+        "director", "tags", "group", "audioLanguages", "textLanguages", "width",
+        "height", "bitdepth", "audio", "text"
     ]
     # fmt: on
     pattens = [

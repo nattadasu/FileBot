@@ -1,6 +1,6 @@
 { source, target, metadata ->
-    // sanity check, fail when its not an episode and video file
-    if (type.toString() != "Episode" && !f.video) {
+    // sanity check, fail when its not an episode or not a video file
+    if (type.toString() != "Episode" || !f.video) {
         return null
     }
 
