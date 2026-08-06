@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD033 MD028 -->
+
 # nattadasu's Personal Groovy Scripts for FileBot
 
 Ready-to-use collection of Groovy scripts for FileBot to rename media files.
@@ -6,54 +7,6 @@ Ready-to-use collection of Groovy scripts for FileBot to rename media files.
 File format were optimized to be used alongside Anitomy-based parser (Taiga)
 for Anime, while keeping it sane for other media library parsers to understand
 as well.
-
-## Post-Processing Scripts
-
-### NFO generator for Episodes
-
-This script will generate NFO file for each episode, containing metadata that
-can be read by Kodi, Jellyfin, Emby, etc.
-
-#### Requirements
-
-* `curl` available on your path
-* The Movie DB (TMDB) as source for metadata
-* TMDB API key, obtain from [Settings](https://www.themoviedb.org/settings/api).
-
-#### Configuration
-
-Save following format to `~/.filebotsecrets.json`. DO NOT SHARE THIS FILE!
-
-```json
-{
-  "tmdb_api": "your_tmdb_api_key",
-  "language": "en-US",
-  "person_info_dir": "/path/to/person_info/"
-}
-```
-
-#### Usage for NFO Generator
-
-> [!IMPORTANT]
->
-> See [\[DOCS\] Custom Post-Processing Scripts](https://www.filebot.net/forums/viewtopic.php?t=13769)
-> for official guide on how to use this script.
-
-##### GUI
-
-1. Open FileBot
-2. Right click on "Rename" button
-3. Click "Post Process" > a small button on right bottom of the dialog > "New Script"
-4. Copy-past content from `post_xmbcnfo.groovy` to the script editor
-5. Save the script
-
-##### CLI
-
-```sh
-filebot --apply /path/to/post_xmbcnfo.groovy
-```
-
-Apply argument should be also executable on AMC script.
 
 ## File Formatting
 
@@ -64,44 +17,77 @@ Below is the guide if you want to use File Formatting feature on this repo.
 For UNIX-Like user: This repo assumes your distro as Fedora Linux as the drive
 mountpoint was hard-coded (`/run/media/<username>/<drive_name>`) rather usual
 `/mnt/<drive_name>` that still being used by some distros. You can change
-default behavior on `modules/filepath_posix.groovy`
+default behavior on `modules/filepath.groovy`.
 
 ### Editing
 
 If you want to edit the scripts, keep in mind that the scripts are written in
-favor of my personal preference, and might be not suitable for you.
+favor of personal preference, and might be not suitable for you.
 
-However, the most important files were:
+However, the most important files are:
 
-* `filepath.groovy` on modules folder are the scripts that handles
-  <u>(default) drive logic</u>. By default, it tries to find the drive that have
-  most free space, and if it's not found, it will use the default drive. You can
+- `filepath.groovy` on `modules` folder is the script that handles
+  <u>(default) drive logic</u>. By default, it tries to find the drive that has
+  the most free space, and if it's not found, it will use the default drive. You can
   override by changing `override` variable on the script.
-* `common_` are shared scripts that does not have OS-specific behavior (drive
-  logic, etc.), and only contains common logic to handle <u>file name</u>.
+- `common_*` (`common_tv.groovy`, `common_movie.groovy`,
+  `common_music_shared.groovy`) are shared scripts that do not have OS-specific
+  behavior (drive
+  logic, etc.), and contain common logic to handle <u>file name</u>.
 
-Additionally, there are some quality-of-life scripts that you can edit to enhance
+Additionally, there are modular scripts in `modules/` that you can edit to enhance
 your experience:
 
-* `forceshowid_tv.groovy` to force write ID from TMDB to avoid incorrect ID
-  detection on Jellyfin/Emby, etc when there are multiple shows with the same
-  name (e.g. different years, anime vs live-action, etc.)
-* `medianame.groovy` to handle media name, shortening it, etc. Useful when a
-  fricking adapted-from-Light-Novel anime title is way too long, or making sure
-  it has consistent naming (e.g. case sensitivity, stylization, etc.)
-* `releasegroup.groovy` to handle additional release group when FileBot does not
+- `episodename.groovy` to handle episode name formatting.
+- `filename_tv.groovy` & `filename_movie.groovy` to construct standard filenames
+  for TV shows and movies.
+- `forceshowid_tv.groovy` to force write ID from TMDB to avoid incorrect ID
+  detection on Jellyfin/Emby, etc. when there are multiple shows with the same
+  name (e.g. different years, anime vs live-action, etc.).
+- `medianame.groovy` to handle media name, shortening it, etc. Useful when an
+  adapted-from-Light-Novel anime title is way too long, or making sure it has
+  consistent naming (e.g. case sensitivity, stylization, etc.).
+- `releasegroup.groovy` to handle additional release group when FileBot does not
   include it on its group index, or fixing it when it's incorrect.
-* `releasesource.groovy` to handle additional release source when FileBot does
+- `releasesource.groovy` to handle additional release source when FileBot does
   not include it on its source index, or fixing it when it's incorrect.
-* `season.groovy` to handle season name, additional information, etc.
-* `r18_checker.groovy` to handle NSFW/LGBTQ+ tags, genres, etc. to be appended
+- `season.groovy` to handle season name, additional information, etc.
+- `r18_checker.groovy` to handle NSFW/LGBTQ+ tags, genres, etc. to be appended
   on the file name. You can modify the list on the script to include your own
   tags, or add ID of the title to be excluded from the list.
-* `filespec.groovy` to add additional information to the file name, such as
-  resolution, codec, etc., and especially CRC32 hash for verification and dupes
-  handling when a release group uploads new version of the same episode.
+- `filespec.groovy` to add additional information to the file name, such as
+  resolution, codec, etc., and CRC32 hash for verification and dupes
+  handling when a release group uploads a new version of the same episode.
 
-You can refer to `compiled/` directory to check logics that FileBot will use.
+### Advanced Features
+
+The file formatting scripts include several powerful automated mechanisms and
+customization options:
+
+- **Custom Episode Numbering Overrides**:
+  - You can set the environment variable `FILEBOT_CUSTOM_EPISODE` (e.g.
+    `FILEBOT_CUSTOM_EPISODE=05`) to force a specific episode number output
+    (e.g., `E05`) for special episode naming or manual overrides in
+    `episodename.groovy`.
+- **Automatic Storage/Drive Selection**:
+  - `filepath.groovy` dynamically queries system drives across POSIX and
+    Windows to select the storage drive with the most available free disk
+    space.
+  - You can easily set the `override` path variable in `filepath.groovy` to
+    enforce a hardcoded target folder.
+- **Adult & R18+ Smart Classification**:
+  - `r18_checker.groovy` checks TMDB adult metadata (`info.adult`), keyword
+    tags (e.g., `yaoi`, `yuri`, `hentai`, `animefesta`), and explicit title ID
+    lookups/overrides to automatically categorize media into `R18+` folders.
+- **Extended Media Specifications & Subtitle Cleanup**:
+  - Automatically calculates aspect ratio display (e.g. vertical `VERT-1080P`
+    vs standard `1080P`), detect dual/multi-audio tracks (`D-AUD`, `M-AUD`,
+    `DUB`), track count, and subtitle status (`SUB`, `D-SUB`, `M-SUB`).
+  - Integrates subtitle language cleanup and adds `-thumb` suffixes for
+    Jellyfin (>=10.9) thumbnail images.
+
+You can refer to `compiled/` directory to check compiled Groovy logic that
+FileBot will use.
 
 ### Usage for File Formatting
 
@@ -114,8 +100,8 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 >
 > If you want to use the script on FileBot AMC and don't want to make your log
 > file to be cluttered with script content, you can use `compiled/` directory
-> since it already being minified to the most extent (<4K chars on compiled vs
-> \>7K on `_*.groovy`).
+> since it is minified to the most extent (<4K chars on compiled vs &gt;7K
+> on `_*.groovy`).
 >
 > To use, replace `@FileBot/_tv.groovy` to `@FileBot/compiled/tv.groovy`,
 > and so on.
@@ -124,7 +110,7 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 
 > [!IMPORTANT]
 >
-> This script only have been tested with The Movie DB (TMDB) as data source.
+> This script has only been tested with The Movie DB (TMDB) as data source.
 
 ```groovy
 @FileBot/_tv.groovy
@@ -134,7 +120,7 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 
 > [!IMPORTANT]
 >
-> This script only have been tested with The Movie DB (TMDB) as data source.
+> This script has only been tested with The Movie DB (TMDB) as data source.
 
 ```groovy
 @FileBot/_movie.groovy
@@ -144,7 +130,7 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 
 > [!NOTE]
 >
-> Commonly used for music sharing, where the music directory have different
+> Commonly used for music sharing, where the music directory has a different
 > structure that usually contains information about the exact release media.
 
 > [!WARNING]
@@ -161,14 +147,12 @@ You can refer to `compiled/` directory to check logics that FileBot will use.
 #### TV, Common Example
 
 Following example is a typical anime episode file, and what you can expect after
-the script is applied in most case.
+the script is applied in most cases.
 
 ```yml
-Before:
-   Magilumiere.Magical.Girls.Inc.S01E10.Ginji.1080p.AMZN.WEB-DL.DDP2.0.H.264-VAR.mkv
+Before: Magilumiere.Magical.Girls.Inc.S01E10.Ginji.1080p.AMZN.WEB-DL.DDP2.0.H.264-VAR.mkv
 
-After:
-   /run/media/nattadasu/Videos/Videos/Anime/Magilumiere Magical Girls Inc/Season 1/[VAR] Magilumiere Magical Girls Inc - S01E10 - Ginji [AMZN.WEB-DL 1920x1080 AVC 8bit, EAC3 2.0, MSub (ENG JPN ARA DEU SPA ...)][F15F4F7B].mkv
+After: /run/media/nattadasu/Videos/Videos/Anime/Magilumiere Magical Girls Inc/Season 1/[VAR] Magilumiere Magical Girls Inc - S01E10 - Ginji [AMZN.WEB-DL 1920x1080 AVC 8bit, EAC3 2.0, MSub (ENG JPN ARA DEU SPA ...)][F15F4F7B].mkv
 ```
 
 #### TV, Less Optimal Example
@@ -177,7 +161,7 @@ From some release group that usually does not include source information, the
 script will try to guess based on hardcoded rules written in `modules/releasesource.groovy`.
 
 Additionally, when episode title is not available on remote database, it will
-not include it on the file name to reduce clutter, usually due to episode is
+not include it on the file name to reduce clutter, usually due to episode being
 relatively new. Plus, season name is included when it's available.
 
 ```yml
@@ -191,7 +175,7 @@ After:
 
 #### TV, NSFW/LGBTQ+ Example
 
-For some shows that marked as adult by TMDB, contains NSFW tags/genres or LGBTQ+
+For some shows that are marked as adult by TMDB, contain NSFW tags/genres or LGBTQ+
 terms, the script will append additional information to the file name to make
 it easier to filter out.
 
@@ -221,13 +205,9 @@ After:
 
 #### Movie
 
-Before:
-
 ```yml
-Before:
-   Suicide.Squad.2016.1080p.BluRay.DDP5.1.x265.10bit-Ginga.mkv
-After:
-   /run/media/username/Videos/Videos/Movies/Suicide Squad (2016) [tmdbid-297761]/[Ginga] Suicide Squad [BluRay 1920x1080 HEVC 10Bit, EAC3 DD 5.1][EF045D2F].mkv
+Before: Suicide.Squad.2016.1080p.BluRay.DDP5.1.x265.10bit-Ginga.mkv
+After: /run/media/username/Videos/Videos/Movies/Suicide Squad (2016) [tmdbid-297761]/[Ginga] Suicide Squad [BluRay 1920x1080 HEVC 10Bit, EAC3 DD 5.1][EF045D2F].mkv
 ```
 
 #### Music
@@ -241,3 +221,59 @@ Before:
 After:
    /home/username/Torrent Uploads/FLAC/2012/[2012.12.21] ノナメ - M-chan [FLAC 24-48.0 KHz][ABCD-12345]/1-01 ノナメ.flac
 ```
+
+## Post-Processing Scripts
+
+### NFO generator for Episodes
+
+This script will generate NFO file for each episode, containing metadata that
+can be read by Kodi, Jellyfin, Emby, etc.
+
+#### Requirements
+
+- `curl` available on your path
+- The Movie DB (TMDB) as source for metadata
+- TMDB API key, obtain from [Settings](https://www.themoviedb.org/settings/api).
+
+#### Configuration
+
+Save following format to `~/.filebotsecrets.json`. DO NOT SHARE THIS FILE!
+
+```json
+{
+    "tmdb_api": "your_tmdb_api_key",
+    "language": "en-US",
+    "person_info_dir": "/path/to/person_info/"
+}
+```
+
+#### Usage for NFO Generator
+
+> [!IMPORTANT]
+>
+> See [\[DOCS\] Custom Post-Processing Scripts](https://www.filebot.net/forums/viewtopic.php?t=13769)
+> for official guide on how to use this script.
+
+##### GUI
+
+1. Open FileBot
+2. Right click on "Rename" button
+3. Click "Post Process" > a small button on right bottom of the dialog > "New Script"
+4. Copy-paste content from `post_xmbcnfo.groovy` to the script editor
+5. Save the script
+
+##### CLI
+
+```sh
+filebot --apply /path/to/post_xmbcnfo.groovy
+```
+
+Apply argument should be also executable on AMC script.
+
+### VTT Converter & Subtitle Cleaner
+
+`post_vtt_converter.groovy` cleans up VTT subtitle files after download/renaming.
+
+### Calibre Book Preset
+
+`preset_calibre.groovy` organizes book libraries with support for Calibre metadata structures.
