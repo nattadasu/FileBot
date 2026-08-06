@@ -1,4 +1,8 @@
-{" - "}{s00e00}{
+{" - "}{
+    def ge_ = { System.getenv(it) }
+    def custom_ep = ge_('FILEBOT_CUSTOM_EPISODE')
+    custom_ep ? 'E' + custom_ep.padLeft(2, '0') : s00e00
+}{
     // find version numbering on file, e.g. v2, v3
     def version = (fn =~ /(?i)(?<![a-zA-Z])v(\d+)/)
     version ? 'v' + version[0][1] : ''
