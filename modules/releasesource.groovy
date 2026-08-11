@@ -11,7 +11,7 @@
         ["CTHP"], // https://catchplay.com
         ["FOD"], // https://fod.fujitv.co.jp
         ["HIDIVE", "HIDI.WEB-DL"], // https://hidive.com
-        ["IQIYI", "IQ.WEB-DL"], // https://www.iq.com
+        ["IQ.WEB-DL"], // https://www.iq.com
         ["JFFP"], // https://www.jff.jfp.go.jp
         ["LFTL", "LAFTEL"], // https://laftel.tv
         ["MDON", "MANGADON"], // https://mangadon.me
