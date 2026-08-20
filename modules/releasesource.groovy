@@ -4,6 +4,7 @@
         ["YTB", "YT.WEB-DL", "YOUTUBE"], // https://www.youtube.com
         ["ABEMA", "ABMA", "ABEMATV"], // https://abema.tv/
         ["ADN"], // https://animationdigitalnetwork.com
+        ["AMASIAN"], // https://amasian.tv
         ["BILI", "B-Global", "BiliIntl"], // https://www.bilibili.tv
         ["BSITE", "BILICN"], // https://www.bilibili.com
         ["BUMP"], // https://lp.bump.studio
