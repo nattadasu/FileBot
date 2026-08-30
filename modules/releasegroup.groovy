@@ -4,6 +4,7 @@
         "Alqanime",
         "BlackLuster",
         "darkflux",
+        "Doomdos",
         "It's Anime",
         "Kitsune",
         "Kuramanime",
