@@ -3,6 +3,7 @@
     def short_title = [
         // Media ID, target name, database
         [mid: 136342, title: "Disney Twisted-Wonderland", src: tmdb_tv],
+        [mid: 233643, title: "Secret Mission", src: tmdb_tv],
         [mid: 280049, title: "Hell Mode", src: tmdb_tv],
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 280564, title: "False Memory", src: tmdb_tv],
