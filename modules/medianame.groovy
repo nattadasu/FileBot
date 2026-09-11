@@ -12,6 +12,7 @@
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
         [mid: 312849, title: "Rich Girl Caretaker", src: tmdb_tv],
         [mid: 314554, title: "From Overshadowed to Overpowered", src: tmdb_tv],
+        [mid: 334779, title: "Click Me All Over", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
