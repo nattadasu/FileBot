@@ -9,6 +9,7 @@
         [mid: 296256, title: "AOTU WORLD REBORN", src: tmdb_tv],
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
         [mid: 334779, title: "Click Me All Over", src: tmdb_tv],
+        [mid: 335788, title: "Welsh & Shedar", src: tmdb_tv],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
