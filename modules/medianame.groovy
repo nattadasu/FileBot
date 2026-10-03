@@ -8,6 +8,7 @@
         [mid: 280405, title: "Fudanshi Shoukan", src: tmdb_tv],
         [mid: 296256, title: "AOTU WORLD REBORN", src: tmdb_tv],
         [mid: 312822, title: "Playing Sister", src: tmdb_tv],
+        [mid: 333622, title: "Magic Repo Man", src: tmdb_tv],
         [mid: 334779, title: "Click Me All Over", src: tmdb_tv],
         [mid: 335788, title: "Welsh & Shedar", src: tmdb_tv],
     ]
