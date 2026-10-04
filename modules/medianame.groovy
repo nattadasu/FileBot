@@ -11,6 +11,9 @@
         [mid: 333622, title: "Magic Repo Man", src: tmdb_tv],
         [mid: 334779, title: "Click Me All Over", src: tmdb_tv],
         [mid: 335788, title: "Welsh & Shedar", src: tmdb_tv],
+        [mid: 337299, title: "Yuruyuru Zukan", src: tmdb_tv],
+        // The TVDB
+        [mid: 479331, title: "Yuruyuru Zukan", src: "TheTVDB"],
     ]
 
     // Replace title from short_title if series_id matches "series" from filebot
