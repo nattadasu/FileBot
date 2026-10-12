@@ -23,6 +23,7 @@
         [300015, tmdb_tv], // Ichigo Aika Strawberry Elegy, 2026
         [316715, tmdb_tv], // Do You Like Big Girls, 2026
         [325473, tmdb_tv], // Onaji Zemi, 2026
+        [334779, tmdb_tv], // Mouse click (wtf)
     ]
 
     // List of known titles that might be misclassified as R18+
